@@ -33,7 +33,6 @@ public class DummyBeanFactory {
 	private EngineService engine = new EngineService(factory);
 	private FindService find = new FindService(ui, () -> engine);
 	private UiResourcePaths resources = new UiResourcePaths(new File("/tmp/q"));
-	private UiBeanFactory uiBeans = new UiBeanFactory(resources, () -> engineReference.get(), () -> resolver);
 
 	public DummyBeanFactory() {
 		engineReference.set(engine);
@@ -48,7 +47,7 @@ public class DummyBeanFactory {
 		if (uiReference.get() != null) {
 			return;
 		}
-		uiReference.set(new UiService(uiBeans));
+		uiReference.set(new UiService(new UiBeanFactory(resources, () -> engineReference.get(), () -> resolver)));
 
 		Map<Long, QUi> bindings = new Hashtable<>();
 		bindings.put(1l, (UiService) factory.getMainUiSupplier().get());

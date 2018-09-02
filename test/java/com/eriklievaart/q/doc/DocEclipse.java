@@ -19,6 +19,5 @@ public class DocEclipse {
 		generator.setOutputDir(output);
 		generator.invoke();
 		FileTool.copyFile(new File(git, "main/static/zip/doc/style.css"), output);
-		System.exit(0);
 	}
 }

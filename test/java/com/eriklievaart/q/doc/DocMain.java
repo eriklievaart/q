@@ -15,7 +15,5 @@ public class DocMain {
 		generator.setOutputDir(output);
 		generator.setSourceDir(sources);
 		generator.invoke();
-
-		System.exit(0);
 	}
 }

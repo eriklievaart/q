@@ -145,5 +145,4 @@ public class DocGenerator {
 	public void setOutputDir(File output) {
 		this.output = output;
 	}
-
 }
