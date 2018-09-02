@@ -32,6 +32,21 @@ public class TrashCacheU extends SandboxTest {
 	}
 
 	@Test
+	public void getTrashLocationAvailableFromCache() throws FileSystemException {
+		TrashCache cache = new TrashCache();
+
+		createFile("dir/nested/c/a");
+		createFile("dir/nested/c/b");
+		createDirectory(".Trash-1000");
+
+		VirtualFile trashA = cache.getTrashLocation(systemFile("dir/nested/c/a")).get();
+		Check.isEqual(trashA.getPath(), systemFile(".Trash-1000/files").getPath());
+
+		VirtualFile trashB = cache.getTrashLocation(systemFile("dir/nested/c/b")).get();
+		Check.isEqual(trashB.getPath(), systemFile(".Trash-1000/files").getPath());
+	}
+
+	@Test
 	public void getTrashLocationUnavailable() throws FileSystemException {
 		createFile("file");
 		checkNotExists(".Trash-1000");

@@ -37,7 +37,7 @@ class TrashCache {
 		VirtualFile trash = file.resolve(TRASH_NAME);
 		if (trash.exists() && trash.isDirectory()) {
 			SystemFile move = getTrashFolder(file);
-			trashParents.add(move);
+			trashParents.add(file);
 			return Optional.of(move);
 		}
 		unavailable.put(file.getPath(), true);

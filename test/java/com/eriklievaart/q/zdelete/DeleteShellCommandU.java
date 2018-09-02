@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.lang.api.check.CheckCollection;
 import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 
 public class DeleteShellCommandU extends SandboxTest {
 
@@ -72,6 +74,22 @@ public class DeleteShellCommandU extends SandboxTest {
 		checkNotExists("directory/deleteme");
 		checkExists("directory");
 		checkNotExists(".Trash-1000/files/deleteme");
+	}
+
+	@Test
+	public void deleteTrashDuplicateDir() throws Exception {
+		SystemFile files = createDirectory(".Trash-1000/files");
+		createDirectory(".Trash-1000/files/duplicate");
+		createFile("directory/duplicate");
+		checkExists("directory/duplicate");
+		checkExists(".Trash-1000/files/duplicate");
+		CheckCollection.isSize(files.getChildren(), 1);
+
+		testable.single(systemFile("directory/duplicate")).invoke(null);
+
+		checkNotExists("directory/duplicate");
+		checkExists("directory");
+		CheckCollection.isSize(files.getChildren(), 2);
 	}
 
 	@Test

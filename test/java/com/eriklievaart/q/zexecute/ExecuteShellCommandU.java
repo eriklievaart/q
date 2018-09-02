@@ -27,7 +27,7 @@ public class ExecuteShellCommandU {
 
 	@Test
 	public void nativeShellCommand() {
-		CliCommand command = new ExecuteShellCommand(null).shell().nativeShellCommand("ls \\`");
+		CliCommand command = new ExecuteShellCommand(null).nativeShellCommand("ls \\`");
 		String[] split = command.cmd();
 
 		Check.isEqual(split[0], "sh");

@@ -7,6 +7,7 @@ import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
+import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
@@ -84,10 +85,20 @@ class DeleteShellCommand implements Invokable {
 			virtual.info("delete $ -> /dev/null", remove.getUrl().getUrlUnescaped());
 			remove.delete();
 		} else {
-			SystemFile destination = trash.get().resolve(remove.getName());
+			SystemFile destination = getTrashFile(trash.get(), remove.getName());
 			virtual.info("delete $ -> $", remove.getUrl().getUrlUnescaped(), destination.getUrl().getUrlUnescaped());
 			remove.moveTo(destination);
 		}
+	}
+
+	private SystemFile getTrashFile(SystemFile trashRoot, String name) {
+		SystemFile destination = trashRoot.resolve(name);
+		if (!destination.exists()) {
+			return destination;
+		}
+		destination = trashRoot.resolve(name + "-" + System.nanoTime());
+		RuntimeIOException.on(destination.exists(), "Cannot move % to trash, file already in trash", name);
+		return destination;
 	}
 
 	private enum Mode {

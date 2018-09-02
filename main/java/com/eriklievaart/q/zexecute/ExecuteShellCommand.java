@@ -28,7 +28,7 @@ class ExecuteShellCommand implements Invokable {
 	private Mode mode = Mode.COMMAND;
 	private File file;
 	private URI uri;
-	private String shell;
+	private boolean shell = true;
 	private boolean panel = false;
 	private List<VirtualFile> files = Collections.emptyList();
 
@@ -90,9 +90,9 @@ class ExecuteShellCommand implements Invokable {
 	}
 
 	@Flag(group = "shell")
-	@Doc("Invoke the native shell 'cmd /c' or 'sh -c' to be able to use features such as pipes '|' or redirects '>'.")
-	public ExecuteShellCommand shell() {
-		shell = isWindows() ? "cmd /c" : "sh -c";
+	@Doc("Do not invoke native shell('cmd /c' or 'sh -c'), but use spaces to separate flags.")
+	public ExecuteShellCommand spaces() {
+		shell = false;
 		return this;
 	}
 
@@ -165,7 +165,7 @@ class ExecuteShellCommand implements Invokable {
 
 	private void executeCommand(final String raw, File directory, VirtualFile url) {
 		String substituted = url == null ? raw : substitute(raw, url);
-		CliCommand cmd = shell == null ? CliCommand.from(substituted) : nativeShellCommand(substituted);
+		CliCommand cmd = shell ? nativeShellCommand(substituted) : CliCommand.from(substituted);
 
 		log.trace("Should show terminal output: $", panel);
 		if (panel) {
@@ -194,8 +194,9 @@ class ExecuteShellCommand implements Invokable {
 	}
 
 	CliCommand nativeShellCommand(final String raw) {
-		String[] split = shell.split("\\s", 2);
-		return new CliCommand(split[0], split[1], raw);
+		String command = isWindows() ? "cmd" : "sh";
+		String flag = isWindows() ? "/c" : "-c";
+		return new CliCommand(command, flag, raw);
 	}
 
 	@Override
