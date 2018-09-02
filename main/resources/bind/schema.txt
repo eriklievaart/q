@@ -1,0 +1,12 @@
+
+schema
+	nodes=component*, menu*
+	component
+		nodes=binding*
+		binding
+			keys=exact:keyPressed, keyReleased, action, event
+	menu
+		nodes=item*
+		keys=exact:label, mnemonic, order
+		item
+			keys=exact:accelerator, action, label, mnemonic, order

@@ -1,0 +1,42 @@
+
+component[q.find.list]
+	binding
+		event=CLICK3
+		keyReleased=alt UP
+		action=q.find.parent
+	binding
+		keyPressed=alt DOWN, SPACE, ENTER
+		event=CLICK1_TWICE
+		action=q.find.open
+	binding
+		event=FOCUS_GAINED
+		action=q.find.clean
+
+component[q.find.copy.button]
+	binding
+		event=ACTION
+		action=q.find.copy
+
+component[q.find.move.button]
+	binding
+		event=ACTION
+		action=q.find.move
+
+component[q.find.delete.button]
+	binding
+		event=ACTION
+		action=q.find.delete
+
+
+
+
+
+menu[plugins]
+	item[view.hidden]
+		label=Find Files
+		action=q.find.do
+		accelerator=control F
+		
+		
+		
+		

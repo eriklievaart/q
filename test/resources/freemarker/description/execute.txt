@@ -1,0 +1,37 @@
+
+<p>
+	The execute command can be used to interact with the operating system.
+	The execute command can open files or browse directories in the native file browser.
+	Lastly, it can be used to invoke commands on the native command line.
+</p>
+
+<code>execute -cf | echo test</code><br/>
+<p>Would invoke the command echo with the argument test on the native command line.</p>
+
+<p>
+	Invoking a command using the execute plugin is not the same as invoking that same command in a terminal window.
+	The reason being that the command is invoked through JAVA and JAVA's native command line is limited.
+	This is only a problem if you want to use features such as pipes '|' redirects '>' and such.
+</p>
+
+<p>
+	The execute plugin splits the input on whitespace. 
+	Every word separated by whitespace is fed to the native command as a new argument.
+</p>
+	
+<code>execute -cf | ls test dir</code><br/>
+<p>Would invoke the ls command with the arguments "test" and "dir".</p>
+<p>Whitespace in arguments needs to be escaped with "\w" and backslashes with "\b".</p>
+
+<code>execute -cf | ls test\wdir</code><br/>
+<p>Would invoke the ls command with a single argument "test dir".</p>
+
+<p>
+	Using the -s flag you can invoke the command as an argument to the native shell. This solves both problems.
+	The command piped to the execute command will be passed to the native command line literally.
+	Whitespace will behave as it would on the native command line and pipes and redirects and such are possible.
+</p>
+	
+<code>execute -csf | ls | grep 'm'</code><br/>
+
+<p>For windows "cmd /c" will be invoked, for linux 'sh -c'</p>

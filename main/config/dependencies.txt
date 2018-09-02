@@ -1,0 +1,21 @@
+
+[bundle]
+toolkit-convert @local @snapshot
+toolkit-io @local @snapshot
+toolkit-lang @local @snapshot
+toolkit-logging @local @snapshot
+toolkit-reflect @local @snapshot
+toolkit-runtime @local @snapshot
+toolkit-swing @local @snapshot
+toolkit-vfs @local @snapshot
+commons-lang3 org.apache.commons 3.7
+
+[provided]
+org.apache.felix.framework org.apache.felix 5.6.10
+
+[test]
+toolkit-test @local @snapshot
+assertj-core org.assertj 3.10.0
+freemarker org.freemarker 2.3.28
+junit junit 4.7
+

@@ -1,0 +1,208 @@
+
+
+component[q.left.browser.list]
+	binding
+		keyPressed=alt UP, BACK_SPACE
+		event=CLICK3
+		action=q.left.parent
+	binding
+		keyPressed=alt DOWN, SPACE, ENTER
+		event=CLICK1_TWICE
+		action=q.active.open
+	binding
+		event=FOCUS_GAINED
+		action=q.browser.gained.left
+	binding
+		event=SELECTION
+		action=q.browser.selected.left
+	binding
+		keyPressed=control X
+		action=q.clipboard.cut
+	binding
+		keyPressed=control C
+		action=q.clipboard.copy
+	binding
+		keyPressed=control V
+		action=q.clipboard.paste
+
+
+component[q.right.browser.list]
+	binding
+		keyPressed=alt UP, BACK_SPACE
+		event=CLICK3
+		action=q.right.parent
+	binding
+		keyPressed=alt DOWN, SPACE, ENTER
+		event=CLICK1_TWICE
+		action=q.active.open
+	binding
+		event=FOCUS_GAINED
+		action=q.browser.gained.right
+	binding
+		event=SELECTION
+		action=q.browser.selected.right
+	binding
+		keyPressed=control X
+		action=q.clipboard.cut
+	binding
+		keyPressed=control C
+		action=q.clipboard.copy
+	binding
+		keyPressed=control V
+		action=q.clipboard.paste
+
+
+component[q.main.command.field]
+	binding
+		event=ACTION
+		action=q.command.execute
+	binding
+		event=KEY_RELEASED
+		action=q.command.assist
+		
+		
+
+
+menu[file]
+	label=File
+	mnemonic=F
+	order=0
+	item[file.root]
+		label=Jump to Root
+		action=q.active.root
+		mnemonic=J
+		accelerator=control alt SLASH
+		order=0
+	item[file.location]
+		label=Open location
+		action=q.active.location
+		mnemonic=O
+		accelerator=ctrl L
+		order=1
+	item[file.rename]
+		label=Rename
+		action=q.active.rename
+		mnemonic=R
+		accelerator=F2
+		order=2
+	item[file.copy]
+		label=Copy
+		action=q.active.copy
+		accelerator=F5
+		order=5
+	item[file.move]
+		label=Move
+		action=q.active.move
+		accelerator=F6
+		order=6
+	item[file.create.directory]
+		label=Create Directory
+		action=q.active.create.directory
+		mnemonic=D
+		accelerator=F7
+		order=7
+	item[file.create.file]
+		label=Create File
+		action=q.active.create.file
+		mnemonic=F
+		accelerator=F8
+		order=8
+	item[file.open.directory]
+		label=Open Directory
+		action=q.active.open.directory
+		accelerator=F12
+		order=12
+	item[view.command]
+		label=Jump to
+		action=q.active.jump
+		accelerator=control alt J
+		order=50		
+	item[file.delete]
+		label=Delete
+		action=q.active.delete
+		accelerator=DELETE
+		order=100
+
+
+menu[edit]
+	label=Edit
+	mnemonic=E
+	order=1
+	item[clipboard.cut]
+		label=Cut
+		action=q.clipboard.cut
+		accelerator=control X
+		order=1
+	item[clipboard.copy]
+		label=Copy
+		action=q.clipboard.copy
+		accelerator=control C
+		order=2
+	item[clipboard.paste]
+		label=Paste
+		action=q.clipboard.paste
+		accelerator=control V
+		order=3
+	item[clipboard.directory]
+		label=Active directory to clipboard
+		action=q.clipboard.dir
+		accelerator=F11
+
+
+menu[view]
+	label=View
+	mnemonic=V
+	order=2
+	item[view.left]
+		label=Focus Left
+		action=q.view.left
+		accelerator=alt LEFT
+		order=1
+	item[view.right]
+		label=Focus Right
+		action=q.view.right
+		accelerator=alt RIGHT
+		order=2
+	item[view.mirror]
+		label=Mirror
+		action=q.view.mirror
+		accelerator=control EQUALS
+		order=100
+	item[view.swap]
+		label=Swap left and right
+		action=q.view.swap
+		accelerator=control U
+		order=200
+	item[view.command]
+		label=Show Command Line
+		action=q.command.focus
+		accelerator=control PERIOD
+		order=250
+	item[view.hide]
+		label=Hide all
+		action=q.view.hide
+		accelerator=ESCAPE
+		order=300
+	item[view.hidden]
+		label=Toggle hidden files
+		action=q.view.hidden
+		accelerator=control H
+		order=400
+		
+
+menu[plugins]
+	label=Plugins
+	mnemonic=P
+	order=500
+
+
+menu[help]
+	label=Help
+	item[help.doc]
+		label=View Documentation
+		action=q.help.doc
+		order=100
+	item[help.about]
+		label=About
+		action=q.help.about
+

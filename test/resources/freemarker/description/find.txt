@@ -1,0 +1,15 @@
+
+<p>Find files and directories using wildcards and regular expressions.</p>
+
+<code>find  -i `*.mp4` -l $dir -t `FILE`</code><br/>
+<p>Find files with the ".mp4" extension in the active directory.</p>
+
+<code>find  -i `*.mp4` -l $dir -e `*1080*` -t `FILE`</code><br/>
+<p>Find files with the ".mp4" extension in the active directory, but skip any files with 1080 in the file name.</p>
+
+<p>
+	You can optionally pass a regular expression (java syntax) to the command as a piped argument.
+</p>
+
+<code>find|.*\.avi</code><br/>
+<p>The regular expression above finds files with the ".avi" extension.</p>

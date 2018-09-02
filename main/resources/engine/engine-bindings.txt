@@ -1,0 +1,8 @@
+
+menu[view]
+	item[view.queue.show]
+		label=Show Queue
+		action=q.engine.queue.show
+		accelerator=control Q
+
+
