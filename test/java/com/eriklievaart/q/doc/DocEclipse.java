@@ -4,11 +4,13 @@ import java.io.File;
 
 import com.eriklievaart.q.doc.generate.DocGenerator;
 import com.eriklievaart.toolkit.io.api.FileTool;
+import com.eriklievaart.toolkit.io.api.UrlTool;
 
 public class DocEclipse {
 
 	public static void main(String[] args) {
-		File git = new File("/home/erikl/Development/git/q");
+		String home = System.getProperty("user.home");
+		File git = new File(UrlTool.append(home, "Development/git/q"));
 		File sources = new File(git, "main/java");
 		File output = new File("/tmp/q/doc");
 
