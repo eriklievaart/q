@@ -21,14 +21,23 @@ public class LruIndex {
 	}
 
 	public void add(String url) {
-		for (int i = 0; i < 10 && i < index.size(); i++) {
-			if (index.get(i).equals(url)) {
-				return;
-			}
-		}
+		boolean recent = isRecent(url);
+
 		index.remove(url);
 		index.add(0, url);
-		store();
+
+		if (!recent) {
+			store();
+		}
+	}
+
+	private boolean isRecent(String url) {
+		for (int i = 0; i < 10 && i < index.size(); i++) {
+			if (index.get(i).equals(url)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void load() {
