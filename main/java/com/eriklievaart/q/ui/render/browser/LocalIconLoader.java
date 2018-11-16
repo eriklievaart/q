@@ -147,10 +147,11 @@ public class LocalIconLoader {
 			Map<String, Icon> icons = NewCollection.map();
 			VirtualFileScanner scanner = new VirtualFileScanner(new SystemFile(resources.getIconDirectory()));
 			for (VirtualFile icon : scanner) {
-				Check.isTrue(icon.getExtension().equals("png"), "Only `.png` files allowed in icon dir, found $", icon);
+				boolean ext = icon.getUrl().getExtension().toLowerCase().equals("png");
+				Check.isTrue(ext, "Only `.png` files allowed in icon dir, found $", icon);
 				log.trace("Reading image $", icon);
 				SystemFile sf = (SystemFile) icon;
-				icons.put(icon.getBaseName(), loadIcon(sf.unwrap()));
+				icons.put(icon.getUrl().getBaseName(), loadIcon(sf.unwrap()));
 			}
 			return icons;
 

@@ -7,10 +7,10 @@ import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.ThreadPolicy;
 import com.eriklievaart.q.ui.api.QMainUi;
 
-public class LocationService implements QPlugin {
+public class LocationPlugin implements QPlugin {
 	private Supplier<QMainUi> supplier;
 
-	public LocationService(Supplier<QMainUi> supplier) {
+	public LocationPlugin(Supplier<QMainUi> supplier) {
 		this.supplier = supplier;
 	}
 

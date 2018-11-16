@@ -1,28 +1,22 @@
-package com.eriklievaart.q.znew;
+package com.eriklievaart.q.zmove;
 
 import com.eriklievaart.q.api.QPlugin;
-import com.eriklievaart.q.api.engine.CallPolicy;
 import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.ThreadPolicy;
 
-public class NewService implements QPlugin {
+public class MovePlugin implements QPlugin {
 	@Override
 	public Invokable createInstance() {
-		return new NewShellCommand();
+		return new MoveShellCommand();
 	}
 
 	@Override
 	public String getCommandName() {
-		return "new";
+		return "move";
 	}
 
 	@Override
 	public ThreadPolicy getThreadPolicy() {
-		return ThreadPolicy.FORK;
-	}
-
-	@Override
-	public CallPolicy getCallPolicy() {
-		return CallPolicy.BOTH;
+		return ThreadPolicy.QUEUE;
 	}
 }

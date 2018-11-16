@@ -26,6 +26,10 @@ public class QContext {
 		leftActive = false;
 	}
 
+	public BrowserContext getActive() {
+		return leftActive ? left : right;
+	}
+
 	public BrowserContext getLeft() {
 		return left;
 	}

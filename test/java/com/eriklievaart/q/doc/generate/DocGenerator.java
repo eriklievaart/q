@@ -134,7 +134,7 @@ public class DocGenerator {
 
 	private String getClassDoc(Class<?> literal) {
 		Doc annotation = AnnotationTool.getLiteralAnnotation(literal, Doc.class);
-		Check.notNull(annotation, "Missing annotation on $", literal);
+		Check.notNull(annotation, "Missing @Doc annotation on $", literal);
 		return annotation.value();
 	}
 

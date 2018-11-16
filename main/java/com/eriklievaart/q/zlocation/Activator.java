@@ -16,7 +16,7 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		Supplier<QMainUi> supplier = () -> context.getService(context.getServiceReference(QMainUi.class));
-		registration = context.registerService(QPlugin.class, new LocationService(supplier), null);
+		registration = context.registerService(QPlugin.class, new LocationPlugin(supplier), null);
 	}
 
 	@Override

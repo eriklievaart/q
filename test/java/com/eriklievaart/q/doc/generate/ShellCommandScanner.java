@@ -18,12 +18,12 @@ public class ShellCommandScanner {
 		log.info("scanning $", dir);
 		SystemFile sources = new SystemFile(dir);
 		VirtualFileScanner scanner = new VirtualFileScanner(sources);
-		scanner.addFileFilter(f -> f.getBaseName().contains("ShellCommand"));
+		scanner.addFileFilter(f -> f.getUrl().getBaseName().contains("ShellCommand"));
 
 		Map<String, Class<?>> index = new TreeMap<>();
 
 		for (VirtualFile command : scanner) {
-			String name = command.getBaseName().toLowerCase().replaceFirst("shellcommand", "");
+			String name = command.getUrl().getBaseName().toLowerCase().replaceFirst("shellcommand", "");
 			String path = sources.getRelativePathOf(command);
 			String qualified = toQualifiedName(path);
 			Class<?> literal = LiteralTool.getLiteral(qualified);

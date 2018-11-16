@@ -1,0 +1,10 @@
+
+menu[plugins]
+	item[q.size.calculate]
+		label=Calculate directory sizes
+		action=q.size.calculate
+		accelerator=control alt S
+		
+		
+		
+		

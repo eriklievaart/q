@@ -3,16 +3,22 @@ package com.eriklievaart.q.ui.config;
 import java.io.File;
 
 import com.eriklievaart.toolkit.io.api.UrlTool;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
 public class UiResourcePaths {
-
 	public static final String FAVICON = "/ui/local/icons/favicon.png";
 	public static final String BINDINGS = "/ui/ui-bindings.txt";
 
+	private LogTemplate log = new LogTemplate(getClass());
 	private File root;
 
 	public UiResourcePaths(File root) {
+		log.info("config root: $", root);
 		this.root = root;
+	}
+
+	public File getFileOperationLog() {
+		return new File(root, "files.log");
 	}
 
 	public File getWindowSaverConfig() {
@@ -21,10 +27,6 @@ public class UiResourcePaths {
 
 	public File getLruCache() {
 		return new File(root, "data/ui/visited.txt");
-	}
-
-	public File getFileOperationLog() {
-		return new File(root, "files.log");
 	}
 
 	public File getMimeTypes() {
@@ -46,5 +48,4 @@ public class UiResourcePaths {
 	public File getIconFile(String relative) {
 		return new File(getIconDirectory(), relative);
 	}
-
 }

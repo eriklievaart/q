@@ -1,5 +1,6 @@
 
 [bundle]
+osgi-toolkit @local @snapshot
 toolkit-convert @local @snapshot
 toolkit-io @local @snapshot
 toolkit-lang @local @snapshot

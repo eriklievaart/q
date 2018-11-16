@@ -56,16 +56,19 @@ public class EscapeCharactersI extends SandboxTest {
 	}
 
 	@Test
-	public void testCopyUrl() throws Exception {
+	public void testCopyUrls() throws Exception {
 		DummyBeanFactory factory = Main.wireApplication();
 
-		SystemFile file = createFile("file with space");
+		SystemFile with = createFile("file with space");
+		SystemFile without = createFile("filewithoutspace");
 		createDirectory("dir");
-		String url = file.getUrl().getUrlEscaped();
+		String urls = with.getUrl().getUrlEscaped() + " " + without.getUrl().getUrlEscaped();
 
-		factory.getEngineSupplier().get().invoke(Str.sub("copy -u % %", url, urlEscaped("dir")));
+		factory.getEngineSupplier().get().invoke(Str.sub("copy -u % %", urls, urlEscaped("dir")));
 		checkIsFile("dir/file with space");
+		checkIsFile("dir/filewithoutspace");
 		checkIsFile("file with space");
+		checkIsFile("filewithoutspace");
 	}
 
 	@Test

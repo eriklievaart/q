@@ -25,7 +25,7 @@ public class LocalIconFactory implements IconFactory {
 		if (file.getVirtualFile().isDirectory()) {
 			return dir;
 		}
-		Icon cached = cache.get(file.getVirtualFile().getExtension().toLowerCase());
+		Icon cached = cache.get(file.getVirtualFile().getUrl().getExtension().toLowerCase());
 		return cached != null ? cached : cache.get("bin");
 	}
 

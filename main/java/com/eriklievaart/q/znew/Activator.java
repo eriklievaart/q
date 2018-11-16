@@ -12,7 +12,7 @@ public class Activator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext context) throws Exception {
-		registration = context.registerService(QPlugin.class, new NewService(), null);
+		registration = context.registerService(QPlugin.class, new NewPlugin(), null);
 	}
 
 	@Override

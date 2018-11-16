@@ -204,6 +204,26 @@ public class CopyShellCommandU extends SandboxTest {
 	}
 
 	@Test
+	public void copyUrlSingleTimestamp() throws Exception {
+		SystemFile parentDir = systemFile("source");
+		SystemFile sourceFile = systemFile("source/file");
+
+		sourceFile.createFile();
+		Assertions.assertThat(parentDir.getChildren()).hasSize(1);
+
+		testable.urls(Arrays.asList(sourceFile), parentDir).invoke(null);
+		checkIsFile("source/file");
+
+		List<VirtualFile> children = parentDir.getChildren();
+		CheckCollection.isSize(children, 2);
+		children.remove(sourceFile);
+		CheckCollection.isSize(children, 1);
+
+		String created = children.get(0).getName();
+		Check.matches(created, "file-\\d++");
+	}
+
+	@Test
 	public void copyUrlsMergeContents() throws FileSystemException {
 		createFile("source/dir/add");
 		createFile("destination/dir/original");

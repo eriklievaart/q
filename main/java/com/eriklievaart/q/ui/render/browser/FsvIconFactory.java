@@ -38,7 +38,7 @@ public class FsvIconFactory implements IconFactory {
 	}
 
 	private Icon getSystemIcon(final VirtualFileWrapper file) {
-		String ext = file.getVirtualFile().getExtension();
+		String ext = file.getVirtualFile().getUrl().getExtension();
 		if (!CACHE.containsKey(ext) || CACHE.get(ext) == null) {
 			try {
 				CACHE.put(ext, loadSystemIcon(file));
@@ -68,7 +68,7 @@ public class FsvIconFactory implements IconFactory {
 		if (LINUX) {
 			return FILE_ICON;
 		}
-		String ext = "." + wrapper.getVirtualFile().getExtension();
+		String ext = "." + wrapper.getVirtualFile().getUrl().getExtension();
 		File file = File.createTempFile("icon" + System.currentTimeMillis(), ext);
 		Icon icon = FileSystemView.getFileSystemView().getSystemIcon(file);
 		file.delete();

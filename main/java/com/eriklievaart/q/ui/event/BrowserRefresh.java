@@ -48,6 +48,9 @@ public class BrowserRefresh {
 		if (sleep > 1500) {
 			log.trace("Refresh completed, sleep $", sleep);
 		}
+		if (sleep > 10000) {
+			sleep = 5000;
+		}
 		refreshOn = System.currentTimeMillis() + sleep;
 	}
 

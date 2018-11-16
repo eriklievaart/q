@@ -186,10 +186,10 @@ class ExecuteShellCommand implements Invokable {
 		replaced = replaced.replace("$!path", url.getUrl().getPathEscaped());
 		replaced = replaced.replace("$name", url.getName());
 		replaced = replaced.replace("$!name", url.getUrl().getNameEscaped());
-		replaced = replaced.replace("$base", url.getBaseName());
+		replaced = replaced.replace("$base", url.getUrl().getBaseName());
 		replaced = replaced.replace("$!base", url.getUrl().getBaseNameEscaped());
-		replaced = replaced.replace("$ext", url.getExtension());
-		replaced = replaced.replace("$!ext", UrlTool.escape(url.getExtension()));
+		replaced = replaced.replace("$ext", url.getUrl().getExtension());
+		replaced = replaced.replace("$!ext", UrlTool.escape(url.getUrl().getExtension()));
 		return replaced;
 	}
 

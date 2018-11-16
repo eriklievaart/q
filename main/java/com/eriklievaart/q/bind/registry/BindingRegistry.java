@@ -43,11 +43,13 @@ public class BindingRegistry {
 	}
 
 	public void addComponents(long bundleId, QUi ui) {
-		ui.getComponentMap().forEach((componentId, component) -> {
-			ComponentWrapper wrapper = new ComponentWrapper(bundleId, component);
-			component.setName(componentId);
-			components.put(componentId, wrapper);
-		});
+		if (ui.getComponentMap() != null) {
+			ui.getComponentMap().forEach((componentId, component) -> {
+				ComponentWrapper wrapper = new ComponentWrapper(bundleId, component);
+				component.setName(componentId);
+				components.put(componentId, wrapper);
+			});
+		}
 	}
 
 	public ActionListener createActionListener(String action) {
@@ -86,14 +88,18 @@ public class BindingRegistry {
 	}
 
 	void validate(QUi ui) {
-		ui.getComponentMap().keySet().forEach(key -> {
-			CheckCollection.notPresent(components, key, "Duplicate component %", key);
-			validateId(key);
-		});
-		ui.getActionMap().keySet().forEach(key -> {
-			CheckCollection.notPresent(actions, key, "Duplicate action %", key);
-			validateId(key);
-		});
+		if (ui.getComponentMap() != null) {
+			ui.getComponentMap().keySet().forEach(key -> {
+				CheckCollection.notPresent(components, key, "Duplicate component %", key);
+				validateId(key);
+			});
+		}
+		if (ui.getActionMap() != null) {
+			ui.getActionMap().keySet().forEach(key -> {
+				CheckCollection.notPresent(actions, key, "Duplicate action %", key);
+				validateId(key);
+			});
+		}
 	}
 
 	private void validateId(String key) {

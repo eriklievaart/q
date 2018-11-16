@@ -35,9 +35,14 @@ public class IndexShellCommand implements Invokable {
 	@Override
 	public void invoke(PluginContext context) throws Exception {
 		List<String> directories = ui.get().getRecentlyVisitedDirectories();
+		for (String string : directories) {
+			System.out.println(string);
+		}
+
 		List<String> result = new IndexMatcher(directories).lookup(location);
 		for (int i = 0; i < result.size(); i++) {
 			String entry = result.get(i);
+			System.out.println("@@ checking match: " + entry);
 			VirtualFile file = resolver.get().resolve(entry);
 			if (file.exists() && file.isDirectory()) {
 				ui.get().navigateFuzzy("active", entry);

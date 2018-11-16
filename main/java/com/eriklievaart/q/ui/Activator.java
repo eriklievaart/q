@@ -9,12 +9,12 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
+import com.eriklievaart.osgi.toolkit.api.BundleWrapper;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.q.ui.config.UiResourcePaths;
 import com.eriklievaart.q.vfs.api.UrlResolver;
-import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.logging.api.Formatter;
 import com.eriklievaart.toolkit.logging.api.LogConfig;
@@ -29,7 +29,8 @@ public class Activator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext context) throws Exception {
-		UiResourcePaths files = getRootDir(context);
+		UiResourcePaths files = new UiResourcePaths(new BundleWrapper(context).getBundleParentDir());
+
 		initWindowSaver(files.getWindowSaverConfig());
 		UiBeanFactory beans = new UiBeanFactory(files, () -> getEngineService(context), () -> getUrlResolver(context));
 
@@ -44,12 +45,6 @@ public class Activator implements BundleActivator {
 
 	private String[] getServiceClasses() {
 		return new String[] { QUi.class.getName(), QMainUi.class.getName() };
-	}
-
-	private UiResourcePaths getRootDir(BundleContext context) {
-		String location = context.getBundle().getLocation();
-		String parent = UrlTool.getParent(UrlTool.getParent(UrlTool.getPath(location)));
-		return new UiResourcePaths(new File(parent));
 	}
 
 	private void configureLogFile(File file) {

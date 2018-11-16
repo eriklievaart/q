@@ -32,7 +32,7 @@ component[q.find.delete.button]
 
 
 menu[plugins]
-	item[view.hidden]
+	item[q.find.files]
 		label=Find Files
 		action=q.find.do
 		accelerator=control F

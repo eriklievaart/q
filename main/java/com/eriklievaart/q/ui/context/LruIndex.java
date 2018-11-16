@@ -18,6 +18,7 @@ public class LruIndex {
 	public LruIndex(File file) {
 		this.file = file;
 		load();
+		log.info("LRU index file($) $", index.size(), file.getAbsolutePath());
 	}
 
 	public void add(String url) {
