@@ -1,0 +1,29 @@
+
+menu[plugins]
+	item[q.rename.ui]
+		label=Regex Rename
+		action=q.rename.ui
+		mnemonic=R
+
+		
+component[q.rename.regex.field]
+	binding
+		event=KEY_RELEASED
+		action=q.rename.regex
+	
+component[q.rename.rename.field]
+	binding
+		event=KEY_RELEASED
+		action=q.rename.regex
+	
+component[q.rename.refresh.button]
+	binding
+		event=ACTION
+		action=q.rename.refresh
+	
+component[q.rename.accept.button]
+	binding
+		event=ACTION
+		action=q.rename.do
+	
+		

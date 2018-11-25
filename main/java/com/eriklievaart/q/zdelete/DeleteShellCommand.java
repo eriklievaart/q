@@ -79,7 +79,7 @@ class DeleteShellCommand implements Invokable {
 
 	private void deleteSingle(final VirtualFile remove) {
 		Optional<SystemFile> trash = cache.getTrashLocation(remove);
-		boolean deletePermanent = permanent || remove.getPath().contains("/.Trash") || !trash.isPresent();
+		boolean deletePermanent = permanent || containsTrash(remove.getPath()) || !trash.isPresent();
 
 		if (deletePermanent) {
 			virtual.info("delete $ -> /dev/null", remove.getUrl().getUrlUnescaped());
@@ -89,6 +89,10 @@ class DeleteShellCommand implements Invokable {
 			virtual.info("delete $ -> $", remove.getUrl().getUrlUnescaped(), destination.getUrl().getUrlUnescaped());
 			remove.moveTo(destination);
 		}
+	}
+
+	private boolean containsTrash(String path) {
+		return path.contains("/Trash/") || path.contains("/.Trash");
 	}
 
 	private SystemFile getTrashFile(SystemFile trashRoot, String name) {

@@ -2,8 +2,8 @@ package com.eriklievaart.q.engine.meta;
 
 import java.util.List;
 
+import com.eriklievaart.q.engine.exception.ShellParseException;
 import com.eriklievaart.q.engine.parse.ShellArgument;
-import com.eriklievaart.q.engine.parse.ShellParseException;
 import com.eriklievaart.q.engine.parse.ShellParser;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 

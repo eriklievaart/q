@@ -1,11 +1,14 @@
 package com.eriklievaart.q.zdelete;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.function.Supplier;
 
+import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
@@ -14,12 +17,21 @@ class TrashCache {
 	static final String TRASH_NAME = ".Trash-1000";
 	static final String FILES_NAME = "files";
 
+	Supplier<String> home = () -> System.getProperty("user.home");
+
 	private final Set<SystemFile> trashParents = new HashSet<>();
 	private final Map<String, Boolean> unavailable = new WeakHashMap<>();
 
 	Optional<SystemFile> getTrashLocation(final VirtualFile file) {
 		if (!file.getUrl().getProtocol().equals("file")) {
 			return Optional.empty(); // use Trash for local filesystem only, finding the trash might add too much overhead
+		}
+		String bla = home.get();
+		if (file.getPath().startsWith(bla)) {
+			File trash = new File(UrlTool.append(bla, ".local/share/Trash"));
+			if (trash.isDirectory()) {
+				return Optional.of(new SystemFile(trash));
+			}
 		}
 		for (VirtualFile trash : trashParents) {
 			if (trash.isParentOf(file)) {

@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.engine.PluginIndex;
+import com.eriklievaart.q.engine.exception.ShellException;
 import com.eriklievaart.q.engine.meta.CommandMetadata;
 import com.eriklievaart.q.engine.meta.FlagMetadata;
 import com.eriklievaart.q.engine.parse.ShellArgument;
@@ -44,13 +45,13 @@ public class PluginRunner {
 		init(command, context).validate(context);
 	}
 
-	private Invokable init(ShellCommand command, PluginContext context) {
+	private Invokable init(ShellCommand command, PluginContext context) throws ShellException {
 		Invokable invokable = index.lookup(command.getName()).get().getPlugin().createInstance();
 		callFlags(invokable, loadFlags(command, context));
 		return invokable;
 	}
 
-	Map<String, String[]> loadFlags(final ShellCommand command, final PluginContext context) {
+	Map<String, String[]> loadFlags(final ShellCommand command, final PluginContext context) throws ShellException {
 		CommandMetadata info = index.lookup(command.getName()).get();
 
 		Iterator<ShellArgument> iter = command.getArguments();
@@ -59,6 +60,9 @@ public class PluginRunner {
 		for (char c : info.addDefaultFlags(command.getFlags())) {
 			FlagMetadata flag = info.getFlagMetadata(c);
 			flagArguments.put(flag.getName(), extractArguments(flag.getShellArguments(iter), context));
+		}
+		if (iter.hasNext()) {
+			throw new ShellException("too many flags!");
 		}
 		return flagArguments;
 	}

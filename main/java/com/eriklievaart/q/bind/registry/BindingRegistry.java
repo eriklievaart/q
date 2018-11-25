@@ -4,8 +4,10 @@ import java.awt.event.ActionListener;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
+import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.bind.binding.ActionWrapper;
 import com.eriklievaart.q.bind.binding.Binding;
@@ -59,9 +61,12 @@ public class BindingRegistry {
 	}
 
 	public void addActions(long bundleId, QUi ui) {
-		ui.getActionMap().forEach((actionId, action) -> {
-			putAction(actionId, new ActionWrapper(bundleId, actionId, action));
-		});
+		Map<String, Consumer<ActionContext>> map = ui.getActionMap();
+		if (map != null) {
+			map.forEach((actionId, action) -> {
+				putAction(actionId, new ActionWrapper(bundleId, actionId, action));
+			});
+		}
 	}
 
 	public void putAction(String actionId, ActionWrapper wrapper) {

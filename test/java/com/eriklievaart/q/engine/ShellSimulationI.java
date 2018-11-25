@@ -30,8 +30,8 @@ public class ShellSimulationI extends SandboxTest {
 		Engine engine = factory.getEngineSupplier().get();
 
 		createDirectory("");
-		engine.invoke("location -lu " + quoted("") + quoted(""));
-		engine.invoke("location -ru " + quoted("") + quoted(""));
+		engine.invoke("location -lu " + quoted(""));
+		engine.invoke("location -ru " + quoted(""));
 
 		checkNotExists("dir/file");
 

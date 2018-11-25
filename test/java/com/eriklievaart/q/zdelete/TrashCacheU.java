@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 public class TrashCacheU extends SandboxTest {
@@ -29,6 +30,19 @@ public class TrashCacheU extends SandboxTest {
 
 		VirtualFile found = new TrashCache().getTrashLocation(systemFile("file")).get();
 		Check.isEqual(found.getPath(), systemFile(".Trash-1000/files").getPath());
+	}
+
+	@Test
+	public void getTrashLocationHome() throws FileSystemException {
+		SystemFile home = createDirectory("home");
+		SystemFile file = createFile("home/file");
+		createDirectory("home/.local/share/Trash");
+
+		TrashCache testable = new TrashCache();
+		testable.home = () -> home.getPath();
+
+		VirtualFile found = testable.getTrashLocation(file).get();
+		Check.isEqual(found.getPath(), systemFile("home/.local/share/Trash").getPath());
 	}
 
 	@Test

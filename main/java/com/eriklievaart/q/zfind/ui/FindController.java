@@ -34,6 +34,9 @@ import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 public class FindController {
 
+	private Supplier<QMainUi> ui;
+	private Supplier<Engine> engine;
+
 	public JPanel panel = new JPanel(new BorderLayout());
 	public DefaultListModel<FindResult> model = new DefaultListModel<>();
 	public JList<FindResult> list = new JList<>(model);
@@ -41,9 +44,6 @@ public class FindController {
 	public JButton copyButton = new JButton("Copy Selection");
 	public JButton moveButton = new JButton("Move Selection");
 	public JButton deleteButton = new JButton("Delete Selection");
-
-	private Supplier<QMainUi> ui;
-	private Supplier<Engine> engine;
 
 	public FindController(Supplier<QMainUi> ui, Supplier<Engine> engine) {
 		this.ui = ui;

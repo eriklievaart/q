@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.eriklievaart.q.engine.exception.ShellParseException;
 import com.eriklievaart.q.engine.parse.ShellArgument;
-import com.eriklievaart.q.engine.parse.ShellParseException;
 import com.eriklievaart.q.engine.parse.ShellParser;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.FromCollection;

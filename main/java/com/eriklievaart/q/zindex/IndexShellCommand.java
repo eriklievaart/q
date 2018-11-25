@@ -42,7 +42,6 @@ public class IndexShellCommand implements Invokable {
 		List<String> result = new IndexMatcher(directories).lookup(location);
 		for (int i = 0; i < result.size(); i++) {
 			String entry = result.get(i);
-			System.out.println("@@ checking match: " + entry);
 			VirtualFile file = resolver.get().resolve(entry);
 			if (file.exists() && file.isDirectory()) {
 				ui.get().navigateFuzzy("active", entry);

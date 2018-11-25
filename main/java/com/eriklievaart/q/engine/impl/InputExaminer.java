@@ -7,15 +7,15 @@ import java.util.List;
 import com.eriklievaart.q.api.engine.PluginException;
 import com.eriklievaart.q.engine.PluginIndex;
 import com.eriklievaart.q.engine.api.EngineResult;
+import com.eriklievaart.q.engine.exception.ShellCommandMissingException;
+import com.eriklievaart.q.engine.exception.ShellException;
+import com.eriklievaart.q.engine.exception.ShellFlagMissingException;
 import com.eriklievaart.q.engine.meta.CommandMetadata;
 import com.eriklievaart.q.engine.meta.FlagMetadata;
 import com.eriklievaart.q.engine.meta.MetadataValidator;
 import com.eriklievaart.q.engine.osgi.EngineSupplierFactory;
 import com.eriklievaart.q.engine.parse.ShellArgument;
 import com.eriklievaart.q.engine.parse.ShellCommand;
-import com.eriklievaart.q.engine.parse.ShellCommandMissingException;
-import com.eriklievaart.q.engine.parse.ShellFlagMissingException;
-import com.eriklievaart.q.engine.parse.ShellParseException;
 import com.eriklievaart.q.engine.parse.ShellParser;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.lang.api.collection.OptionalOne;
@@ -48,7 +48,7 @@ public class InputExaminer {
 			}
 			return EngineResult.error(getFlagString(metadata.lookup(cmd).get()));
 
-		} catch (ShellParseException shell) {
+		} catch (ShellException shell) {
 			return EngineResult.error(shell.getMessage());
 
 		} catch (Exception e) {

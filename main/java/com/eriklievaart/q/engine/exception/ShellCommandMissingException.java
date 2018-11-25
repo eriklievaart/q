@@ -1,4 +1,4 @@
-package com.eriklievaart.q.engine.parse;
+package com.eriklievaart.q.engine.exception;
 
 import com.eriklievaart.toolkit.lang.api.str.Str;
 
@@ -9,7 +9,7 @@ import com.eriklievaart.toolkit.lang.api.str.Str;
  */
 public class ShellCommandMissingException extends ShellParseException {
 
-	ShellCommandMissingException(final String message) {
+	public ShellCommandMissingException(final String message) {
 		super(message);
 	}
 

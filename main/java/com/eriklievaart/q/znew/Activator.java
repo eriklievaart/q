@@ -1,22 +1,13 @@
 package com.eriklievaart.q.znew;
 
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
 
+import com.eriklievaart.osgi.toolkit.api.ActivatorWrapper;
 import com.eriklievaart.q.api.QPlugin;
 
-public class Activator implements BundleActivator {
-
-	private ServiceRegistration<QPlugin> registration;
-
+public class Activator extends ActivatorWrapper {
 	@Override
-	public void start(BundleContext context) throws Exception {
-		registration = context.registerService(QPlugin.class, new NewPlugin(), null);
-	}
-
-	@Override
-	public void stop(BundleContext context) throws Exception {
-		registration.unregister();
+	protected void init(BundleContext context) throws Exception {
+		addServiceWithCleanup(QPlugin.class, new NewPlugin());
 	}
 }

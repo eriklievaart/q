@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.Test;
 
+import com.eriklievaart.q.engine.exception.ShellParseException;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.check.CheckCollection;
 

@@ -4,6 +4,7 @@ menu[plugins]
 		label=Calculate directory sizes
 		action=q.size.calculate
 		accelerator=control alt S
+		mnemonic=S
 		
 		
 		

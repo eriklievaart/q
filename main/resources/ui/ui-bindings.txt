@@ -1,68 +1,4 @@
 
-
-component[q.left.browser.list]
-	binding
-		keyPressed=alt UP, BACK_SPACE
-		event=CLICK3
-		action=q.left.parent
-	binding
-		keyPressed=alt DOWN, SPACE, ENTER
-		event=CLICK1_TWICE
-		action=q.active.open
-	binding
-		event=FOCUS_GAINED
-		action=q.browser.gained.left
-	binding
-		event=SELECTION
-		action=q.browser.selected.left
-	binding
-		keyPressed=control X
-		action=q.clipboard.cut
-	binding
-		keyPressed=control C
-		action=q.clipboard.copy
-	binding
-		keyPressed=control V
-		action=q.clipboard.paste
-
-
-component[q.right.browser.list]
-	binding
-		keyPressed=alt UP, BACK_SPACE
-		event=CLICK3
-		action=q.right.parent
-	binding
-		keyPressed=alt DOWN, SPACE, ENTER
-		event=CLICK1_TWICE
-		action=q.active.open
-	binding
-		event=FOCUS_GAINED
-		action=q.browser.gained.right
-	binding
-		event=SELECTION
-		action=q.browser.selected.right
-	binding
-		keyPressed=control X
-		action=q.clipboard.cut
-	binding
-		keyPressed=control C
-		action=q.clipboard.copy
-	binding
-		keyPressed=control V
-		action=q.clipboard.paste
-
-
-component[q.main.command.field]
-	binding
-		event=ACTION
-		action=q.command.execute
-	binding
-		event=KEY_RELEASED
-		action=q.command.assist
-		
-		
-
-
 menu[file]
 	label=File
 	mnemonic=F
@@ -123,7 +59,6 @@ menu[file]
 		accelerator=DELETE
 		order=100
 
-
 menu[edit]
 	label=Edit
 	mnemonic=E
@@ -147,7 +82,6 @@ menu[edit]
 		label=Active directory to clipboard
 		action=q.clipboard.dir
 		accelerator=F11
-
 
 menu[view]
 	label=View
@@ -188,13 +122,11 @@ menu[view]
 		action=q.view.hidden
 		accelerator=control H
 		order=400
-		
 
 menu[plugins]
 	label=Plugins
 	mnemonic=P
 	order=500
-
 
 menu[help]
 	label=Help
@@ -205,4 +137,65 @@ menu[help]
 	item[help.about]
 		label=About
 		action=q.help.about
+
+
+
+
+component[q.left.browser.list]
+	binding
+		keyPressed=alt UP, BACK_SPACE
+		event=CLICK3
+		action=q.left.parent
+	binding
+		keyPressed=alt DOWN, SPACE, ENTER
+		event=CLICK1_TWICE
+		action=q.active.open
+	binding
+		event=FOCUS_GAINED
+		action=q.browser.gained.left
+	binding
+		event=SELECTION
+		action=q.browser.selected.left
+	binding
+		keyPressed=control X
+		action=q.clipboard.cut
+	binding
+		keyPressed=control C
+		action=q.clipboard.copy
+	binding
+		keyPressed=control V
+		action=q.clipboard.paste
+
+component[q.right.browser.list]
+	binding
+		keyPressed=alt UP, BACK_SPACE
+		event=CLICK3
+		action=q.right.parent
+	binding
+		keyPressed=alt DOWN, SPACE, ENTER
+		event=CLICK1_TWICE
+		action=q.active.open
+	binding
+		event=FOCUS_GAINED
+		action=q.browser.gained.right
+	binding
+		event=SELECTION
+		action=q.browser.selected.right
+	binding
+		keyPressed=control X
+		action=q.clipboard.cut
+	binding
+		keyPressed=control C
+		action=q.clipboard.copy
+	binding
+		keyPressed=control V
+		action=q.clipboard.paste
+
+component[q.main.command.field]
+	binding
+		event=ACTION
+		action=q.command.execute
+	binding
+		event=KEY_RELEASED
+		action=q.command.assist
 

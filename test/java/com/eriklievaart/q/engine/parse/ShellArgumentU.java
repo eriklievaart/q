@@ -2,6 +2,7 @@ package com.eriklievaart.q.engine.parse;
 
 import org.junit.Test;
 
+import com.eriklievaart.q.engine.exception.ShellParseException;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 
 public class ShellArgumentU {
