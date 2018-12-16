@@ -40,7 +40,7 @@ public class FileFinder {
 		checks.add(f -> {
 			for (String part : pattern.split("\\|")) {
 				String grok = part.toLowerCase().trim();
-				if (WildcardTool.match(grok, f.getName())) {
+				if (WildcardTool.match(grok, f.getName().toLowerCase().trim())) {
 					return true;
 				}
 			}

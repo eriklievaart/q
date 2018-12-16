@@ -60,19 +60,25 @@ public class FindIterator implements Iterator<VirtualFile> {
 				throw new FormattedException("Thread interrupted");
 			}
 			VirtualFile traverse = queue.remove(0);
+			log.trace("traversing $", traverse);
 			if (traverse.isDirectory() && !local) {
-				try {
-					queue.addAll(0, getChildrenSorted(traverse));
-				} catch (RuntimeIOException e) {
-					log.warn("unable to access $", traverse.getPath());
-				}
+				queueChildren(traverse);
 			}
 			if (isValid(traverse)) {
+				log.debug("valid result: $", traverse);
 				next = traverse;
 				return;
 			}
 		}
 		next = null;
+	}
+
+	private void queueChildren(VirtualFile traverse) {
+		try {
+			queue.addAll(0, getChildrenSorted(traverse));
+		} catch (RuntimeIOException e) {
+			log.debug("unable to access $", traverse.getPath());
+		}
 	}
 
 	private boolean isValid(VirtualFile traverse) {

@@ -83,7 +83,7 @@ public class FindController {
 		if (input == null) {
 			return;
 		}
-		engine.get().invoke(Str.sub("find -i %", UrlTool.escape(input)));
+		engine.get().invoke(Str.sub("find -i `*$*`", UrlTool.escape(input)));
 	}
 
 	public void copy() {

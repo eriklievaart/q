@@ -74,6 +74,16 @@ public class FileFinderU extends SandboxTest {
 	}
 
 	@Test
+	public void findIncludeInsensitive() throws Exception {
+		memoryFile("root/aAaA").createFile();
+		memoryFile("root/aAbB").createFile();
+		memoryFile("root/bBbB").createFile();
+
+		Iterator<VirtualFile> iterator = new FileFinder(memoryFile("root")).include("aa*").scan();
+		Assertions.assertThat(iterator).containsExactly(memoryFile("root/aAaA"), memoryFile("root/aAbB"));
+	}
+
+	@Test
 	public void findIncludeMultiple() throws Exception {
 		memoryFile("root/aaaa").createFile();
 		memoryFile("root/aabb").createFile();
@@ -91,6 +101,16 @@ public class FileFinderU extends SandboxTest {
 
 		Iterator<VirtualFile> iterator = new FileFinder(memoryFile("root")).exclude("aa*").scan();
 		Assertions.assertThat(iterator).containsExactly(memoryFile("root/bbbb"));
+	}
+
+	@Test
+	public void findExcludeInsensitive() throws Exception {
+		memoryFile("root/aAaA").createFile();
+		memoryFile("root/aAbB").createFile();
+		memoryFile("root/bBbB").createFile();
+
+		Iterator<VirtualFile> iterator = new FileFinder(memoryFile("root")).exclude("aa*").scan();
+		Assertions.assertThat(iterator).containsExactly(memoryFile("root/bBbB"));
 	}
 
 	@Test

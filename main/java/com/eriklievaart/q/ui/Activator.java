@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
-import com.eriklievaart.osgi.toolkit.api.BundleWrapper;
+import com.eriklievaart.osgi.toolkit.api.ContextWrapper;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
@@ -29,7 +29,7 @@ public class Activator implements BundleActivator {
 
 	@Override
 	public void start(BundleContext context) throws Exception {
-		UiResourcePaths files = new UiResourcePaths(new BundleWrapper(context).getBundleParentDir());
+		UiResourcePaths files = new UiResourcePaths(new ContextWrapper(context).getBundleParentDir());
 
 		initWindowSaver(files.getWindowSaverConfig());
 		UiBeanFactory beans = new UiBeanFactory(files, () -> getEngineService(context), () -> getUrlResolver(context));
