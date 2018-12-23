@@ -34,5 +34,4 @@ public interface Engine {
 	 * Give an estimate on how many jobs still need to complete.
 	 */
 	public long getQueuedJobCount();
-
 }

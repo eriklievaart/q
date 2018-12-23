@@ -14,5 +14,4 @@ public class ExecuteColorFactory implements ColorFactory {
 		}
 		return Color.BLACK;
 	}
-
 }

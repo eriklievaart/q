@@ -29,5 +29,4 @@ public class ExactUrlResolver {
 		}
 		return new SystemFile(UrlTool.getPath(url));
 	}
-
 }

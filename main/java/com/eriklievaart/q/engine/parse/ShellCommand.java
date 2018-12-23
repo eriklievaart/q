@@ -89,5 +89,4 @@ public class ShellCommand {
 	public String toString() {
 		return ToString.simple(this, "$[$]", name);
 	}
-
 }

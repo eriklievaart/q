@@ -42,5 +42,4 @@ public class ShellSimulationI extends SandboxTest {
 		checkNotExists("dir/file");
 		checkIsFile("dir2/file");
 	}
-
 }

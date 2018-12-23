@@ -32,5 +32,4 @@ public class RenameShellCommand implements Invokable {
 	@Override
 	public void validate(PluginContext context) throws PluginException {
 	}
-
 }

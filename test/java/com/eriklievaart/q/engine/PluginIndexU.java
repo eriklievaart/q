@@ -43,5 +43,4 @@ public class PluginIndexU {
 	private void init(PluginIndex index, QPlugin plugin) {
 		index.init(Arrays.asList(plugin), new DummyBeanFactory().getEngineSupplierFactory());
 	}
-
 }

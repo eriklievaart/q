@@ -29,5 +29,4 @@ public class FindResults {
 	public String getUrls() {
 		return String.join(" ", results.stream().map(r -> r.getUrlEscaped()).collect(Collectors.toList()));
 	}
-
 }

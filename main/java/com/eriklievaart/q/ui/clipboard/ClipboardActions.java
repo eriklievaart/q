@@ -63,5 +63,4 @@ public class ClipboardActions {
 			event.consume();
 		}
 	}
-
 }

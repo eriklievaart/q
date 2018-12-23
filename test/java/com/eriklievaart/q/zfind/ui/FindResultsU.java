@@ -46,6 +46,5 @@ public class FindResultsU extends SandboxTest {
 		String urls = results.getUrls();
 		String expected = "mem:///a%20b mem:///c%20d";
 		Assertions.assertThat(urls).isEqualTo(expected);
-
 	}
 }

@@ -21,5 +21,4 @@ public class CommandContext {
 	public CommandContext(String name) {
 		this.command = name;
 	}
-
 }

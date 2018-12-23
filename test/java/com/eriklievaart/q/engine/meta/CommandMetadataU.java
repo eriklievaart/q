@@ -31,5 +31,4 @@ public class CommandMetadataU {
 		Check.isTrue(flags[1] == 'c');
 		Check.isTrue(flags.length == 2);
 	}
-
 }

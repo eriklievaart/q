@@ -36,5 +36,4 @@ public class PluginServiceListener implements ServiceListener {
 		PluginIndex index = supplier.getEngineSupplierFactory().getPluginIndex();
 		index.init(supplier.getServices(QPlugin.class), supplier.getEngineSupplierFactory());
 	}
-
 }

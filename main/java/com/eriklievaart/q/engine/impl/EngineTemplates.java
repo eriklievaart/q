@@ -58,5 +58,4 @@ public class EngineTemplates {
 	private boolean isDefault(final String raw) {
 		return Str.isEmpty(raw) || templates.get(raw.charAt(0)) == null;
 	}
-
 }

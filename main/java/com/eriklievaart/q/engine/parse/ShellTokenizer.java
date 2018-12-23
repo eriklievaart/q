@@ -93,5 +93,4 @@ class ShellTokenizer {
 		tokens.add(input.substring(tokenStart, Math.min(lastIndex + 1, tokenEnd + 1)));
 		tokenStart = ++tokenEnd;
 	}
-
 }

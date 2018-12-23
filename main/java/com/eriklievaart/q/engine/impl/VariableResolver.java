@@ -78,5 +78,4 @@ public class VariableResolver {
 		}
 		return map;
 	}
-
 }

@@ -26,5 +26,4 @@ public interface Invokable {
 	 *             Signals that the current arguments are not valid.
 	 */
 	void validate(PluginContext context) throws PluginException;
-
 }

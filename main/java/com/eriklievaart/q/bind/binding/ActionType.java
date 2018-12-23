@@ -163,5 +163,4 @@ public enum ActionType {
 	public abstract Object bind(final Binding binding);
 
 	public abstract void unbind(Binding binding);
-
 }

@@ -55,5 +55,4 @@ public class FreemarkerGenerator {
 			throw new RuntimeIOException(e);
 		}
 	}
-
 }

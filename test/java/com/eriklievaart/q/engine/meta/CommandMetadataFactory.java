@@ -106,5 +106,4 @@ public class CommandMetadataFactory {
 	public PluginIndex makeIndex() {
 		return new PluginIndexFactory().command(make()).make();
 	}
-
 }

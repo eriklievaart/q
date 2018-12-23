@@ -30,5 +30,4 @@ public class CommandActions {
 		components.commandField.requestFocus();
 		components.mainFrame.validate();
 	}
-
 }

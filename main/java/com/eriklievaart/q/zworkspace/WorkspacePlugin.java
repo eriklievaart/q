@@ -64,5 +64,4 @@ public class WorkspacePlugin implements QPlugin, QUi {
 	public InputStream getBindings() {
 		return getClass().getResourceAsStream("/zworkspace/workspace-bind.txt");
 	}
-
 }

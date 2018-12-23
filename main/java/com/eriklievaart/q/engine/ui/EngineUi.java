@@ -66,5 +66,4 @@ public class EngineUi {
 	public long getQueuedJobCount() {
 		return count.get();
 	}
-
 }

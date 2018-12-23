@@ -44,5 +44,4 @@ public class ViewActions {
 		components.southPanel.remove(components.commandField);
 		components.mainFrame.validate();
 	}
-
 }

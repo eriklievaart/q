@@ -164,5 +164,4 @@ public class LocalIconLoader {
 		log.trace("loading icon: $", file);
 		return new ImageIcon(ImageIO.read(file));
 	}
-
 }

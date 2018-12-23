@@ -152,5 +152,4 @@ public class FileFinderU extends SandboxTest {
 		Iterator<VirtualFile> iterator = new FileFinder(memoryFile("root")).containsText("banana").scan();
 		Assertions.assertThat(iterator).containsExactly(memoryFile("root/b"));
 	}
-
 }

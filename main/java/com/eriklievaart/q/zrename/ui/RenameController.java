@@ -71,10 +71,6 @@ public class RenameController {
 	}
 
 	private void initLists() {
-		fromList.setCellRenderer(createRenameRenderer());
-		fromList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		toList.setCellRenderer(createRenameRenderer());
-		toList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listPanel.add(fromList);
 		listPanel.add(toList);
 	}
@@ -116,6 +112,7 @@ public class RenameController {
 		fromList.setListData(convertToRenameListElements(children));
 		toList.setListData(convertToRenameListElements(children));
 		updateListMatches();
+		createListRenderers();
 	}
 
 	private void updateListMatches() {
@@ -136,6 +133,13 @@ public class RenameController {
 				toElement.setText(fromElement.getText());
 			}
 		}
+	}
+
+	private void createListRenderers() {
+		fromList.setCellRenderer(createRenameRenderer());
+		fromList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		toList.setCellRenderer(createRenameRenderer());
+		toList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	private String getReplacementText(RenameListElement fromElement) {

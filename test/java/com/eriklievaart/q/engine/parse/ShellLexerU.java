@@ -198,5 +198,4 @@ public class ShellLexerU {
 		Check.isTrue(tokens.size() == expected.length, "expected: " + Arrays.toString(expected) + " got: " + tokens);
 		Check.isEqual(tokens, Arrays.asList(expected));
 	}
-
 }

@@ -147,5 +147,4 @@ class MoveShellCommand implements Invokable {
 	private enum Mode {
 		SINGLE, URLS;
 	}
-
 }

@@ -13,5 +13,4 @@ public class NoIconFactory implements IconFactory {
 	public Icon getIcon(final Object object) {
 		return null;
 	}
-
 }

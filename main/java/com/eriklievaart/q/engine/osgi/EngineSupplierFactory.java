@@ -85,5 +85,4 @@ public class EngineSupplierFactory {
 	public InputExaminer getInputExaminer() {
 		return new InputExaminer(this);
 	}
-
 }

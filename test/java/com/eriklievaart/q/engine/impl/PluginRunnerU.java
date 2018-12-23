@@ -106,5 +106,4 @@ public class PluginRunnerU {
 		CheckCollection.isSize(called, 1);
 		Check.isEqual(called.get(0).getHost(), "www.google.com");
 	}
-
 }

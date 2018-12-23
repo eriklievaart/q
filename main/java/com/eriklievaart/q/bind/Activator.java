@@ -35,5 +35,4 @@ public class Activator implements BundleActivator {
 		ServiceReference<QMainUi> reference = context.getServiceReference(QMainUi.class);
 		return reference == null ? null : context.getService(reference);
 	}
-
 }

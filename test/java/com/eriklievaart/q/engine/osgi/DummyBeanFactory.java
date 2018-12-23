@@ -98,5 +98,4 @@ public class DummyBeanFactory {
 		UiService main = (UiService) ui.get();
 		main.showFrame();
 	}
-
 }

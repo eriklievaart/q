@@ -67,5 +67,4 @@ public class UiComponents {
 		mainFrame.getContentPane().add(southPanel, BorderLayout.SOUTH);
 		mainFrame.validate();
 	}
-
 }

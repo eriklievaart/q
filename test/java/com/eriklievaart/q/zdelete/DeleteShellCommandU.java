@@ -130,5 +130,4 @@ public class DeleteShellCommandU extends SandboxTest {
 		checkNotExists("deleteme2");
 		checkExists("keep");
 	}
-
 }

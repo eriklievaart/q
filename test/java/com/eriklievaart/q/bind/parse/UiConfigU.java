@@ -77,5 +77,4 @@ public class UiConfigU {
 		JMenu menu = (JMenu) component;
 		return menu.getText();
 	}
-
 }

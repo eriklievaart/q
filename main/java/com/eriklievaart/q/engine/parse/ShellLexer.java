@@ -113,5 +113,4 @@ class ShellLexer {
 		TokenType type = PatternTool.matches("[a-zA-Z]++", raw) ? TokenType.COMMAND : TokenType.UNRECOGNIZED;
 		return new Token(raw, type);
 	}
-
 }

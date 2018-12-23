@@ -95,5 +95,4 @@ public class BrowserModelU {
 	private VirtualFileWrapper wrapper(String url) {
 		return new VirtualFileWrapper(memory.resolve(url));
 	}
-
 }

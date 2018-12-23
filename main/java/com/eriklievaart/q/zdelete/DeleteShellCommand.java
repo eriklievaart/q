@@ -108,5 +108,4 @@ class DeleteShellCommand implements Invokable {
 	private enum Mode {
 		SINGLE, URLS
 	}
-
 }

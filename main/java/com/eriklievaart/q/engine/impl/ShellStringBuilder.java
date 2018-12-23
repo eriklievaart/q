@@ -52,5 +52,4 @@ public class ShellStringBuilder {
 	public String toString() {
 		return builder.toString();
 	}
-
 }

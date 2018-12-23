@@ -43,5 +43,4 @@ public interface QPlugin {
 	 * Create an Invokable or Swallows prototype.
 	 */
 	public Invokable createInstance();
-
 }

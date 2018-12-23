@@ -88,6 +88,5 @@ public class RenameControllerU extends SandboxTest {
 
 		Check.isEqual(controller.regexField.getBackground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
-
 	}
 }

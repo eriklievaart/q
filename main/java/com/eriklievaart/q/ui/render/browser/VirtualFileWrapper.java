@@ -46,5 +46,4 @@ public class VirtualFileWrapper {
 	public String toString() {
 		return file.getName();
 	}
-
 }

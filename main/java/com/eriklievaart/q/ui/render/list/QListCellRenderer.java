@@ -66,5 +66,4 @@ public class QListCellRenderer<E> implements ListCellRenderer<E> {
 		label.setIcon(iconFactory.getIcon(value));
 		return label;
 	}
-
 }

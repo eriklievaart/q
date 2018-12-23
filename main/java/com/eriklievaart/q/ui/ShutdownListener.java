@@ -76,5 +76,4 @@ public class ShutdownListener implements WindowListener {
 	@Override
 	public void windowDeactivated(WindowEvent we) {
 	}
-
 }

@@ -23,5 +23,4 @@ public class ActionWrapper implements Consumer<ActionContext> {
 		Check.notNull(consumer, "Action does not exist!");
 		consumer.accept(context);
 	}
-
 }

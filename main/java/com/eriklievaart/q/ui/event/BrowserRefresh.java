@@ -53,5 +53,4 @@ public class BrowserRefresh {
 		}
 		refreshOn = System.currentTimeMillis() + sleep;
 	}
-
 }

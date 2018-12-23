@@ -28,6 +28,4 @@ public class ListConstructorU {
 	public void constructObjectJustSplitter() {
 		Check.isEqual(new ListConstructor(':').constructObject(":"), Arrays.asList("", ""));
 	}
-
-
 }

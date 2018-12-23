@@ -28,5 +28,4 @@ public class ConfigParser {
 	public UiConfig getConfig() {
 		return config;
 	}
-
 }

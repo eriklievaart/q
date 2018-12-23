@@ -32,5 +32,4 @@ public class BasicConvertersProvider implements Supplier<Converters> {
 
 		return new Converters(string, uri, file, vf);
 	}
-
 }

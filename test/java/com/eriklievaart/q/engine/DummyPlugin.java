@@ -40,5 +40,4 @@ public class DummyPlugin implements QPlugin {
 	public ThreadPolicy getThreadPolicy() {
 		return threadPolicy;
 	}
-
 }

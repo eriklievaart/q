@@ -64,5 +64,4 @@ public class OsgiSupplierFactory {
 			throw new RuntimeException("This should never happen", e);
 		}
 	}
-
 }

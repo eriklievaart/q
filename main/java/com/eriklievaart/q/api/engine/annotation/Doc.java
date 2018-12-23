@@ -15,5 +15,4 @@ public @interface Doc {
 
 	/** An explanation of the purpose of a ShellCommand or flag. */
 	String value();
-
 }

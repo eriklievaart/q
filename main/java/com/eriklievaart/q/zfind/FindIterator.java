@@ -93,5 +93,4 @@ public class FindIterator implements Iterator<VirtualFile> {
 	public void setLocal(boolean value) {
 		local = value;
 	}
-
 }

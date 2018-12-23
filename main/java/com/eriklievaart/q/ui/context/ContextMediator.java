@@ -184,5 +184,4 @@ public class ContextMediator {
 		BrowserContext context = isLeftActive() ? getContext().getLeft() : getContext().getRight();
 		return context.getUrls().stream().map(f -> f.getUrl().getUrlEscaped()).collect(Collectors.toList());
 	}
-
 }

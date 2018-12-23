@@ -60,5 +60,4 @@ class TrashCache {
 	private SystemFile getTrashFolder(final SystemFile parent) {
 		return parent.resolve(TRASH_NAME).resolve(FILES_NAME);
 	}
-
 }

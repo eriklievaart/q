@@ -26,5 +26,4 @@ public class IndexPlugin implements QPlugin {
 	public Invokable createInstance() {
 		return new IndexShellCommand(ui, resolver);
 	}
-
 }

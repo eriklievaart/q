@@ -41,5 +41,4 @@ public class StubUi implements QUi {
 	public InputStream getBindings() {
 		return is;
 	}
-
 }

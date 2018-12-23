@@ -62,5 +62,4 @@ public class SizePlugin implements QPlugin, QUi {
 	public InputStream getBindings() {
 		return getClass().getResourceAsStream("/zsize/size-bind.txt");
 	}
-
 }

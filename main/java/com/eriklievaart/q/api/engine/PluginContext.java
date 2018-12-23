@@ -18,5 +18,4 @@ public interface PluginContext {
 	public String getVariable(String value);
 
 	public Map<String, String> getVariables();
-
 }

@@ -54,5 +54,4 @@ class ParserState {
 		map.put(type, state);
 		return Collections.unmodifiableMap(map);
 	}
-
 }

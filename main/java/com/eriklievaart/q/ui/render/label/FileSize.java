@@ -18,5 +18,4 @@ public class FileSize {
 		}
 		return length + " B";
 	}
-
 }

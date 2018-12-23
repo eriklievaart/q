@@ -13,5 +13,4 @@ public class EmptyInvokable implements Invokable {
 	@Override
 	public void validate(PluginContext context) throws PluginException {
 	}
-
 }

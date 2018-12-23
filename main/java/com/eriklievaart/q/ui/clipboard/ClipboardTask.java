@@ -144,5 +144,4 @@ public class ClipboardTask {
 	public boolean isEmpty() {
 		return StringUtils.isEmpty(urls);
 	}
-
 }

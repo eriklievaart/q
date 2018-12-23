@@ -56,5 +56,4 @@ public class UrlTransferable implements Transferable {
 		}
 		throw new UnsupportedFlavorException(flavor);
 	}
-
 }

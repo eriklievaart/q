@@ -15,5 +15,4 @@ public class NoColorFactory implements ColorFactory {
 	public Color getColor(final Object object) {
 		return Color.black;
 	}
-
 }

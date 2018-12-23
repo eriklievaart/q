@@ -116,5 +116,4 @@ public class ShellParser {
 	private ShellCommand createShellCommand() {
 		return new ShellCommand(command, flags, arguments, swallowed);
 	}
-
 }

@@ -21,5 +21,4 @@ public class VariableExaminerU {
 		CheckCollection.isPresent(keys, "present");
 		CheckCollection.isSize(keys, 1);
 	}
-
 }

@@ -36,5 +36,4 @@ public enum ThreadPolicy {
 	 * switching occurs, but should not be used for long running operations, because it could lock up the GUI.
 	 */
 	CURRENT;
-
 }

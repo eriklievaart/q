@@ -85,6 +85,5 @@ public class IndexMatcherU {
 		List<String> result = new IndexMatcher(urls).lookup("ing");
 		String[] expect = new String[] { "file:///tmp/ing", "file:///tmp/ing.txt", "file:///tmp/CONTAINING.txt" };
 		Assertions.assertThat(result).containsExactly(expect);
-
 	}
 }

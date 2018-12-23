@@ -32,5 +32,4 @@ public class DummyPluginContext implements PluginContext {
 	public Map<String, String> getVariables() {
 		return Collections.unmodifiableMap(variables);
 	}
-
 }

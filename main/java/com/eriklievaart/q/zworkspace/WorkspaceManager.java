@@ -68,5 +68,4 @@ public class WorkspaceManager {
 	private String appendRight(String name) {
 		return name + "-2";
 	}
-
 }

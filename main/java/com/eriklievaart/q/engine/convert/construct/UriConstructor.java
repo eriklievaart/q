@@ -15,5 +15,4 @@ public class UriConstructor extends AbstractConstructor<URI> {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

@@ -33,5 +33,4 @@ public interface QUi {
 	 * A mapping of the bindings between components and actions. The data should be in IniNode format.
 	 */
 	public InputStream getBindings();
-
 }

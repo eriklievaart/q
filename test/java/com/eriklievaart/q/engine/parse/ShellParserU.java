@@ -118,7 +118,5 @@ public class ShellParserU {
 				throw new RuntimeException("Unexpected Parse Exception", spe);
 			}
 		}
-
 	}
-
 }

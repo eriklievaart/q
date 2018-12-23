@@ -15,5 +15,4 @@ public class EscapedStringValidator implements Validator {
 	public boolean isValid(final String value) {
 		return !ShellString.hasInvalidEscapeSequence(value);
 	}
-
 }

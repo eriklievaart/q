@@ -97,5 +97,4 @@ public class FuzzyUrlResolverU extends SandboxTest {
 		VirtualFile actual = fuzzy.resolve(start, "c*d");
 		Check.isEqual(actual.getUrl().getUrlEscaped(), "mem:///parent/child");
 	}
-
 }

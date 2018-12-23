@@ -26,5 +26,4 @@ public class ShellParseException extends ShellException {
 			throw new ShellParseException(format, args);
 		}
 	}
-
 }

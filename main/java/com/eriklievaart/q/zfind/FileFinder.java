@@ -79,5 +79,4 @@ public class FileFinder {
 	public Iterator<VirtualFile> scan() {
 		return local ? FindIterator.local(root, checks) : FindIterator.recursive(root, checks);
 	}
-
 }

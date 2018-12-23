@@ -49,5 +49,4 @@ public class ClipboardTaskU extends SandboxTest {
 		Check.isEqual(file1.replace(" ", "%20"), files.get(0));
 		Check.isEqual(file2.replace(" ", "%20"), files.get(1));
 	}
-
 }

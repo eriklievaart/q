@@ -50,5 +50,4 @@ public class QContextFactory {
 		context.setLeftActive();
 		return context;
 	}
-
 }

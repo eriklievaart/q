@@ -54,5 +54,4 @@ public class IndexShellCommand implements Invokable {
 	public void validate(PluginContext context) throws PluginException {
 		PluginException.on(Str.isBlank(location), "location to open cannot be blank!");
 	}
-
 }

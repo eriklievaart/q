@@ -41,5 +41,4 @@ public class UrlResolverServiceU {
 			service.resolve("bla:///tmp/b");
 		});
 	}
-
 }

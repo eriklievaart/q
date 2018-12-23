@@ -221,5 +221,4 @@ public class ListenerFactory {
 		JComponent component = (JComponent) binding.component.instance;
 		component.removeKeyListener((KeyListener) binding.bound);
 	}
-
 }

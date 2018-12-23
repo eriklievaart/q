@@ -7,5 +7,4 @@ public interface UrlResolver {
 	public VirtualFile resolve(String url);
 
 	public VirtualFile resolveFuzzy(VirtualFile base, String location);
-
 }

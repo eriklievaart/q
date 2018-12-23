@@ -70,5 +70,4 @@ public class RenameService implements QPlugin, QUi {
 	public Invokable createInstance() {
 		return new RenameShellCommand(controller);
 	}
-
 }

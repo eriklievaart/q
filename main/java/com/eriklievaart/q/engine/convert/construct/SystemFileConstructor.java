@@ -26,5 +26,4 @@ public class SystemFileConstructor extends AbstractConstructor<File> {
 		}
 		throw new FormattedException("Not a local file: %", str);
 	}
-
 }

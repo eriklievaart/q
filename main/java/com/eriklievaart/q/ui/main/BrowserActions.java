@@ -227,5 +227,4 @@ public class BrowserActions {
 		}
 		return builder.toString();
 	}
-
 }

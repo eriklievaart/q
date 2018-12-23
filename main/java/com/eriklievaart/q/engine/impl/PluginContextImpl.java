@@ -34,5 +34,4 @@ public class PluginContextImpl implements PluginContext {
 	public Map<String, String> getVariables() {
 		return resolver.createMap(context);
 	}
-
 }
