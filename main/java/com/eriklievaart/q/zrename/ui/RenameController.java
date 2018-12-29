@@ -22,6 +22,7 @@ import com.eriklievaart.q.api.QView;
 import com.eriklievaart.q.api.render.ColorFactory;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
+import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.pattern.PatternTool;
 import com.eriklievaart.toolkit.lang.api.str.Str;
@@ -215,7 +216,7 @@ public class RenameController {
 				String url = element.getVirtualFile().getUrl().getUrlEscaped();
 				String parent = element.getVirtualFile().getParentFile().get().getUrl().getUrlEscaped();
 				String newName = element.getText().replaceFirst(regexField.getText(), renameField.getText());
-				e.invoke(Str.sub("move -s % % %", url, parent, newName));
+				e.invoke(Str.sub("move -s % % %", url, parent, UrlTool.escape(newName)));
 			}
 		}
 	}

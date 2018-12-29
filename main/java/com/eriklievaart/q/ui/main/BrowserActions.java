@@ -161,7 +161,7 @@ public class BrowserActions {
 			dialogs.input("rename to:", original, name -> {
 				String url = file.getVirtualFile().getUrl().getUrlEscaped();
 				String parentUrl = file.getVirtualFile().getParentFile().get().getUrl().getUrlEscaped();
-				engine.executeRaw(Str.sub("move -s % % %", url, parentUrl, name));
+				engine.executeRaw(Str.sub("move -s % % %", url, parentUrl, UrlTool.escape(name)));
 			});
 		}
 	}
