@@ -193,6 +193,9 @@ public class FindController {
 				return;
 			}
 		}
+		if (count == 0) {
+			JOptionPane.showMessageDialog(null, "find: no matches found!");
+		}
 	}
 
 	private FindResult nextResult(VirtualFile root, Iterator<VirtualFile> scan) {

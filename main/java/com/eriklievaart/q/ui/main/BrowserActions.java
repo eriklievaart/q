@@ -60,8 +60,13 @@ public class BrowserActions {
 		map.put("q.active.copy", c -> openCopyDialog());
 		map.put("q.active.move", c -> openMoveDialog());
 		map.put("q.active.open.directory", c -> openDirectory());
+		map.put("q.active.open.url", c -> openUrl());
 		map.put("q.active.delete", c -> openDeleteDialog());
 		map.put("q.active.jump", c -> openJumpDialog());
+	}
+
+	private void openUrl() {
+		open(mediator.getActiveBrowser(components).fileList.getSelectedValue().getVirtualFile());
 	}
 
 	private void openJumpDialog() {
@@ -69,8 +74,11 @@ public class BrowserActions {
 	}
 
 	private void openDirectory() {
+		open(mediator.getActive());
+	}
+
+	private void open(VirtualFile file) {
 		try {
-			VirtualFile file = mediator.getActive();
 
 			if (file instanceof SystemFile) {
 				SystemFile sf = (SystemFile) file;

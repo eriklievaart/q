@@ -30,6 +30,7 @@ public class BrowserObserver {
 	}
 
 	public void update(VirtualFile dir) {
+		log.trace("update($)", dir);
 		if (dir.isFile()) {
 			return;
 		}
@@ -65,6 +66,7 @@ public class BrowserObserver {
 		long start = System.currentTimeMillis();
 		VirtualFile location = refresh.getRefreshLocation();
 		List<VirtualFileWrapper> wrappers = getBrowserContents(location);
+		log.trace("refreshBrowser(): $", wrappers);
 		long spent = System.currentTimeMillis() - start;
 
 		refresh.refreshCompleted(spent);
@@ -83,7 +85,7 @@ public class BrowserObserver {
 
 	private List<VirtualFileWrapper> getBrowserContents(VirtualFile dir) {
 		try {
-			List<? extends VirtualFile> files = dir.getChildrenAlphabeticallyDirectoriesFirst();
+			List<? extends VirtualFile> files = dir.getChildrenAdvanced().getAlphabeticallyDirectoriesFirst();
 			List<VirtualFileWrapper> result = new ArrayList<>(files.size());
 			for (int i = 0; i < files.size(); i++) {
 				VirtualFile file = files.get(i);

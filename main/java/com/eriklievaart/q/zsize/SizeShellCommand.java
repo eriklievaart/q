@@ -36,7 +36,7 @@ class SizeShellCommand implements Invokable {
 		List<DirCalculation> sizes = NewCollection.list();
 
 		controller.init();
-		for (VirtualFile child : dir.getChildrenAlphabeticallyDirectoriesFirst()) {
+		for (VirtualFile child : dir.getChildrenAdvanced().getAlphabeticallyDirectoriesFirst()) {
 			DirCalculation calculation = new DirCalculation(child, calculator.sum(child));
 			insert(calculation, sizes);
 			controller.showLabel(dir, sizes);

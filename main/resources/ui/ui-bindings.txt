@@ -21,6 +21,11 @@ menu[file]
 		mnemonic=R
 		accelerator=F2
 		order=2
+	item[file.open.url]
+		label=Open Url
+		action=q.active.open.url
+		accelerator=F3
+		order=3
 	item[file.copy]
 		label=Copy
 		action=q.active.copy

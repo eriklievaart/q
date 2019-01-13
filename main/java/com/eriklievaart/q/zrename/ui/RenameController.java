@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
@@ -31,6 +32,7 @@ import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 public class RenameController {
 	private static final String VIEW_ID = "q.rename";
+	private static final String INITIAL_REGEX = ".*";
 
 	private LogTemplate log = new LogTemplate(getClass());
 
@@ -44,7 +46,7 @@ public class RenameController {
 	public JPanel buttonPanel = new JPanel(new GridLayout(1, 0, 0, 0));
 	public JPanel criteriaPanel = new JPanel(new GridLayout(0, 2, 5, 0));
 	public JLabel regexLabel = new JLabel("regex to match files:");
-	public JTextField regexField = new JTextField(".*");
+	public JTextField regexField = new JTextField(INITIAL_REGEX);
 	public JLabel renameLabel = new JLabel("renaming expression:");
 	public JTextField renameField = new JTextField("$0");
 	public JList<RenameListElement> fromList = new JList<>();
@@ -88,7 +90,7 @@ public class RenameController {
 
 	private void initMainPanel() {
 		mainPanel.add(criteriaPanel, BorderLayout.NORTH);
-		mainPanel.add(listPanel, BorderLayout.CENTER);
+		mainPanel.add(new JScrollPane(listPanel), BorderLayout.CENTER);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
@@ -109,7 +111,7 @@ public class RenameController {
 	}
 
 	public void updateListFiles() {
-		List<? extends VirtualFile> children = directory.getChildrenAlphabeticallyDirectoriesFirst();
+		List<? extends VirtualFile> children = directory.getChildrenAdvanced().getAlphabeticallyDirectoriesFirst();
 		fromList.setListData(convertToRenameListElements(children));
 		toList.setListData(convertToRenameListElements(children));
 		updateListMatches();
@@ -161,6 +163,10 @@ public class RenameController {
 
 	public void showUi() {
 		QMainUi main = ui.get();
+		if (!PatternTool.isCompilable(regexField.getText())) {
+			regexField.setText(INITIAL_REGEX);
+			regexField.setBackground(Color.WHITE);
+		}
 		if (main != null) {
 			showUi(ui.get().getQContext().getActive().getDirectory());
 		}

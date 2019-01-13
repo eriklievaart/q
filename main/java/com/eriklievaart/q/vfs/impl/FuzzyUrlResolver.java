@@ -57,7 +57,7 @@ public class FuzzyUrlResolver {
 
 	private TreeSet<String> getChildNameTreeSet(VirtualFile parent) {
 		TreeSet<String> names = new TreeSet<>();
-		for (VirtualFile child : parent.getChildrenAlphabeticallyDirectoriesFirst()) {
+		for (VirtualFile child : parent.getChildrenAdvanced().getAlphabeticallyDirectoriesFirst()) {
 			if (child.exists()) {
 				names.add(child.getName());
 			}
