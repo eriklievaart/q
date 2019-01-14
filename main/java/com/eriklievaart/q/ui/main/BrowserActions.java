@@ -45,24 +45,31 @@ public class BrowserActions {
 	}
 
 	public void putActions(Map<String, Consumer<ActionContext>> map) {
-		addActiveActions(map);
+		addFileActions(map);
+		addLocationActions(map);
 		addBrowserActions(map, BrowserOrientation.LEFT);
 		addBrowserActions(map, BrowserOrientation.RIGHT);
 	}
 
-	private void addActiveActions(Map<String, Consumer<ActionContext>> map) {
+	private void addFileActions(Map<String, Consumer<ActionContext>> map) {
 		map.put("q.active.open", c -> openSelectionInActiveBrowser());
-		map.put("q.active.root", c -> beans.getController().navigateFuzzy(BrowserOrientation.ACTIVE, "/"));
-		map.put("q.active.location", c -> openLocationDialog());
 		map.put("q.active.rename", c -> openRenameDialog());
 		map.put("q.active.create.directory", c -> openCreateDirectoryDialog());
 		map.put("q.active.create.file", c -> openCreateFileDialog());
 		map.put("q.active.copy", c -> openCopyDialog());
 		map.put("q.active.move", c -> openMoveDialog());
+		map.put("q.active.delete", c -> openDeleteDialog());
+
+	}
+
+	private void addLocationActions(Map<String, Consumer<ActionContext>> map) {
+		map.put("q.active.root", c -> beans.getController().navigateFuzzy(BrowserOrientation.ACTIVE, "/"));
+		map.put("q.active.location", c -> openLocationDialog());
+		map.put("q.active.jump", c -> openJumpDialog());
 		map.put("q.active.open.directory", c -> openDirectory());
 		map.put("q.active.open.url", c -> openUrl());
-		map.put("q.active.delete", c -> openDeleteDialog());
-		map.put("q.active.jump", c -> openJumpDialog());
+		map.put("q.active.previous", c -> mediator.activeOpenPrevious());
+		map.put("q.active.revisit", c -> mediator.activeRedoHistory());
 	}
 
 	private void openUrl() {

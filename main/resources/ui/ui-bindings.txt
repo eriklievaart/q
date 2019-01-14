@@ -57,7 +57,17 @@ menu[file]
 		label=Jump to
 		action=q.active.jump
 		accelerator=control alt J
-		order=50		
+		order=50
+	item[file.previous]
+		label=Previous Location
+		action=q.active.previous
+		accelerator=control alt MINUS
+		order=60
+	item[file.previous]
+		label=Redo History
+		action=q.active.revisit
+		accelerator=control alt EQUALS
+		order=70
 	item[file.delete]
 		label=Delete
 		action=q.active.delete

@@ -126,6 +126,22 @@ public class ContextMediator {
 		setLocation(BrowserOrientation.INACTIVE, getActive());
 	}
 
+	public void activeOpenPrevious() {
+		if (isLeftActive()) {
+			leftObserver.openPrevious();
+		} else {
+			rightObserver.openPrevious();
+		}
+	}
+
+	public void activeRedoHistory() {
+		if (isLeftActive()) {
+			leftObserver.openRedoHistory();
+		} else {
+			rightObserver.openRedoHistory();
+		}
+	}
+
 	public void setLocation(final BrowserOrientation orientation, final VirtualFile dir) {
 		BrowserOrientation simple = simplify(orientation);
 		if (simple == BrowserOrientation.LEFT) {

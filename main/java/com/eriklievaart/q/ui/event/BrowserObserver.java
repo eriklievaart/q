@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import com.eriklievaart.q.ui.main.BrowserComponents;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.swing.api.SwingThread;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
@@ -20,6 +21,8 @@ public class BrowserObserver {
 	private BrowserModel model;
 	private BrowserComponents components;
 	private BrowserRefresh refresh = new BrowserRefresh();
+	private List<VirtualFile> history = NewCollection.list();
+	private List<VirtualFile> revisit = NewCollection.list();
 	private AtomicBoolean showHiddenFiles = new AtomicBoolean(true);
 	private Thread refreshThread = new Thread(() -> autoRefresh());
 
@@ -34,6 +37,39 @@ public class BrowserObserver {
 		if (dir.isFile()) {
 			return;
 		}
+		if (dir.isDirectory()) {
+			history.add(dir);
+			revisit.clear();
+			open(dir);
+		}
+	}
+
+	public void openPrevious() {
+		if (history.size() > 1) {
+			revisit.add(history.remove(history.size() - 1));
+			VirtualFile previous = history.get(history.size() - 1);
+			if (previous.isDirectory()) {
+				open(previous);
+			} else {
+				openPrevious();
+			}
+		}
+	}
+
+	public void openRedoHistory() {
+		if (revisit.isEmpty()) {
+			return;
+		}
+		VirtualFile file = revisit.remove(revisit.size() - 1);
+		if (file.isDirectory()) {
+			history.add(file);
+			open(file);
+		} else {
+			openRedoHistory();
+		}
+	}
+
+	private void open(VirtualFile dir) {
 		refresh.setLocation(dir);
 		components.urlLabel.setText(dir.getPath());
 	}
@@ -66,7 +102,6 @@ public class BrowserObserver {
 		long start = System.currentTimeMillis();
 		VirtualFile location = refresh.getRefreshLocation();
 		List<VirtualFileWrapper> wrappers = getBrowserContents(location);
-		log.trace("refreshBrowser(): $", wrappers);
 		long spent = System.currentTimeMillis() - start;
 
 		refresh.refreshCompleted(spent);
