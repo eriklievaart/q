@@ -4,14 +4,14 @@ import com.eriklievaart.toolkit.lang.api.str.Str;
 
 /**
  * Exception used to signal that a ShellCommand's configuration is not valid.
- * 
+ *
  * @author Erik Lievaart
  */
 public class PluginException extends Exception {
 
 	/**
 	 * Constructor with message.
-	 * 
+	 *
 	 * @param message
 	 *            Message to the user why the command is not valid.
 	 */
@@ -21,7 +21,7 @@ public class PluginException extends Exception {
 
 	/**
 	 * Constructor with message and cause.
-	 * 
+	 *
 	 * @param message
 	 *            Message to the user why the command is not valid.
 	 * @param cause
@@ -33,7 +33,7 @@ public class PluginException extends Exception {
 
 	/**
 	 * Shorthand for checking a boolean flag and throwing a ValidationException if the flag is true.
-	 * 
+	 *
 	 * @param condition
 	 *            throw a ValidationException if condition evaluates to true.
 	 * @param format
@@ -53,7 +53,7 @@ public class PluginException extends Exception {
 
 	/**
 	 * Shorthand for checking a boolean flag and throwing a ValidationException if the flag is false.
-	 * 
+	 *
 	 * @param condition
 	 *            throw a ValidationException if condition evaluates to false.
 	 * @param format

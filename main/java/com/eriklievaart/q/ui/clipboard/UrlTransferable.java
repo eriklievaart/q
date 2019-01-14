@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * Custom Transferable for copying a List of URL's to the system clipboard.
- * 
+ *
  * @author Erik Lievaart
  */
 public class UrlTransferable implements Transferable {
@@ -16,7 +16,7 @@ public class UrlTransferable implements Transferable {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param task
 	 *            details of the Transferable.
 	 */

@@ -7,7 +7,7 @@ import com.eriklievaart.toolkit.lang.api.str.StringEscape;
 
 /**
  * Utility class for (un)escaping strings (separated by `) on the Q command line.
- * 
+ *
  * @author Erik Lievaart
  */
 public class ShellString {
@@ -28,7 +28,7 @@ public class ShellString {
 
 	/**
 	 * Check if the string has any invalid escape sequences.
-	 * 
+	 *
 	 * @param raw
 	 *            body of a string.
 	 * @return true iff any escape sequences were found to be invalid.
@@ -39,7 +39,7 @@ public class ShellString {
 
 	/**
 	 * Escapes all occurrences of command line escape characters in a String.
-	 * 
+	 *
 	 * @param input
 	 *            String to escape.
 	 * @return a String with all escape characters replaced with a backslash '\' and a control character.
@@ -55,7 +55,7 @@ public class ShellString {
 	/**
 	 * Replaces all escape sequences in a String with the original character. All escape sequences in the String are
 	 * assumed to be valid. For invalid escape sequences the result is unspecified, an Exception might be thrown.
-	 * 
+	 *
 	 * @param input
 	 *            String that contains escape sequences.
 	 * @return a String with all escape sequences replaced with the original character.

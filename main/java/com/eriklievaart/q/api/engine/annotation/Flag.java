@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * This annotation is used to mark the command line flags of a ShellCommand. Every ShellCommand must add this annotation
  * to all methods that represent flags.
- * 
+ *
  * @author Erik Lievaart
  */
 @Retention(RetentionPolicy.RUNTIME)

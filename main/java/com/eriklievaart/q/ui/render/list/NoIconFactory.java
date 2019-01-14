@@ -4,7 +4,7 @@ import javax.swing.Icon;
 
 /**
  * Always returns null (no icon).
- * 
+ *
  * @author Erik Lievaart
  */
 public class NoIconFactory implements IconFactory {

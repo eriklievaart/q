@@ -6,7 +6,7 @@ import com.eriklievaart.q.api.render.ColorFactory;
 
 /**
  * Always returns {@link Color#BLACK}.
- * 
+ *
  * @author Erik Lievaart
  */
 public class NoColorFactory implements ColorFactory {
