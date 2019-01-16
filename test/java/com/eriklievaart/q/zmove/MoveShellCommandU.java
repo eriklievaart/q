@@ -174,4 +174,35 @@ public class MoveShellCommandU extends SandboxTest {
 		checkIsFile("destination/dir/original");
 		checkNotExists("source/dir");
 	}
+
+	@Test
+	public void moveIncludes() {
+		createFile("source/file.java");
+		createFile("source/file.py");
+		createDirectory("destination");
+
+		checkNotExists("destination/file.java");
+		checkNotExists("destination/file.py");
+
+		testable.include("*.java", systemFile("source"), systemFile("destination")).invoke(null);
+
+		checkExists("source/file.py");
+		checkNotExists("destination/file.py");
+		checkNotExists("source/file.java");
+		checkExists("destination/file.java");
+	}
+
+	@Test
+	public void moveIncludesNested() throws Exception {
+		createFile("source/dir/a.java");
+		createFile("source/dir/b.py");
+		checkNotExists("destination");
+
+		testable.include("*.py", systemFile("source"), systemFile("destination")).invoke(null);
+
+		checkExists("source/dir/a.java");
+		checkNotExists("source/dir/b.py");
+		checkExists("destination/dir/b.py");
+		checkNotExists("destination/dir/a.java");
+	}
 }

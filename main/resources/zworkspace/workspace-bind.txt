@@ -3,61 +3,61 @@ menu[workspace]
 	label=Workspaces
 	mnemonic=W
 	order=100
-	
+
 	item[q.workspace.1]
 		label=Workspace 1
 		action=q.workspace.1
 		mnemonic=1
-		
+
 	item[q.workspace.2]
 		label=Workspace 2
 		action=q.workspace.2
 		mnemonic=2
-		
+
 	item[q.workspace.3]
 		label=Workspace 3
 		action=q.workspace.3
 		mnemonic=3
-		
+
 	item[q.workspace.4]
 		label=Workspace 4
 		action=q.workspace.4
 		mnemonic=4
-		
+
 	item[q.workspace.5]
 		label=Workspace 5
 		action=q.workspace.5
 		mnemonic=5
-		
+
 	item[q.workspace.6]
 		label=Workspace 6
 		action=q.workspace.6
 		mnemonic=6
-		
+
 	item[q.workspace.7]
 		label=Workspace 7
 		action=q.workspace.7
 		mnemonic=7
-		
+
 	item[q.workspace.8]
 		label=Workspace 8
 		action=q.workspace.8
 		mnemonic=8
-		
+
 	item[q.workspace.9]
 		label=Workspace 9
 		action=q.workspace.9
 		mnemonic=9
-		
+
 	item[q.workspace.10]
 		label=Workspace 10
 		action=q.workspace.10
 		mnemonic=0
-		
+
 	item[q.workspace.other]
 		label=Other
 		action=q.workspace.other
 		accelerator=control alt W
-		
-				
-		
+
+
+

@@ -4,11 +4,11 @@
 
 <h1>Introduction</h1>
 The Q file browser is a multi-protocol file browser targeted at advanced computer users.
-Q has few confirmation dialogs and simply overwrites (hidden and read only) directories and files without confirmation. 
+Q has few confirmation dialogs and simply overwrites (hidden and read only) directories and files without confirmation.
 For normal file operations (e.g. copy, move, delete), the GUI should be intuitive enough to use.
-The GUI of Q offers few features that will make people want to switch. 
+The GUI of Q offers few features that will make people want to switch.
 The real strength of the application is in the command line.
-In this chapter I will discuss unusual GUI features only. 
+In this chapter I will discuss unusual GUI features only.
 These are the features I find myself missing in other file browsers.
 
 
@@ -31,7 +31,7 @@ Normally on file browsers when you start a copy, move or delete operation, it is
 If you have a couple these running, your computer slows down considerably.
 This is caused by the head of the drive switching back and forth between files (except for SSD's).
 I chose a different approach; all file operations are queued and invoked one by one (thus the name Q).
-I find this ideal for normal use cases of a file browser. 
+I find this ideal for normal use cases of a file browser.
 
 
 
@@ -49,7 +49,7 @@ If you know (suspect) part of the name is unique, then you only need the unique 
 
 <h2>Command Line</h2>
 The command line has a central role in Q.
-As you are browsing the file system, you can invoke the native command line at the opened location at any time, 
+As you are browsing the file system, you can invoke the native command line at the opened location at any time,
 without having to open a separate terminal.
 
 <p>

@@ -9,6 +9,7 @@ import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.api.engine.PluginException;
 import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
+import com.eriklievaart.q.wildcard.api.WildcardChecker;
 import com.eriklievaart.toolkit.lang.api.FormattedException;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.str.Str;
@@ -24,6 +25,7 @@ class MoveShellCommand implements Invokable {
 
 	private VirtualFile source;
 	private VirtualFile destination;
+	private WildcardChecker includes;
 	private String rename;
 	private Mode mode;
 
@@ -50,6 +52,16 @@ class MoveShellCommand implements Invokable {
 		return this;
 	}
 
+	@Flag(group = "main", values = { "`*`", "$dir", "$dir~" })
+	@Doc("move files matching comma separated include pattern with wildcards [*?]")
+	public MoveShellCommand include(String pattern, VirtualFile from, VirtualFile to) {
+		includes = new WildcardChecker(pattern);
+		source = from;
+		destination = to;
+		mode = Mode.INCLUDES;
+		return this;
+	}
+
 	@Override
 	public void invoke(PluginContext context) {
 		switch (mode) {
@@ -63,6 +75,11 @@ class MoveShellCommand implements Invokable {
 			moveUrls();
 			return;
 
+		case INCLUDES:
+			destination.mkdir();
+			moveIncludes(source, destination);
+			return;
+
 		default:
 			throw new RuntimeException("Unknown enum constant: " + mode);
 		}
@@ -72,7 +89,7 @@ class MoveShellCommand implements Invokable {
 		for (VirtualFile file : urls) {
 			VirtualFile resolved = destination.resolve(file.getName());
 			virtual.info("move $ -> $", file.getUrl().getUrlUnescaped(), resolved.getUrl().getUrlUnescaped());
-			moveVirtualFile(file, resolved);
+			moveFile(file, resolved);
 		}
 	}
 
@@ -80,22 +97,33 @@ class MoveShellCommand implements Invokable {
 		String name = Str.defaultIfEmpty(rename, source.getName());
 		VirtualFile resolved = destination.resolve(name);
 		virtual.info("move $ -> $", source.getUrl().getUrlUnescaped(), resolved.getUrl().getUrlUnescaped());
-		moveVirtualFile(source, resolved);
+		moveFile(source, resolved);
 	}
 
-	private void moveVirtualFile(final VirtualFile from, final VirtualFile to) {
+	private void moveIncludes(VirtualFile from, VirtualFile to) {
+		if (includes.matches(from.getName())) {
+			moveFile(from, to);
+
+		} else if (from.isDirectory()) {
+			from.getChildren().forEach(c -> {
+				moveIncludes(c, to.resolve(c.getName()));
+			});
+		}
+	}
+
+	private void moveFile(final VirtualFile from, final VirtualFile to) {
 		if (from.equals(to)) {
 			return;
 		}
 		validateNoCopyToChild(from, to);
 
-		log.trace("$ => $", from, to);
+		log.trace("$ -> $", from, to);
 		if (!from.isDirectory() || !to.exists()) {
 			from.moveTo(to);
 			return;
 		}
 		for (VirtualFile child : from.getChildren()) {
-			moveVirtualFile(child, to.resolve(child.getName()));
+			moveFile(child, to.resolve(child.getName()));
 		}
 		from.delete();
 	}
@@ -111,6 +139,7 @@ class MoveShellCommand implements Invokable {
 			return;
 
 		case SINGLE:
+		case INCLUDES:
 			PluginException.unless(source.exists(), "File does not exist: %", source);
 			return;
 
@@ -145,6 +174,6 @@ class MoveShellCommand implements Invokable {
 	}
 
 	private enum Mode {
-		SINGLE, URLS;
+		SINGLE, URLS, INCLUDES
 	}
 }

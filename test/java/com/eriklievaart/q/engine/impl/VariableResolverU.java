@@ -52,6 +52,14 @@ public class VariableResolverU {
 	}
 
 	@Test
+	public void resolveDirName() throws Exception {
+		VariableResolver resolver = new VariableResolver();
+		QContext context = new QContextFactory().leftDir("/chestnut/boy").make();
+		String result = resolver.lookup("dirname1", context);
+		Check.isEqual(result, "boy");
+	}
+
+	@Test
 	public void resolveParent() throws Exception {
 		VariableResolver resolver = new VariableResolver();
 		QContext context = new QContextFactory().leftDir("/cucumber/boy").make();
@@ -87,7 +95,7 @@ public class VariableResolverU {
 	public void resolveName() throws Exception {
 		VariableResolver resolver = new VariableResolver();
 		QContext context = new QContextFactory().urlLeft("carrot").make();
-		String result = resolver.lookup("name", context);
+		String result = resolver.lookup("urlname", context);
 		Check.isEqual(result, "carrot");
 	}
 
@@ -95,7 +103,7 @@ public class VariableResolverU {
 	public void resolveNames() throws Exception {
 		VariableResolver resolver = new VariableResolver();
 		QContext context = new QContextFactory().urlLeft("broccoli").make();
-		String result = resolver.lookup("names", context);
+		String result = resolver.lookup("urlnames", context);
 		Check.isEqual(result, "broccoli");
 	}
 }

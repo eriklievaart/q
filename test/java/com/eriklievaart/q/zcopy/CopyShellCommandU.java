@@ -237,4 +237,35 @@ public class CopyShellCommandU extends SandboxTest {
 		checkIsFile("destination/dir/original");
 		checkIsDirectoryWithChildren("source/dir");
 	}
+
+	@Test
+	public void copyIncludes() {
+		createFile("source/file.java");
+		createFile("source/file.py");
+		createDirectory("destination");
+
+		checkNotExists("destination/file.java");
+		checkNotExists("destination/file.py");
+
+		testable.include("*.java", systemFile("source"), systemFile("destination")).invoke(null);
+
+		checkExists("source/file.py");
+		checkExists("source/file.java");
+		checkExists("destination/file.java");
+		checkNotExists("destination/file.py");
+	}
+
+	@Test
+	public void copyIncludesNested() throws Exception {
+		createFile("source/dir/a.java");
+		createFile("source/dir/b.py");
+		checkNotExists("destination");
+
+		testable.include("*.py", systemFile("source"), systemFile("destination")).invoke(null);
+
+		checkExists("source/dir/a.java");
+		checkExists("source/dir/b.py");
+		checkExists("destination/dir/b.py");
+		checkNotExists("destination/dir/a.java");
+	}
 }

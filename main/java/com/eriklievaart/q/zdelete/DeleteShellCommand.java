@@ -7,6 +7,7 @@ import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
+import com.eriklievaart.q.wildcard.api.WildcardChecker;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
@@ -23,6 +24,7 @@ class DeleteShellCommand implements Invokable {
 	private List<VirtualFile> urls;
 	private Mode mode;
 	private boolean permanent = false;
+	private WildcardChecker includes;
 
 	public DeleteShellCommand(TrashCache cache) {
 		this.cache = cache;
@@ -51,6 +53,15 @@ class DeleteShellCommand implements Invokable {
 		return this;
 	}
 
+	@Flag(group = "main", values = { "`*`", "$dir" })
+	@Doc("comma separated include pattern with wildcards [*?]")
+	public DeleteShellCommand include(String pattern, VirtualFile delete) {
+		includes = new WildcardChecker(pattern);
+		this.file = delete;
+		mode = Mode.INCLUDES;
+		return this;
+	}
+
 	@Override
 	public void validate(PluginContext context) {
 	}
@@ -66,6 +77,10 @@ class DeleteShellCommand implements Invokable {
 			deleteUrls();
 			return;
 
+		case INCLUDES:
+			deleteIncludes(file);
+			return;
+
 		default:
 			throw new AssertionException("Unknown enum constant: %", mode);
 		}
@@ -74,6 +89,18 @@ class DeleteShellCommand implements Invokable {
 	private void deleteUrls() {
 		for (VirtualFile vf : urls) {
 			deleteSingle(vf);
+		}
+	}
+
+	private void deleteIncludes(VirtualFile remove) {
+
+		if (includes.matches(remove.getName())) {
+			deleteSingle(remove);
+
+		} else if (remove.isDirectory()) {
+			remove.getChildren().forEach(c -> {
+				deleteIncludes(c);
+			});
 		}
 	}
 
@@ -106,6 +133,6 @@ class DeleteShellCommand implements Invokable {
 	}
 
 	private enum Mode {
-		SINGLE, URLS
+		SINGLE, URLS, INCLUDES
 	}
 }

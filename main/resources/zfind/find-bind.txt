@@ -7,9 +7,9 @@ menu[plugins]
 		accelerator=control F
 		mnemonic=F
 
-		
-		
-		
+
+
+
 component[q.find.list]
 	binding
 		event=CLICK3

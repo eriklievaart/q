@@ -3,7 +3,7 @@
 
 <h1>Syntax</h1>
 
-The basic syntax of the Q shell is as follows (* = zero or more): 
+The basic syntax of the Q shell is as follows (* = zero or more):
 <pre>[command] (-[flag] [argument]*)* | [piped contents]</pre>
 
 
@@ -13,7 +13,7 @@ The basic syntax of the Q shell is as follows (* = zero or more):
 
 <code>:new -d `/tmp` `dir`</code><br/>
 <p>
-	Creates a new directory "/tmp/dir". I will use the existing plugins here in examples, but won't explain them fully. 
+	Creates a new directory "/tmp/dir". I will use the existing plugins here in examples, but won't explain them fully.
 	All plugins, their flags and their arguments are documented and can be found using the navigation menu on the left.
 </p>
 
@@ -40,11 +40,11 @@ The basic syntax of the Q shell is as follows (* = zero or more):
 
 <code>:find -il `pre*` `/tmp`</code><br/>
 <p>The exact same example, with the flags combined. Every character after the dash is a new flag.</p>
- 
+
 <code>:find -li `/tmp` `pre*`</code><br/>
 <p>
-	Once again, the exact same command. 
-	Remember to order the arguments differently depending on the flag order. 
+	Once again, the exact same command.
+	Remember to order the arguments differently depending on the flag order.
 	Arguments are accepted in the order of the flags, each flag accepts arguments until it has enough.
 </p>
 
@@ -81,12 +81,12 @@ In Q you are required to escape the back tick '`' and the back slash '\' charact
 <p>
 	However, that is not all there is to be said about escape sequences.
 	Q can access locations using multiple protocols and URL's are used to find these locations.
-	URL's specify their own set of escape sequences. 
+	URL's specify their own set of escape sequences.
 	Every escape character is escaped with a percentile '%' and two other characters.
-	For example, spaces ' ' are escaped with "%20" and the percentile '%' is escaped with '%25'. 
+	For example, spaces ' ' are escaped with "%20" and the percentile '%' is escaped with '%25'.
 	For a full listing, please google "URL escape sequences".
 	When files or parts of files are expected, Q will require you to provide an escaped URL.
-	This isn't much of a problem in practice, 
+	This isn't much of a problem in practice,
 	because you'd typically use variables rather than typing in the URL manually.
 	This section, however, is included for completeness.
 </p>
@@ -111,7 +111,7 @@ In Q you are required to escape the back tick '`' and the back slash '\' charact
 
 <code>:move -u `/tmp/with%20space /tmp/withoutspace` `/tmp/b`</code><br/>
 <p>
-	Shows how spaces are used to separate files. 
+	Shows how spaces are used to separate files.
 	The command above copies the two files "/tmp/with space" and "/tmp/withoutspace" into the "/tmp/b" directory.
 </p>
 
@@ -128,15 +128,15 @@ In Q you are required to escape the back tick '`' and the back slash '\' charact
 
 <code>%</code><br/>
 <p>
-	Not the same! The percentile is a special case that always has to be escaped. 
+	Not the same! The percentile is a special case that always has to be escaped.
 	Since URL escapes always start with a percentile '%', Q assumes that the percentile always signals an escape sequence.
 	Otherwise, how would the application know if a percentile should be taken literally or not?
 </p>
 
 <p>
 	Summarizing, when you manually specify URL's, properly escaped URL's with forward slashes never cause problems,
-	because the Q escape characters are escaped in URL's. 
-	When browsing locations on the command line remember to always escape '%' with '%25', 
+	because the Q escape characters are escaped in URL's.
+	When browsing locations on the command line remember to always escape '%' with '%25',
 	'`' with '\q' (the q escape sequence) or '%60' (the URL escape sequence) and '\' with '/'.
 	For completeness: When an argument can accept more than one file you have to escape spaces ' ' with "%20".
 </p>
@@ -147,7 +147,7 @@ In Q you are required to escape the back tick '`' and the back slash '\' charact
 <h2>piped content</h2>
 
 <p>
-	Some of the Q commands accept piped content. 
+	Some of the Q commands accept piped content.
 	Following a bar '|' the complete line is piped as an argument.
 	So after a bar '|' you can no longer add any flags, strings, etc.
 </p>
@@ -178,7 +178,7 @@ In Q you are required to escape the back tick '`' and the back slash '\' charact
 </p>
 
 <p>
-	Variables refer to the current context and can be used to refer to the open directory, active selection, etc. 
+	Variables refer to the current context and can be used to refer to the open directory, active selection, etc.
 	Variables start with a dollar '$' have a base name and an optional suffix.
 	The name defines what should be selected, and the suffix selects the left or right file list to take the selection from.
 </p>
@@ -253,7 +253,7 @@ In Q you are required to escape the back tick '`' and the back slash '\' charact
 The operation performed is identical.
 
 <p>
-	So how does this work? 
+	So how does this work?
 	First of all, all plugins in Q have a unique starting letter, so the first letter is sufficient to find the command.
 	The second trick is in defaults. In Q all plugins have a set of default flags, that are on by default if nothing is specified.
 	In the case of the copy plugin, the url flag is on by default, so no need to specify it.
@@ -261,7 +261,7 @@ The operation performed is identical.
 	In the case of copy, the defaults are $urls and $dir~. So how do we know what the defaults are?
 	Pretty much all plugins have defaults that work from the active to the inactive file list, but this is not exact science.
 	It is documented in the documentation of the plugin, but the easiest solution is to just check the status line below the command line.
-	This will give feedback on how the command will be interpreted at all times and the defaults will be explicit here.   
+	This will give feedback on how the command will be interpreted at all times and the defaults will be explicit here.
 </p>
 
 <code>:new -d $dir `mydir`</code><br/>
@@ -270,7 +270,7 @@ The operation performed is identical.
 <code>:n $dir `mydir`</code><br/>
 <p>
 	The exact same command, remember? new starts with the unique letter n and the directory flag is the default.
-	Now, the first argument is the default argument, but we still have to specify it, 
+	Now, the first argument is the default argument, but we still have to specify it,
 	because if we leave it out, then `mydir` will be assumed to be the first argument, and not the second.
 	This can be done smarter, though. If you specify only a dollar '$' symbol, then you explicitly request the default:
 </p>
@@ -280,7 +280,7 @@ The operation performed is identical.
 
 <code>:n$`mydir`</code><br/>
 <p>
-	Once again, the exact same command. Whitespace is not significant, remember? 
+	Once again, the exact same command. Whitespace is not significant, remember?
 	This one is less readable, but the readable version is still available on the status line.
 </p>
 

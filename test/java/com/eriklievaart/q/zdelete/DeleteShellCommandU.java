@@ -130,4 +130,35 @@ public class DeleteShellCommandU extends SandboxTest {
 		checkNotExists("deleteme2");
 		checkExists("keep");
 	}
+
+	@Test
+	public void deleteIncludesDirectory() throws Exception {
+		createFile("dir/SmartAss.java");
+		createFile("dir/WiseCrack.py");
+
+		testable.include("*.java", systemFile("dir")).invoke(null);
+
+		checkExists("dir/WiseCrack.py");
+		checkNotExists("dir/SmartAss.java");
+	}
+
+	@Test
+	public void deleteIncludesFile() throws Exception {
+		createFile("SmartAss.java");
+		testable.include("*.java", systemFile("SmartAss.java")).invoke(null);
+		checkNotExists("SmartAss.java");
+	}
+
+	@Test
+	public void deleteIncludesMultiple() throws Exception {
+		createFile("dir/SmartAss.java");
+		createFile("dir/WiseCrack.py");
+		createFile("dir/SmartyPants.sh");
+
+		testable.include(" *.java, *.py ", systemFile("dir")).invoke(null);
+
+		checkExists("dir/SmartyPants.sh");
+		checkNotExists("dir/WiseCrack.py");
+		checkNotExists("dir/SmartAss.java");
+	}
 }

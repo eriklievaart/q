@@ -5,7 +5,7 @@ menu[plugins]
 		action=q.size.calculate
 		accelerator=control alt S
 		mnemonic=S
-		
-		
-		
-		
+
+
+
+

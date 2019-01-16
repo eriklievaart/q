@@ -9,6 +9,7 @@ import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.api.engine.PluginException;
 import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
+import com.eriklievaart.q.wildcard.api.WildcardChecker;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
@@ -25,10 +26,7 @@ class CopyShellCommand implements Invokable {
 	private String singleRename;
 	private VirtualFile destinationDir;
 	private List<VirtualFile> urls;
-
-	private enum Mode {
-		SINGLE, URLS;
-	}
+	private WildcardChecker includes;
 
 	@Flag(group = "main", values = { "$url", "$dir~", "``" })
 	@Doc("Copy a file or directory. Three arguments: 1) file to copy 2) new parent. 3) new file name (if not empty)")
@@ -51,6 +49,16 @@ class CopyShellCommand implements Invokable {
 		return this;
 	}
 
+	@Flag(group = "main", values = { "`*`", "$dir", "$dir~" })
+	@Doc("copy files matching comma separated include pattern with wildcards [*?]")
+	public CopyShellCommand include(String pattern, VirtualFile from, VirtualFile to) {
+		includes = new WildcardChecker(pattern);
+		singleFile = from;
+		destinationDir = to;
+		mode = Mode.INCLUDES;
+		return this;
+	}
+
 	@Override
 	public void invoke(PluginContext context) {
 		Check.isTrue(mode != null, "No flags were set!");
@@ -64,8 +72,23 @@ class CopyShellCommand implements Invokable {
 			copyUrls();
 			return;
 
+		case INCLUDES:
+			copyIncludes(singleFile, destinationDir);
+			return;
+
 		default:
 			throw new IllegalStateException("Unknown enum constant: " + mode);
+		}
+	}
+
+	private void copyIncludes(VirtualFile from, VirtualFile to) {
+		if (includes.matches(from.getName())) {
+			copyFile(from, to);
+
+		} else if (from.isDirectory()) {
+			from.getChildren().forEach(c -> {
+				copyIncludes(c, to.resolve(c.getName()));
+			});
 		}
 	}
 
@@ -85,7 +108,7 @@ class CopyShellCommand implements Invokable {
 	}
 
 	private void copyFile(VirtualFile source, VirtualFile destination) {
-		virtual.info("copy $ -> $", source.getUrl().getUrlUnescaped(), destination.getUrl().getUrlUnescaped());
+		virtual.trace("copy $ -> $", source.getUrl().getUrlUnescaped(), destination.getUrl().getUrlUnescaped());
 		validateNoCopyToChild(source, destination);
 		source.copyTo(destination);
 	}
@@ -118,6 +141,7 @@ class CopyShellCommand implements Invokable {
 		switch (mode) {
 
 		case SINGLE:
+		case INCLUDES:
 			validateSingle();
 			return;
 
@@ -159,5 +183,9 @@ class CopyShellCommand implements Invokable {
 	private void validateNoCopyToChild(final VirtualFile source, final VirtualFile destination) {
 		boolean copyToChild = source.getUrl().isParentOf(destination.getUrl());
 		Check.isFalse(copyToChild, COPY_CHILD_MSG, source.getUrl(), destination.getUrl());
+	}
+
+	private enum Mode {
+		SINGLE, URLS, INCLUDES;
 	}
 }

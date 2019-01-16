@@ -14,7 +14,7 @@ To call up the command line use the "View =&gt; Show command line" option from t
 </p>
 
 <p>
-	You can only invoke native commands on the local file system, 
+	You can only invoke native commands on the local file system,
 	so it does not work when navigating the in-memory file system.
 </p>
 
@@ -71,7 +71,7 @@ To call up the command line use the "View =&gt; Show command line" option from t
 
 <p>
 	Sometimes the part that makes a file name unique is at the end and not at the beginning of the file name.
-	You can use wildcards in such cases. The following command opens the first folder containing "load": 
+	You can use wildcards in such cases. The following command opens the first folder containing "load":
 </p>
 
 <code>*load</code><br/>
@@ -79,14 +79,14 @@ To call up the command line use the "View =&gt; Show command line" option from t
 
 <p>
 	The backtick '`' character anywhere in a location, causes problems explained in the plugin section.
-	You can solve this using '?' instead, the single character wildcard. 
+	You can solve this using '?' instead, the single character wildcard.
 </p>
 
 <p>
-	Partial matches and wildcard match are relatively slow, 
-	because they require full directory listings on every location in the path. 
+	Partial matches and wildcard match are relatively slow,
+	because they require full directory listings on every location in the path.
 	Usually this is resolved faster than you can type, but can be annoying if the path contains large folders.
-	Typing in the location exactly will give the quickest results.  
+	Typing in the location exactly will give the quickest results.
 </p>
 
 
@@ -125,9 +125,9 @@ To call up the command line use the "View =&gt; Show command line" option from t
 <h1>Plug-ins</h1>
 <h2>Why plug-ins?</h2>
 
-Plug-ins, also called ShellCommands, 
+Plug-ins, also called ShellCommands,
 use a syntax similar to the native command line to invoke operations in the application.
-This is nice and all, but ShellCommands are not as powerful as the native command line, 
+This is nice and all, but ShellCommands are not as powerful as the native command line,
 so why invent a new syntax for something that already exists?
 
 <p>I believe that ShellCommands make a better match for the application for a couple of reasons:</p>
@@ -178,7 +178,7 @@ ls --help
 	As soon as you type a colon ':' on the command line a status bar will popup.
 	This status line will show all available plug-ins. No need to memorize.
 	Similarly, when you type a dash, the status line will show all available flags.
-	At any time, if a command is considered syntactically valid, 
+	At any time, if a command is considered syntactically valid,
 	the status line will show how Q interprets the command.
 	Q strives to give the maximum amount of feedback possible.
 	The status line includes the full name of active flags and their parameters (default or supplied).
@@ -200,7 +200,7 @@ ls --help
 <p>
 	The next way Q makes it easier, is by using context to minimize what you have to type.
 	On the native command line there is limited context. The only relevant piece of information is the current directory.
-	File browsers with a UI are different, however. 
+	File browsers with a UI are different, however.
 	In the case of Q there are 2 open directories, and there are always files selected left and right.
 	So whereas on the native command line you have to type what you want to move where, Q can fill in the gaps.
 	I believe UI's are more suited for browing and selecting files. A context aware command line combines the best of both worlds.

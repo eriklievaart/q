@@ -18,14 +18,14 @@ These templates were customizable in Q version 2.0, but currently the feature ha
 	the result always invokes a plug in.
 	So, the '!' template will invoke the "execute" plug in,
 	browsing the file system will invoke the "location" plug in
-	and so on. 
+	and so on.
 </p>
 
 <p>You can see this substitution taking place if you watch the status line as you type a command.</p>
 
 These engine templates only do basic text replacement.
 If using an escape character makes the templated command invalid, then the input does not work.
-For instance, you might see a parser error on the status line when entering a location with a backtick [`] in it. 
+For instance, you might see a parser error on the status line when entering a location with a backtick [`] in it.
 
 
 
@@ -65,7 +65,7 @@ To open the parent of the current directory:</p>
 
 <p>
 The underscore '_' is a special template that can be used to find files starting with a command prefix.
-Everything after the underscore is interpreted as a literal location, 
+Everything after the underscore is interpreted as a literal location,
 so this can be used if the name starts with one of the prefixes mentioned above.
 </p>
 <code>_$mydir</code><br/>

@@ -17,10 +17,11 @@ public class VariableResolver {
 	{
 		variables.put("parent", browser -> browser.getDirectory().getParentFile().get().getUrl().getUrlEscaped());
 		variables.put("dir", browser -> browser.getDirectory().getUrl().getUrlEscaped());
+		variables.put("dirname", browser -> browser.getDirectory().getUrl().getNameEscaped());
 		variables.put("url", VariableResolver::getUrl);
 		variables.put("urls", VariableResolver::getUrls);
-		variables.put("name", VariableResolver::getName);
-		variables.put("names", VariableResolver::getNames);
+		variables.put("urlname", VariableResolver::getName);
+		variables.put("urlnames", VariableResolver::getNames);
 	}
 
 	public String lookup(String variable, QContext context) {

@@ -17,6 +17,7 @@ import com.eriklievaart.toolkit.convert.api.Converters;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.MultiMap;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
+import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.reflect.api.GenericsTool;
 import com.eriklievaart.toolkit.reflect.api.ReflectException;
@@ -111,12 +112,14 @@ public class PluginIntrospector {
 
 	private void validateFlag(final AnnotatedMethod<Flag> annotated) {
 		Converters converters = collectionConverters.get();
-		Class<?>[] types = annotated.getMember().getParameterTypes();
-		Type[] generics = annotated.getMember().getGenericParameterTypes();
+		Method member = annotated.getMember();
+		Class<?>[] types = member.getParameterTypes();
+		Type[] generics = member.getGenericParameterTypes();
+		String method = Str.sub("$.$(...)", member.getDeclaringClass().getName(), member.getName());
 
 		for (int i = 0; i < types.length; i++) {
-			boolean convertible = converters.isConvertible(types[i]);
-			ReflectException.unless(convertible, "Unsupported %; Supported @Flag: %", types[i], converters.getTypes());
+			String msg = "$ unsupported for @Flag $\n$";
+			ReflectException.unless(converters.isConvertible(types[i]), msg, types[i], method, converters.getTypes());
 			verifyGenerics(annotated, types[i], generics[i]);
 		}
 	}

@@ -11,7 +11,7 @@
 	<a href="commands.xhtml">commands</a>
 	<a href="syntax.xhtml">syntax</a>
 	<a href="templates.xhtml">templates</a>
-	
+
 	<h3>Plugins</h3>
 	<#list plugins as plugin>
 		<a href="${plugin}.xhtml">${plugin}</a>

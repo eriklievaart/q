@@ -92,7 +92,7 @@ public class PluginIntrospectorU {
 			public void flag(final Integer unsupported) {
 			}
 		}
-		BombSquad.diffuse(ReflectException.class, Arrays.asList("Unsupported", "@Flag"), () -> {
+		BombSquad.diffuse(ReflectException.class, Arrays.asList("unsupported", "@Flag"), () -> {
 			introspect(Local.class);
 		});
 	}

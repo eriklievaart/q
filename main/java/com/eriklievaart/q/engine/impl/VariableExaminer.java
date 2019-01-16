@@ -12,8 +12,12 @@ import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 
 public class VariableExaminer {
-	private static final List<String> BASE_NAMES = ListTool.of("", "parent", "dir", "url", "urls", "name", "names");
+	private static final List<String> BASE_NAMES = listBaseNames();
 	private static final Set<String> DEFAULT_VARIABLES = listVariableNames();
+
+	private static List<String> listBaseNames() {
+		return ListTool.of("", "parent", "dir", "dirname", "url", "urls", "urlname", "urlnames");
+	}
 
 	private static Set<String> listVariableNames() {
 		List<String> suffixes = ListTool.of("", "~", "1", "2");
