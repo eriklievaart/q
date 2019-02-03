@@ -109,13 +109,18 @@ public class BrowserObserver {
 	}
 
 	private void updateJList(final long id, final List<VirtualFileWrapper> wrappers) {
-		SwingThread.invokeLater(() -> {
-			if (id != refresh.getRefreshId()) {
-				log.trace("skipping update");
-				return;
-			}
-			model.setListData(wrappers, refresh.getPreviousLocation());
-		});
+		try {
+			SwingThread.invokeAndWait(() -> {
+				if (id != refresh.getRefreshId()) {
+					log.trace("skipping update");
+					return;
+				}
+				log.trace("refreshing JList");
+				model.setListData(wrappers, refresh.getPreviousLocation());
+			});
+		} catch (Exception e) {
+			log.warn(e);
+		}
 	}
 
 	private List<VirtualFileWrapper> getBrowserContents(VirtualFile dir) {

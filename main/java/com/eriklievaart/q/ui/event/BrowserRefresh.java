@@ -1,5 +1,9 @@
 package com.eriklievaart.q.ui.event;
 
+import java.awt.Window;
+
+import javax.swing.FocusManager;
+
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
@@ -28,7 +32,11 @@ public class BrowserRefresh {
 	}
 
 	public synchronized boolean isRefreshRequired() {
-		return System.currentTimeMillis() >= refreshOn;
+		if (System.currentTimeMillis() < refreshOn) {
+			return false;
+		}
+		Window active = FocusManager.getCurrentManager().getActiveWindow();
+		return active != null; // don't waste resource if application is not active
 	}
 
 	public synchronized Long getRefreshId() {

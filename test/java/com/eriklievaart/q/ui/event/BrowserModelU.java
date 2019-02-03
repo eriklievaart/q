@@ -1,5 +1,6 @@
 package com.eriklievaart.q.ui.event;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class BrowserModelU {
 	public void setListDataAddElement() {
 		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
 		BrowserModel browserModel = new BrowserModel(components);
-		components.fileListModel.addElement(wrapper("ram/b"));
+		browserModel.setListData(Arrays.asList(wrapper("ram/b")), null);
 		components.fileList.setSelectedIndex(0);
 
 		List<VirtualFileWrapper> elements = ListTool.of(wrapper("ram/a"), wrapper("ram/b"));
