@@ -2,26 +2,14 @@ package com.eriklievaart.q.zdelete;
 
 import java.nio.file.FileSystemException;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
+import com.eriklievaart.q.test.AutoSandboxTest;
 import com.eriklievaart.toolkit.lang.api.check.Check;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
-public class TrashCacheU extends SandboxTest {
-
-	@Before
-	public void init() {
-		createSandbox();
-	}
-
-	@After
-	public void cleanup() {
-		deleteSandboxFiles();
-	}
+public class TrashCacheU extends AutoSandboxTest {
 
 	@Test
 	public void getTrashLocationAvailable() throws FileSystemException {

@@ -2,8 +2,6 @@ package com.eriklievaart.q.zexecute;
 
 import java.util.Arrays;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.eriklievaart.q.api.QPlugin;
@@ -11,22 +9,12 @@ import com.eriklievaart.q.api.engine.ThreadPolicy;
 import com.eriklievaart.q.engine.EngineService;
 import com.eriklievaart.q.engine.osgi.DummyBeanFactory;
 import com.eriklievaart.q.engine.osgi.EngineSupplierFactory;
+import com.eriklievaart.q.test.AutoSandboxTest;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QContextFactory;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 
-public class ExecuteShellCommandI extends SandboxTest {
-
-	@Before
-	public void init() {
-		super.createSandbox();
-	}
-
-	@After
-	public void cleanup() {
-		super.deleteSandboxFiles();
-	}
+public class ExecuteShellCommandI extends AutoSandboxTest {
 
 	@Test
 	public void invoke() throws Exception {

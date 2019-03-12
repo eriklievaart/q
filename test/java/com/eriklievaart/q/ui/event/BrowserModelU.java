@@ -31,6 +31,33 @@ public class BrowserModelU {
 	}
 
 	@Test
+	public void isUpdateRequiredFail() {
+		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
+		BrowserModel browserModel = new BrowserModel(components);
+
+		browserModel.setListData(ListTool.of(wrapper("ram/bar"), wrapper("ram/foo")), null);
+		Check.isFalse(browserModel.isUpdateRequired(Arrays.asList(wrapper("ram/bar"), wrapper("ram/foo"))));
+	}
+
+	@Test
+	public void isUpdateRequiredPassAfterRemove() {
+		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
+		BrowserModel browserModel = new BrowserModel(components);
+
+		browserModel.setListData(ListTool.of(wrapper("ram/bar"), wrapper("ram/foo")), null);
+		Check.isTrue(browserModel.isUpdateRequired(Arrays.asList(wrapper("ram/bar"))));
+	}
+
+	@Test
+	public void isUpdateRequiredPassAfterAdd() {
+		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
+		BrowserModel browserModel = new BrowserModel(components);
+
+		browserModel.setListData(ListTool.of(wrapper("ram/bar")), null);
+		Check.isTrue(browserModel.isUpdateRequired(Arrays.asList(wrapper("ram/bar"), wrapper("ram/foo"))));
+	}
+
+	@Test
 	public void deleteElement() {
 		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
 		components.fileListModel.addElement(wrapper("deleteme"));

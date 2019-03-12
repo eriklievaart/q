@@ -1,6 +1,7 @@
 package com.eriklievaart.q.ui.event;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.swing.DefaultListModel;
@@ -32,19 +33,38 @@ public class BrowserModel {
 
 	public void setListData(List<VirtualFileWrapper> wrappers, VirtualFile previous) {
 		long start = System.currentTimeMillis();
-		List<VirtualFileWrapper> selection = components.fileList.getSelectedValuesList();
+		if (isUpdateRequired(wrappers)) {
+			List<VirtualFileWrapper> selection = components.fileList.getSelectedValuesList();
 
-		createNewModel(wrappers);
-		if (restoreSelection) {
-			components.fileList.setSelectedIndices(getIndices(selection, wrappers));
+			createNewModel(wrappers);
+			if (restoreSelection) {
+				components.fileList.setSelectedIndices(getIndices(selection, wrappers));
+			}
+			boolean noSelection = components.fileList.getSelectedIndices().length == 0;
+			if (noSelection && wrappers.size() > 0) {
+				components.fileList.setSelectedIndex(0);
+				selectPreviouslyVisitedLocation(wrappers, previous);
+			}
+			restoreSelection = true;
 		}
-		boolean noSelection = components.fileList.getSelectedIndices().length == 0;
-		if (noSelection && wrappers.size() > 0) {
-			components.fileList.setSelectedIndex(0);
-			selectPreviouslyVisitedLocation(wrappers, previous);
-		}
-		restoreSelection = true;
 		log.trace("update $ms", System.currentTimeMillis() - start);
+	}
+
+	boolean isUpdateRequired(List<VirtualFileWrapper> wrappers) {
+		Set<String> urls = NewCollection.set();
+		for (VirtualFileWrapper wrapper : wrappers) {
+			urls.add(wrapper.getVirtualFile().getUrl().getUrlUnescaped());
+		}
+		int size = components.fileListModel.getSize();
+		for (int i = 0; i < size; i++) {
+			String url = components.fileListModel.get(i).getVirtualFile().getUrl().getUrlUnescaped();
+			if (urls.contains(url)) {
+				urls.remove(url);
+			} else {
+				return true;
+			}
+		}
+		return urls.size() != 0;
 	}
 
 	private int[] getIndices(List<VirtualFileWrapper> selection, List<VirtualFileWrapper> wrappers) {

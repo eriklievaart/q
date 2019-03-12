@@ -1,24 +1,12 @@
 package com.eriklievaart.q.vfs.impl;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
+import com.eriklievaart.q.test.AutoSandboxTest;
 import com.eriklievaart.toolkit.lang.api.check.Check;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
-public class FuzzyUrlResolverU extends SandboxTest {
-
-	@Before
-	public void init() {
-		super.createSandbox();
-	}
-
-	@After
-	public void cleanup() {
-		super.deleteSandboxFiles();
-	}
+public class FuzzyUrlResolverU extends AutoSandboxTest {
 
 	@Test
 	public void resolveFullUrl() throws Exception {
