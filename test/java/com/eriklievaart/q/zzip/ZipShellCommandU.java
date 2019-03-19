@@ -4,15 +4,19 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.q.test.DummyServiceCollection;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
+import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
 
 public class ZipShellCommandU extends AutoSandboxTest {
 
@@ -23,7 +27,7 @@ public class ZipShellCommandU extends AutoSandboxTest {
 		systemFile("dir/nested/file3.txt").getContent().writeString("3");
 
 		checkNotExists("dir.zip");
-		new ZipShellCommand().single(systemFile("dir"), systemFile("")).invoke(null);
+		testable().single(systemFile("dir"), systemFile("")).invoke(null);
 		checkExists("dir.zip");
 
 		try (ZipInputStream is = new ZipInputStream(new FileInputStream(file("dir.zip")))) {
@@ -41,6 +45,34 @@ public class ZipShellCommandU extends AutoSandboxTest {
 			Check.isEqual(files.get("nested/file3.txt"), "3");
 			Check.isNull(is.getNextEntry());
 		}
+	}
+
+	@Test
+	public void inspectZipFileNames() throws Exception {
+		MemoryFile file = memoryFile("file.zip");
+
+		try (ZipOutputStream zos = new ZipOutputStream(file.getContent().getOutputStream())) {
+			zos.putNextEntry(new ZipEntry("a.txt"));
+			zos.closeEntry();
+			zos.putNextEntry(new ZipEntry("nested/b.txt"));
+			zos.closeEntry();
+		}
+		List<String> inspect = testable().list(file).inspectZipFileNames();
+		Assertions.assertThat(inspect).containsExactly("a.txt", "nested/b.txt");
+	}
+
+	@Test
+	public void unpack() throws Exception {
+		systemFile("dir/nested/file.txt").getContent().writeString("blabla");
+		testable().single(systemFile("dir"), systemFile("")).invoke(null);
+
+		systemFile("destination").mkdir();
+		testable().unpack(systemFile("dir.zip"), systemFile("destination")).invoke(null);
+		checkIsFile("destination/nested/file.txt", "blabla");
+	}
+
+	private ZipShellCommand testable() {
+		return new ZipShellCommand(new ZipController(new DummyServiceCollection<>()));
 	}
 
 	@SuppressWarnings("resource")
