@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.swing.JOptionPane;
 
+import com.eriklievaart.q.api.RuntimeInterruptedException;
 import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.engine.parse.ShellCommand;
 import com.eriklievaart.toolkit.lang.api.ThrowableTool;
@@ -46,6 +47,9 @@ public class PluginJob implements Runnable {
 			runner.run(command, context);
 
 		} catch (Exception e) {
+			if (e instanceof RuntimeInterruptedException) {
+				return;
+			}
 			e.printStackTrace();
 			if (isTestMode()) {
 				throw new RuntimeException(e);

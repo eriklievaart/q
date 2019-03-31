@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.eriklievaart.q.api.RuntimeInterruptedException;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
-import com.eriklievaart.toolkit.lang.api.FormattedException;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
@@ -57,7 +57,7 @@ public class FindIterator implements Iterator<VirtualFile> {
 	private void findNext() {
 		while (queue.size() > 0) {
 			if (Thread.interrupted()) {
-				throw new FormattedException("Thread interrupted");
+				throw new RuntimeInterruptedException();
 			}
 			VirtualFile traverse = queue.remove(0);
 			log.trace("traversing $", traverse);
