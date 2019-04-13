@@ -68,6 +68,19 @@ public class MoveShellCommandU extends SandboxTest {
 	}
 
 	@Test
+	public void moveSingleFileRenameTrim() throws Exception {
+		SystemFile sourceFile = systemFile("source/file");
+
+		sourceFile.createFile();
+		checkNotExists("destination/renamed");
+
+		testable.single(sourceFile, systemFile("destination"), " renamed ").invoke(null);
+
+		checkNotExists("source/file");
+		checkIsFile("destination/renamed");
+	}
+
+	@Test
 	public void moveSingleDirectory() throws Exception {
 		SystemFile sourceDir = systemFile("source/dir");
 

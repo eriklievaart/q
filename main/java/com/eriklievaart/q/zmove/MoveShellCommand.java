@@ -36,7 +36,7 @@ class MoveShellCommand implements Invokable {
 	public MoveShellCommand single(final VirtualFile file, final VirtualFile dir, final String name) {
 		source = file;
 		destination = dir;
-		rename = name;
+		rename = name.trim();
 
 		mode = Mode.SINGLE;
 		return this;
