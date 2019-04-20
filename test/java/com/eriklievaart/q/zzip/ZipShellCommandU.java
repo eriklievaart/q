@@ -11,14 +11,14 @@ import java.util.zip.ZipOutputStream;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.q.test.DummyServiceCollection;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
 
-public class ZipShellCommandU extends AutoSandboxTest {
+public class ZipShellCommandU extends SandboxTest {
 
 	@Test
 	public void zipSingle() throws Exception {

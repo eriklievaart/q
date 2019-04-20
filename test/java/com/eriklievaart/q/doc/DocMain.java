@@ -3,7 +3,7 @@ package com.eriklievaart.q.doc;
 import java.io.File;
 
 import com.eriklievaart.q.doc.generate.DocGenerator;
-import com.eriklievaart.toolkit.test.api.AntProperties;
+import com.eriklievaart.toolkit.ant.api.AntProperties;
 
 public class DocMain {
 

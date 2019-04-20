@@ -4,12 +4,12 @@ import java.nio.file.FileSystemException;
 
 import org.junit.Test;
 
-import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
-public class TrashCacheU extends AutoSandboxTest {
+public class TrashCacheU extends SandboxTest {
 
 	@Test
 	public void getTrashLocationAvailable() throws FileSystemException {

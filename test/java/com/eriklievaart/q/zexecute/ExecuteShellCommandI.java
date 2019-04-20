@@ -9,12 +9,12 @@ import com.eriklievaart.q.api.engine.ThreadPolicy;
 import com.eriklievaart.q.engine.EngineService;
 import com.eriklievaart.q.engine.osgi.DummyBeanFactory;
 import com.eriklievaart.q.engine.osgi.EngineSupplierFactory;
-import com.eriklievaart.q.test.AutoSandboxTest;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QContextFactory;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 
-public class ExecuteShellCommandI extends AutoSandboxTest {
+public class ExecuteShellCommandI extends SandboxTest {
 
 	@Test
 	public void invoke() throws Exception {

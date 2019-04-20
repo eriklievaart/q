@@ -1,6 +1,7 @@
 
 [bundle]
 osgi-toolkit @local @snapshot
+toolkit-ant @local @snapshot
 toolkit-convert @local @snapshot
 toolkit-io @local @snapshot
 toolkit-lang @local @snapshot
@@ -9,13 +10,13 @@ toolkit-reflect @local @snapshot
 toolkit-runtime @local @snapshot
 toolkit-swing @local @snapshot
 toolkit-vfs @local @snapshot
-commons-lang3 org.apache.commons 3.7
+commons-lang3 org.apache.commons 3.5
 
 [provided]
 org.apache.felix.framework org.apache.felix 5.6.10
 
 [test]
-toolkit-test @local @snapshot
+toolkit-mock @local @snapshot
 assertj-core org.assertj 3.10.0
 freemarker org.freemarker 2.3.28
 junit junit 4.7

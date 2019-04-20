@@ -5,11 +5,11 @@ import java.util.Iterator;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
-public class FileFinderU extends AutoSandboxTest {
+public class FileFinderU extends SandboxTest {
 
 	@Test
 	public void findFiles() throws Exception {

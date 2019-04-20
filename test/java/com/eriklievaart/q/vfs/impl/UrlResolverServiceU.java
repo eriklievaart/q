@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.check.CheckStr;
-import com.eriklievaart.toolkit.test.api.BombSquad;
+import com.eriklievaart.toolkit.mock.BombSquad;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;

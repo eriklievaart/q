@@ -3,9 +3,9 @@ package com.eriklievaart.q.znew;
 import org.junit.Test;
 
 import com.eriklievaart.q.api.engine.DummyPluginContext;
-import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 
-public class NewShellCommandU extends AutoSandboxTest {
+public class NewShellCommandU extends SandboxTest {
 
 	@Test
 	public void createFile() throws Exception {

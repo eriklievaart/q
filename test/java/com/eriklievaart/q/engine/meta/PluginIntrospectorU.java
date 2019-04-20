@@ -20,7 +20,7 @@ import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.reflect.api.ReflectException;
 import com.eriklievaart.toolkit.reflect.api.annotations.AnnotatedMethod;
 import com.eriklievaart.toolkit.reflect.api.annotations.AnnotationTool;
-import com.eriklievaart.toolkit.test.api.BombSquad;
+import com.eriklievaart.toolkit.mock.BombSquad;
 
 @SuppressWarnings("unused")
 public class PluginIntrospectorU {

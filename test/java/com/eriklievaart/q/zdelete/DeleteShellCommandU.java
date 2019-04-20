@@ -2,13 +2,12 @@ package com.eriklievaart.q.zdelete;
 
 import java.util.Arrays;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.check.CheckCollection;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 
 public class DeleteShellCommandU extends SandboxTest {
@@ -17,13 +16,7 @@ public class DeleteShellCommandU extends SandboxTest {
 
 	@Before
 	public void init() {
-		createSandbox();
 		testable = new DeleteShellCommand(new TrashCache());
-	}
-
-	@After
-	public void cleanup() {
-		deleteSandboxFiles();
 	}
 
 	@Test

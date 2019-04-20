@@ -19,8 +19,8 @@ import com.eriklievaart.q.engine.osgi.EngineSupplierFactory;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QContextFactory;
 import com.eriklievaart.toolkit.lang.api.check.Check;
-import com.eriklievaart.toolkit.test.api.BombSquad;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.mock.BombSquad;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 

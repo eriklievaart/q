@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,9 +12,9 @@ import com.eriklievaart.q.api.engine.PluginException;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.check.CheckCollection;
-import com.eriklievaart.toolkit.test.api.Bomb;
-import com.eriklievaart.toolkit.test.api.BombSquad;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.mock.Bomb;
+import com.eriklievaart.toolkit.mock.BombSquad;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
@@ -26,13 +25,7 @@ public class CopyShellCommandU extends SandboxTest {
 
 	@Before
 	public void init() {
-		createSandbox();
 		testable = new CopyShellCommand();
-	}
-
-	@After
-	public void cleanup() {
-		deleteSandboxFiles();
 	}
 
 	@Test

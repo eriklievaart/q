@@ -1,6 +1,5 @@
 package com.eriklievaart.q.engine;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,20 +10,14 @@ import com.eriklievaart.q.ui.api.QContextFactory;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.str.Str;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 
 public class EscapeCharactersI extends SandboxTest {
 
 	@Before
 	public void init() {
-		super.createSandbox();
 		System.setProperty("q.test", "true");
-	}
-
-	@After
-	public void cleanup() {
-		super.deleteSandboxFiles();
 	}
 
 	@Test

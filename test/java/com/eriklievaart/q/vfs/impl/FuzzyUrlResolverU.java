@@ -2,11 +2,11 @@ package com.eriklievaart.q.vfs.impl;
 
 import org.junit.Test;
 
-import com.eriklievaart.q.test.AutoSandboxTest;
 import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
-public class FuzzyUrlResolverU extends AutoSandboxTest {
+public class FuzzyUrlResolverU extends SandboxTest {
 
 	@Test
 	public void resolveFullUrl() throws Exception {

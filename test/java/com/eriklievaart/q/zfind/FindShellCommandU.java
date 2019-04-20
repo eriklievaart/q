@@ -6,13 +6,13 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import com.eriklievaart.q.api.engine.DummyPluginContext;
-import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.q.zfind.ui.FindController;
 import com.eriklievaart.q.zfind.ui.FindResult;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
-import com.eriklievaart.toolkit.test.api.BombSquad;
+import com.eriklievaart.toolkit.mock.BombSquad;
 
-public class FindShellCommandU extends AutoSandboxTest {
+public class FindShellCommandU extends SandboxTest {
 
 	@Test
 	public void findFiles() throws Exception {

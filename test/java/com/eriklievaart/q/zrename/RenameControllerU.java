@@ -4,13 +4,13 @@ import java.awt.Color;
 
 import org.junit.Test;
 
-import com.eriklievaart.q.test.AutoSandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.q.zexecute.DummyQMainUi;
 import com.eriklievaart.q.zrename.ui.RenameController;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
 
-public class RenameControllerU extends AutoSandboxTest {
+public class RenameControllerU extends SandboxTest {
 
 	@Test
 	public void updateRegexInvalid() {

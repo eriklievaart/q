@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.eriklievaart.toolkit.io.api.ini.IniNode;
 import com.eriklievaart.toolkit.io.api.ini.schema.IniSchemaException;
-import com.eriklievaart.toolkit.test.api.BombSquad;
+import com.eriklievaart.toolkit.mock.BombSquad;
 
 public class ConfigParserU {
 

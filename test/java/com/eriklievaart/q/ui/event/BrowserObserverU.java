@@ -1,26 +1,14 @@
 package com.eriklievaart.q.ui.event;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.main.BrowserComponents;
 import com.eriklievaart.toolkit.lang.api.check.Check;
-import com.eriklievaart.toolkit.test.api.SandboxTest;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFileSystem;
 
 public class BrowserObserverU extends SandboxTest {
-
-	@Before
-	public void init() {
-		super.createSandbox();
-	}
-
-	@After
-	public void cleanup() {
-		super.deleteSandboxFiles();
-	}
 
 	@Test
 	public void openPrevious() {
