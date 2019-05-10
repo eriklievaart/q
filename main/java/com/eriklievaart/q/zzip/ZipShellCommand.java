@@ -1,27 +1,13 @@
 package com.eriklievaart.q.zzip;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
-
 import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.api.engine.PluginException;
 import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
-import com.eriklievaart.toolkit.io.api.RuntimeIOException;
-import com.eriklievaart.toolkit.io.api.StreamTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
-import com.eriklievaart.toolkit.lang.api.collection.FromCollection;
-import com.eriklievaart.toolkit.lang.api.collection.ListTool;
-import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
-import com.eriklievaart.toolkit.vfs.api.VirtualFileScanner;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
+import com.eriklievaart.toolkit.vfs.api.pack.VirtualFileZipper;
 
 @Doc("create zip files")
 public class ZipShellCommand implements Invokable {
@@ -68,86 +54,19 @@ public class ZipShellCommand implements Invokable {
 		switch (mode) {
 
 		case ZIP:
-			zip();
+			VirtualFile zip = destinationDir.resolve(singleFile.getUrl().getBaseName() + ".zip");
+			VirtualFileZipper.zip(singleFile, zip);
 			return;
 
 		case UNPACK:
-			unzip();
+			VirtualFileZipper.unzip(singleFile, destinationDir);
 			return;
 
 		case LIST:
-			showZipFileContents();
+			controller.show(VirtualFileZipper.entries(singleFile));
 			return;
 		}
 		throw new RuntimeException("unknown mode: " + mode);
-	}
-
-	private void unzip() {
-		try (ZipInputStream is = new ZipInputStream(singleFile.getContent().getInputStream())) {
-
-			for (ZipEntry entry = is.getNextEntry(); entry != null; entry = is.getNextEntry()) {
-				String name = entry.getName();
-
-				if (entry.isDirectory()) {
-					destinationDir.resolve(name).mkdir();
-
-				} else {
-					try (OutputStream os = destinationDir.resolve(name).getContent().getOutputStream()) {
-						StreamTool.copyStreamNoClose(is, os);
-					}
-				}
-			}
-		} catch (IOException e) {
-			throw new RuntimeIOException("unable to read zip file $", e, singleFile);
-		}
-	}
-
-	private void showZipFileContents() {
-		controller.show(inspectZipFileNames());
-	}
-
-	List<String> inspectZipFileNames() {
-		List<String> files = NewCollection.list();
-		try (ZipInputStream is = new ZipInputStream(singleFile.getContent().getInputStream())) {
-			for (ZipEntry entry = is.getNextEntry(); entry != null; entry = is.getNextEntry()) {
-				files.add(entry.getName());
-			}
-		} catch (IOException e) {
-			throw new RuntimeIOException("unable to read zip file $", e, singleFile);
-		}
-		return ListTool.sortedCopy(files);
-	}
-
-	private void zip() throws IOException {
-		List<VirtualFile> list = listFiles(singleFile);
-
-		VirtualFile zip = destinationDir.resolve(singleFile.getUrl().getBaseName() + ".zip");
-		try (ZipOutputStream zos = new ZipOutputStream(zip.getContent().getOutputStream())) {
-			for (VirtualFile file : list) {
-				zos.putNextEntry(new ZipEntry(singleFile.getRelativePathOf(file)));
-				copyFileContents(file, zos);
-				zos.closeEntry();
-			}
-		}
-	}
-
-	private void copyFileContents(VirtualFile file, ZipOutputStream zos) {
-		try (InputStream is = file.getContent().getInputStream()) {
-			int length;
-			byte[] buffer = new byte[1024];
-			while ((length = is.read(buffer)) > 0) {
-				zos.write(buffer, 0, length);
-			}
-		} catch (IOException e) {
-			throw new RuntimeIOException(e);
-		}
-	}
-
-	private List<VirtualFile> listFiles(VirtualFile file) {
-		if (file.isFile()) {
-			return Arrays.asList(file);
-		}
-		return FromCollection.toList(new VirtualFileScanner(file).iterator());
 	}
 
 	@Override

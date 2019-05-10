@@ -4,19 +4,16 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.q.test.DummyServiceCollection;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
-import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 
 public class ZipShellCommandU extends SandboxTest {
 
@@ -45,20 +42,6 @@ public class ZipShellCommandU extends SandboxTest {
 			Check.isEqual(files.get("nested/file3.txt"), "3");
 			Check.isNull(is.getNextEntry());
 		}
-	}
-
-	@Test
-	public void inspectZipFileNames() throws Exception {
-		MemoryFile file = memoryFile("file.zip");
-
-		try (ZipOutputStream zos = new ZipOutputStream(file.getContent().getOutputStream())) {
-			zos.putNextEntry(new ZipEntry("a.txt"));
-			zos.closeEntry();
-			zos.putNextEntry(new ZipEntry("nested/b.txt"));
-			zos.closeEntry();
-		}
-		List<String> inspect = testable().list(file).inspectZipFileNames();
-		Assertions.assertThat(inspect).containsExactly("a.txt", "nested/b.txt");
 	}
 
 	@Test

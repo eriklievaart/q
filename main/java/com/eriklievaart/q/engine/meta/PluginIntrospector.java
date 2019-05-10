@@ -129,7 +129,7 @@ public class PluginIntrospector {
 
 		if (literal == List.class) {
 			Type type = GenericsTool.getGenericType(generics);
-			boolean isConvertible = converters.isConvertible(type);
+			boolean isConvertible = converters.isConvertible((Class<?>) type);
 			ReflectException.unless(isConvertible, "Cannot convert %; only: %", type, converters.getTypes());
 		}
 		if (literal == Map.class) {
