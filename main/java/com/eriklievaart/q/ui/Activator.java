@@ -1,6 +1,7 @@
 package com.eriklievaart.q.ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.logging.LogRecord;
 
@@ -47,7 +48,7 @@ public class Activator implements BundleActivator {
 		return new String[] { QUi.class.getName(), QMainUi.class.getName() };
 	}
 
-	private void configureLogFile(File file) {
+	private void configureLogFile(File file) throws FileNotFoundException {
 		SimpleFileAppender appender = new SimpleFileAppender(file);
 		appender.setFormatter(new Formatter() {
 			@Override

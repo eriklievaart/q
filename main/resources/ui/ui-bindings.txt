@@ -162,7 +162,7 @@ component[q.left.browser.list]
 		event=CLICK3
 		action=q.left.parent
 	binding
-		keyPressed=alt DOWN, SPACE, ENTER
+		keyPressed=alt DOWN, ENTER
 		event=CLICK1_TWICE
 		action=q.active.open
 	binding
@@ -187,7 +187,7 @@ component[q.right.browser.list]
 		event=CLICK3
 		action=q.right.parent
 	binding
-		keyPressed=alt DOWN, SPACE, ENTER
+		keyPressed=alt DOWN, ENTER
 		event=CLICK1_TWICE
 		action=q.active.open
 	binding
