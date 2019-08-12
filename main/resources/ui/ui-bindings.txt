@@ -13,7 +13,7 @@ menu[file]
 		label=Open location
 		action=q.active.location
 		mnemonic=O
-		accelerator=ctrl L
+		accelerator=ctrl alt O
 		order=1
 	item[file.rename]
 		label=Rename
