@@ -49,6 +49,7 @@ public class WorkspacePlugin implements QPlugin, QUi {
 			actions.put("q.workspace." + index, c -> manager.load(index));
 		}
 		actions.put("q.workspace.other", c -> customWorkspace());
+		actions.put("q.workspace.refresh", c -> manager.refresh());
 
 		return actions;
 	}

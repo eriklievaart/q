@@ -59,5 +59,8 @@ menu[workspace]
 		action=q.workspace.other
 		accelerator=control alt W
 
-
+	item[q.workspace.refresh]
+		label=Refresh
+		action=q.workspace.refresh
+		mnemonic=R
 

@@ -46,7 +46,6 @@ public class WorkspaceManager {
 	}
 
 	public void store(String name, VirtualFile left, VirtualFile right) {
-
 		Map<String, String> map = new Hashtable<>();
 		if (file.exists()) {
 			map.putAll(PropertiesIO.loadStrings(file));
@@ -59,6 +58,19 @@ public class WorkspaceManager {
 	private void store(Map<String, String> map, String id, String url) {
 		map.put(id, url);
 		workspaces.put(id, url);
+	}
+
+	public void refresh() {
+		Map<String, String> stored = PropertiesIO.loadStrings(file);
+
+		String nameLeft = appendLeft(activeWorkspace);
+		if (stored.containsKey(nameLeft)) {
+			ui.get().navigateFuzzy("left", stored.get(nameLeft));
+		}
+		String nameRight = appendRight(activeWorkspace);
+		if (stored.containsKey(nameRight)) {
+			ui.get().navigateFuzzy("right", stored.get(nameRight));
+		}
 	}
 
 	private String appendLeft(String name) {

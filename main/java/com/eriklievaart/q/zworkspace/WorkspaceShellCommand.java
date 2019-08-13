@@ -30,6 +30,12 @@ public class WorkspaceShellCommand implements Invokable {
 		this.name = workspace;
 	}
 
+	@Doc("reload current workspace")
+	@Flag(group = "main")
+	public void refresh() {
+		this.command = WorkspaceCommandType.REFRESH;
+	}
+
 	@Doc("persist default directories for workspace")
 	@Flag(group = "main", values = { "`1`", "$dir1", "$dir2" })
 	public void store(String workspace, VirtualFile leftDir, VirtualFile rightDir) {
@@ -50,6 +56,10 @@ public class WorkspaceShellCommand implements Invokable {
 		case STORE:
 			manager.store(name, left, right);
 			return;
+
+		case REFRESH:
+			manager.refresh();
+			return;
 		}
 		throw new FormattedException("Unknown command type %", command);
 	}
@@ -63,6 +73,6 @@ public class WorkspaceShellCommand implements Invokable {
 	}
 
 	private enum WorkspaceCommandType {
-		STORE, LOAD
+		STORE, LOAD, REFRESH
 	}
 }
