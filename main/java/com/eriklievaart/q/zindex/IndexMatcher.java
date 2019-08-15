@@ -45,7 +45,11 @@ public class IndexMatcher {
 		if (exact.isPresent()) {
 			return exact.get();
 		}
-		return getStartMatch(location, url).orElse(contains(location, url).orElse(null));
+		Optional<IndexMatch> start = getStartMatch(location, url);
+		if (start.isPresent()) {
+			return start.get();
+		}
+		return contains(location, url).orElse(getPathMatch(location, url).orElse(null));
 	}
 
 	private Optional<IndexMatch> getExactMatch(String location, String url) {
@@ -78,5 +82,17 @@ public class IndexMatcher {
 			return Optional.of(new IndexMatch(url, IndexMatchType.CONTAINS_INSENSITIVE));
 		}
 		return Optional.empty();
+	}
+
+	private Optional<IndexMatch> getPathMatch(String location, String url) {
+		int index = 0;
+		String[] words = location.split("[ /]");
+		for (String word : words) {
+			index = url.substring(index).indexOf(word);
+			if (index < 0) {
+				return Optional.empty();
+			}
+		}
+		return Optional.of(new IndexMatch(url, IndexMatchType.PATH));
 	}
 }

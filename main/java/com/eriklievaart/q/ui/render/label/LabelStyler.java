@@ -1,9 +1,10 @@
 package com.eriklievaart.q.ui.render.label;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
+
+import com.eriklievaart.q.ui.render.Theme;
 
 /**
  * Utility class for quickly styling a label.
@@ -20,7 +21,7 @@ public class LabelStyler {
 	 */
 	public static void styleNormal(final JLabel label) {
 		label.setFont(label.getFont().deriveFont(Font.PLAIN));
-		label.setForeground(Color.BLACK);
+		label.setForeground(Theme.LABEL_NORMAL);
 	}
 
 	/**
@@ -28,7 +29,7 @@ public class LabelStyler {
 	 */
 	public static void styleSubtle(final JLabel label) {
 		label.setFont(label.getFont().deriveFont(Font.PLAIN));
-		label.setForeground(Color.GRAY);
+		label.setForeground(Theme.LABEL_SUBTLE);
 	}
 
 	/**
@@ -36,6 +37,6 @@ public class LabelStyler {
 	 */
 	public static void styleError(final JLabel label) {
 		label.setFont(label.getFont().deriveFont(Font.BOLD));
-		label.setForeground(Color.decode("#AA0000"));
+		label.setForeground(Theme.LABEL_ERROR);
 	}
 }

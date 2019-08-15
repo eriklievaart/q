@@ -1,5 +1,6 @@
 package com.eriklievaart.q.zexecute;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Vector;
@@ -29,6 +30,7 @@ public class ExecuteController {
 	public ExecuteController(Supplier<QMainUi> supplier) {
 		this.ui = supplier;
 		panel.add(new JScrollPane(list));
+		list.setBackground(new Color(16, 16, 31));
 		list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
 	}
 

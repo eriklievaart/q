@@ -24,14 +24,14 @@ public class ViewActions {
 		map.put("q.view.mirror", c -> beans.getContextMediator().mirror());
 	}
 
-	private void focusLeft() {
+	public void focusLeft() {
 		beans.getViews().openBrowserTab();
 		beans.getComponents().leftBrowser.fileList.requestFocus();
 		LabelStyler.styleNormal(beans.getComponents().leftBrowser.urlLabel);
 		LabelStyler.styleSubtle(beans.getComponents().rightBrowser.urlLabel);
 	}
 
-	private void focusRight() {
+	public void focusRight() {
 		beans.getViews().openBrowserTab();
 		beans.getComponents().rightBrowser.fileList.requestFocus();
 		LabelStyler.styleSubtle(beans.getComponents().leftBrowser.urlLabel);

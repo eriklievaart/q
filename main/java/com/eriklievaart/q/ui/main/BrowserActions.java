@@ -1,9 +1,5 @@
 package com.eriklievaart.q.ui.main;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +15,6 @@ import com.eriklievaart.q.ui.event.EngineEvent;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.q.ui.render.label.FileSize;
 import com.eriklievaart.q.ui.render.label.LabelStyler;
-import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
@@ -85,18 +80,7 @@ public class BrowserActions {
 	}
 
 	private void open(VirtualFile file) {
-		try {
-
-			if (file instanceof SystemFile) {
-				SystemFile sf = (SystemFile) file;
-				Desktop.getDesktop().open(sf.unwrap());
-
-			} else {
-				Desktop.getDesktop().browse(new URI(file.getUrl().getUrlEscaped()));
-			}
-		} catch (IOException | URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
+		DesktopActions.open(file);
 	}
 
 	private void openCopyDialog() {
@@ -195,10 +179,19 @@ public class BrowserActions {
 				mediator.setLocation(orientation, optional.get());
 			}
 		});
-		map.put("q.browser.gained." + lower, c -> mediator.setActive(orientation));
+		map.put("q.browser.gained." + lower, c -> browserFocus(orientation));
 		map.put("q.browser.selected." + lower, c -> {
 			updateStatusLabelWithFileSize();
 		});
+	}
+
+	private void browserFocus(BrowserOrientation orientation) {
+		mediator.setActive(orientation);
+		if (mediator.isLeftActive()) {
+			beans.getViewActions().focusLeft();
+		} else {
+			beans.getViewActions().focusRight();
+		}
 	}
 
 	private void updateStatusLabelWithFileSize() {
@@ -220,18 +213,12 @@ public class BrowserActions {
 		});
 	}
 
-	private void openInActiveBrowser(VirtualFile vf) {
-		if (vf.isDirectory()) {
-			mediator.setLocation(BrowserOrientation.ACTIVE, vf);
+	private void openInActiveBrowser(VirtualFile file) {
+		if (file.isDirectory()) {
+			mediator.setLocation(BrowserOrientation.ACTIVE, file);
 
-		} else if (vf instanceof SystemFile) {
-			try {
-				SystemFile file = (SystemFile) vf;
-				Desktop.getDesktop().open(file.unwrap());
-
-			} catch (IOException e) {
-				throw new RuntimeIOException(e);
-			}
+		} else if (file instanceof SystemFile) {
+			DesktopActions.open(file);
 		}
 	}
 

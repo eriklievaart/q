@@ -10,7 +10,7 @@ public class ExecuteColorFactory implements ColorFactory {
 	public Color getColor(Object object) {
 		if (object instanceof TerminalLine) {
 			TerminalLine line = (TerminalLine) object;
-			return line.isError() ? Color.RED : Color.BLACK;
+			return line.isError() ? Color.RED : Color.WHITE;
 		}
 		return Color.BLACK;
 	}

@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import com.eriklievaart.q.api.render.ColorFactory;
+import com.eriklievaart.q.ui.render.Theme;
 
 /**
  * Custom {@link ListCellRenderer} for customizing {@link JList} rendering. The foreground color and icons used can be
@@ -18,10 +19,6 @@ import com.eriklievaart.q.api.render.ColorFactory;
  * @author Erik Lievaart
  */
 public class QListCellRenderer<E> implements ListCellRenderer<E> {
-
-	private static final Color FOCUSED_BORDER = new Color(200, 100, 100);
-	private static final Color NORMAL_BORDER = Color.WHITE;
-	private static final Color SELECTED_COLOR = new Color(255, 220, 200);
 
 	private ColorFactory foregroundFactory = new NoColorFactory();
 	private IconFactory iconFactory = new NoIconFactory();
@@ -47,7 +44,7 @@ public class QListCellRenderer<E> implements ListCellRenderer<E> {
 	}
 
 	private Color getBorderColor(final boolean isSelected, final boolean cellHasFocus) {
-		return cellHasFocus ? FOCUSED_BORDER : isSelected ? SELECTED_COLOR : NORMAL_BORDER;
+		return cellHasFocus ? Theme.FOCUSED_ROW_BORDER : isSelected ? Theme.SELECTED_ROW_COLOR : Theme.BACKGROUND_COLOR;
 	}
 
 	@Override
@@ -59,9 +56,11 @@ public class QListCellRenderer<E> implements ListCellRenderer<E> {
 		Color border = getBorderColor(isSelected, cellHasFocus);
 		label.setBorder(BorderFactory.createLineBorder(border, 1));
 		label.setForeground(foregroundFactory.getColor(value));
+		label.setOpaque(true);
 		if (isSelected) {
-			label.setOpaque(true);
-			label.setBackground(SELECTED_COLOR);
+			label.setBackground(Theme.SELECTED_ROW_COLOR);
+		} else {
+			label.setBackground(Theme.BACKGROUND_COLOR);
 		}
 		label.setIcon(iconFactory.getIcon(value));
 		return label;

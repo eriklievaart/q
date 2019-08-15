@@ -16,6 +16,7 @@ import javax.swing.KeyStroke;
 import com.eriklievaart.q.ui.UiBeanFactory;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.event.BrowserObserver;
+import com.eriklievaart.q.ui.render.Theme;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapperColorFactory;
 import com.eriklievaart.q.ui.render.list.QListCellRenderer;
@@ -42,7 +43,6 @@ public class BrowserComponents {
 		fileList.setCellRenderer(renderer);
 		fileList.getInputMap().put(KeyStroke.getKeyStroke("control C"), null);
 
-		panel.setBackground(Color.WHITE);
 		panel.add(new JScrollPane(fileList), BorderLayout.CENTER);
 		panel.add(urlLabel, BorderLayout.NORTH);
 	}
@@ -52,5 +52,10 @@ public class BrowserComponents {
 		map.put(prefix + ".panel", panel);
 		map.put(prefix + ".url.label", urlLabel);
 		map.put(prefix + ".browser.list", fileList);
+	}
+
+	public void applyTheme() {
+		fileList.setBackground(Theme.BACKGROUND_COLOR);
+		panel.setBackground(Theme.BACKGROUND_COLOR);
 	}
 }

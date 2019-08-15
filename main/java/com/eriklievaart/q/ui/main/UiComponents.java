@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import com.eriklievaart.q.ui.UiBeanFactory;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
+import com.eriklievaart.q.ui.render.Theme;
 import com.eriklievaart.q.ui.render.icons.Favicon;
 import com.eriklievaart.q.ui.render.label.LabelStyler;
 
@@ -34,9 +35,17 @@ public class UiComponents {
 	void init(UiBeanFactory beans) {
 		Image favicon = new Favicon().getFavicon();
 
+		applyTheme();
 		initMainFrame(favicon);
 		initBrowsers(beans);
 		southPanel.add(assistLabel);
+	}
+
+	private void applyTheme() {
+		mainFrame.getContentPane().setBackground(Theme.BACKGROUND_COLOR);
+		mainPanel.setBackground(Theme.BACKGROUND_COLOR);
+		leftBrowser.applyTheme();
+		rightBrowser.applyTheme();
 	}
 
 	public void store(Map<String, Component> map) {

@@ -74,6 +74,17 @@ public class IndexMatcherU {
 	}
 
 	@Test
+	public void lookupPath() {
+		List<String> urls = NewCollection.list();
+		urls.add("file:///tmp/dummy.txt");
+		urls.add("file:///tmp/containing.txt");
+
+		List<String> result = new IndexMatcher(urls).lookup("tmp tain");
+		Assertions.assertThat(result).containsExactly("file:///tmp/containing.txt");
+
+	}
+
+	@Test
 	public void lookupMixed() {
 		List<String> urls = NewCollection.list();
 		urls.add("file:///tmp/dummy.txt");
