@@ -40,6 +40,16 @@ public class BrowserModelU {
 	}
 
 	@Test
+	public void isUpdateRequiredFailDuplicate() {
+		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
+		BrowserModel browserModel = new BrowserModel(components);
+
+		// this can happen with soft links, the link names differ, but the resolved path is the same.
+		browserModel.setListData(ListTool.of(wrapper("ram/bar"), wrapper("ram/bar")), null);
+		Check.isFalse(browserModel.isUpdateRequired(Arrays.asList(wrapper("ram/bar"), wrapper("ram/bar"))));
+	}
+
+	@Test
 	public void isUpdateRequiredPassAfterRemove() {
 		BrowserComponents components = new BrowserComponents(BrowserOrientation.LEFT);
 		BrowserModel browserModel = new BrowserModel(components);

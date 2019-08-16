@@ -13,7 +13,7 @@ menu[file]
 		label=Open location
 		action=q.active.location
 		mnemonic=O
-		accelerator=ctrl alt O
+		accelerator=control alt O
 		order=1
 	item[file.rename]
 		label=Rename
@@ -172,6 +172,12 @@ component[q.left.browser.list]
 		event=SELECTION
 		action=q.browser.selected.left
 	binding
+		event=CLICK1
+		action=q.browser.click.left
+	binding
+		event=KEY_RELEASED
+		action=q.browser.key.release.left
+	binding
 		keyPressed=control X
 		action=q.clipboard.cut
 	binding
@@ -196,6 +202,12 @@ component[q.right.browser.list]
 	binding
 		event=SELECTION
 		action=q.browser.selected.right
+	binding
+		event=CLICK1
+		action=q.browser.click.right
+	binding
+		event=KEY_RELEASED
+		action=q.browser.key.release.right
 	binding
 		keyPressed=control X
 		action=q.clipboard.cut

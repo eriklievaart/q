@@ -1,0 +1,8 @@
+
+menu[plugins]
+	item[q.execute.each]
+		label=Execute on each
+		action=q.execute.each
+		accelerator=control alt E
+		mnemonic=E
+

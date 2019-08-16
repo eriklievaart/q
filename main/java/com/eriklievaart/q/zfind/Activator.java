@@ -14,17 +14,11 @@ public class Activator extends ActivatorWrapper {
 
 	@Override
 	protected void init(BundleContext context) throws Exception {
-		try {
-			Supplier<QMainUi> uiSupplier = () -> context.getService(context.getServiceReference(QMainUi.class));
-			Supplier<Engine> engineSupplier = () -> context.getService(context.getServiceReference(Engine.class));
-			FindService service = new FindService(uiSupplier, engineSupplier);
+		Supplier<QMainUi> ui = () -> context.getService(context.getServiceReference(QMainUi.class));
+		Supplier<Engine> engine = () -> context.getService(context.getServiceReference(Engine.class));
+		FindService service = new FindService(ui, engine);
 
-			addServiceWithCleanup(QPlugin.class, service);
-			addServiceWithCleanup(QUi.class, service);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+		addServiceWithCleanup(QPlugin.class, service);
+		addServiceWithCleanup(QUi.class, service);
 	}
 }

@@ -18,6 +18,7 @@ import com.eriklievaart.q.ui.api.QContextFactory;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.q.ui.config.UiResourcePaths;
 import com.eriklievaart.q.vfs.impl.UrlResolverService;
+import com.eriklievaart.q.zexecute.ExecuteService;
 import com.eriklievaart.q.zfind.FindService;
 
 public class DummyBeanFactory {
@@ -32,6 +33,7 @@ public class DummyBeanFactory {
 	private EngineSupplierFactory factory = new EngineSupplierFactory(() -> resolver, () -> initialContext, ui);
 	private EngineService engine = new EngineService(factory);
 	private FindService find = new FindService(ui, () -> engine);
+	private ExecuteService execute = new ExecuteService(ui, () -> engine);
 	private UiResourcePaths resources = new UiResourcePaths(new File("/tmp/q"));
 
 	public DummyBeanFactory() {
@@ -60,6 +62,10 @@ public class DummyBeanFactory {
 
 	public FindService getFindService() {
 		return find;
+	}
+
+	public ExecuteService getExecuteService() {
+		return execute;
 	}
 
 	public DummyBeanFactory getContextFromUi() {

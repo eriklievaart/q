@@ -1,23 +1,34 @@
 package com.eriklievaart.q.zexecute;
 
+import java.awt.Component;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.api.QPlugin;
+import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.api.engine.CallPolicy;
 import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.ThreadPolicy;
+import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
+import com.eriklievaart.toolkit.lang.api.collection.MapTool;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 
-public class ExecuteService implements QPlugin {
-	private ExecuteController components;
+public class ExecuteService implements QPlugin, QUi {
+	private ExecuteController controller;
+	private Supplier<Engine> engine;
 
-	public ExecuteService(Supplier<QMainUi> supplier) {
-		this.components = new ExecuteController(supplier);
+	public ExecuteService(Supplier<QMainUi> supplier, Supplier<Engine> engine) {
+		this.engine = engine;
+		this.controller = new ExecuteController(supplier);
 	}
 
 	@Override
 	public Invokable createInstance() {
-		return new ExecuteShellCommand(components);
+		return new ExecuteShellCommand(controller);
 	}
 
 	@Override
@@ -33,5 +44,20 @@ public class ExecuteService implements QPlugin {
 	@Override
 	public CallPolicy getCallPolicy() {
 		return CallPolicy.BOTH;
+	}
+
+	@Override
+	public Map<String, Component> getComponentMap() {
+		return NewCollection.map();
+	}
+
+	@Override
+	public Map<String, Consumer<ActionContext>> getActionMap() {
+		return MapTool.of("q.execute.each", c -> controller.each(engine));
+	}
+
+	@Override
+	public InputStream getBindings() {
+		return getClass().getResourceAsStream("/zexecute/execute-bind.txt");
 	}
 }

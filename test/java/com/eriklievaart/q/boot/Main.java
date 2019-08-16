@@ -8,7 +8,6 @@ import com.eriklievaart.q.engine.osgi.DummyBeanFactory;
 import com.eriklievaart.q.engine.osgi.EngineSupplierFactory;
 import com.eriklievaart.q.zcopy.CopyService;
 import com.eriklievaart.q.zdelete.DeleteService;
-import com.eriklievaart.q.zexecute.ExecuteService;
 import com.eriklievaart.q.zindex.IndexPlugin;
 import com.eriklievaart.q.zlocation.LocationPlugin;
 import com.eriklievaart.q.zmove.MovePlugin;
@@ -39,13 +38,13 @@ public class Main {
 		services.add(new NewPlugin());
 		services.add(new CopyService());
 		services.add(new MovePlugin());
-		services.add(new ExecuteService(esf.getMainUiSupplier()));
 		services.add(new LocationPlugin(esf.getMainUiSupplier()));
 		services.add(new DeleteService());
 		services.add(new SizePlugin(esf.getMainUiSupplier(), desf.getEngineSupplier()));
 		services.add(new IndexPlugin(esf.getMainUiSupplier(), esf.getUrlResolverSupplier()));
 		services.add(new WorkspacePlugin(esf.getMainUiSupplier(), new File("/tmp/q/workspaces.txt")));
 		services.add(desf.getFindService());
+		services.add(desf.getExecuteService());
 		esf.getPluginIndex().init(services, esf);
 
 		return desf;

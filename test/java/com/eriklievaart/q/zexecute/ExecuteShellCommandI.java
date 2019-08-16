@@ -21,7 +21,7 @@ public class ExecuteShellCommandI extends SandboxTest {
 		SystemFile file = createFile("hup/holland");
 		String dir = file.getParentFile().get().getPath();
 		QContext context = new QContextFactory().leftSystemDir(dir).make();
-		ExecuteService service = new ExecuteService(() -> new DummyQMainUi()) {
+		ExecuteService service = new ExecuteService(() -> new DummyQMainUi(), null) {
 			@Override
 			public ThreadPolicy getThreadPolicy() {
 				return ThreadPolicy.CURRENT;

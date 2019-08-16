@@ -180,9 +180,8 @@ public class BrowserActions {
 			}
 		});
 		map.put("q.browser.gained." + lower, c -> browserFocus(orientation));
-		map.put("q.browser.selected." + lower, c -> {
-			updateStatusLabelWithFileSize();
-		});
+		map.put("q.browser.click." + lower, c -> updateStatusLabelWithFileSize());
+		map.put("q.browser.key.release." + lower, c -> updateStatusLabelWithFileSize());
 	}
 
 	private void browserFocus(BrowserOrientation orientation) {

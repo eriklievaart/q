@@ -1,13 +1,13 @@
 package com.eriklievaart.q.ui.event;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.swing.DefaultListModel;
 
 import com.eriklievaart.q.ui.main.BrowserComponents;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
+import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
@@ -32,35 +32,43 @@ public class BrowserModel {
 	}
 
 	public void setListData(List<VirtualFileWrapper> wrappers, VirtualFile previous) {
-		long start = System.currentTimeMillis();
-		if (isUpdateRequired(wrappers)) {
-			List<VirtualFileWrapper> selection = components.fileList.getSelectedValuesList();
+		stopwatch(() -> {
+			if (isUpdateRequired(wrappers)) {
+				log.trace("refreshing JList");
+				List<VirtualFileWrapper> selection = components.fileList.getSelectedValuesList();
 
-			createNewModel(wrappers);
-			if (restoreSelection) {
-				components.fileList.setSelectedIndices(getIndices(selection, wrappers));
+				createNewModel(wrappers);
+				if (restoreSelection) {
+					components.fileList.setSelectedIndices(getIndices(selection, wrappers));
+				}
+				boolean noSelection = components.fileList.getSelectedIndices().length == 0;
+				if (noSelection && wrappers.size() > 0) {
+					components.fileList.setSelectedIndex(0);
+					selectPreviouslyVisitedLocation(wrappers, previous);
+				}
+				restoreSelection = true;
 			}
-			boolean noSelection = components.fileList.getSelectedIndices().length == 0;
-			if (noSelection && wrappers.size() > 0) {
-				components.fileList.setSelectedIndex(0);
-				selectPreviouslyVisitedLocation(wrappers, previous);
-			}
-			restoreSelection = true;
+		});
+	}
+
+	private void stopwatch(Runnable run) {
+		long start = System.currentTimeMillis();
+		run.run();
+		long spent = System.currentTimeMillis() - start;
+		if (spent > 50) {
+			log.trace("update $ms", spent);
 		}
-		log.trace("update $ms", System.currentTimeMillis() - start);
 	}
 
 	boolean isUpdateRequired(List<VirtualFileWrapper> wrappers) {
-		Set<String> urls = NewCollection.set();
-		for (VirtualFileWrapper wrapper : wrappers) {
-			urls.add(wrapper.getVirtualFile().getUrl().getUrlUnescaped());
-		}
+		List<String> urls = ListTool.map(wrappers, w -> w.getVirtualFile().getUrl().getUrlUnescaped());
 		int size = components.fileListModel.getSize();
 		for (int i = 0; i < size; i++) {
 			String url = components.fileListModel.get(i).getVirtualFile().getUrl().getUrlUnescaped();
 			if (urls.contains(url)) {
 				urls.remove(url);
 			} else {
+				log.trace("$ not in $", url, urls);
 				return true;
 			}
 		}

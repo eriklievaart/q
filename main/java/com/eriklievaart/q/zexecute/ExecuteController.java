@@ -8,10 +8,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.eriklievaart.q.api.QView;
+import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.runtime.api.CliOutput;
@@ -83,5 +85,12 @@ public class ExecuteController {
 		addLine(TerminalLine.normal(hashes));
 		addLine(TerminalLine.normal(header));
 		addLine(TerminalLine.normal(hashes));
+	}
+
+	public void each(Supplier<Engine> engine) {
+		String input = JOptionPane.showInputDialog(null, "execute on each file", "echo $name $path $!url");
+		if (Str.notBlank(input)) {
+			engine.get().invoke("execute -ef | " + input);
+		}
 	}
 }

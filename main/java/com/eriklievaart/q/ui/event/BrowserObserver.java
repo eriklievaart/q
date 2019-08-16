@@ -16,6 +16,8 @@ import com.eriklievaart.toolkit.swing.api.SwingThread;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 public class BrowserObserver {
+	private static final int REFRESH_SLEEP_TIME = 100;
+
 	private LogTemplate log = new LogTemplate(getClass());
 
 	private BrowserModel model;
@@ -85,7 +87,7 @@ public class BrowserObserver {
 				if (refresh.isRefreshRequired()) {
 					refreshBrowser();
 				} else {
-					Thread.sleep(100);
+					Thread.sleep(REFRESH_SLEEP_TIME);
 				}
 			}
 		} catch (InterruptedException e) {
@@ -115,7 +117,6 @@ public class BrowserObserver {
 					log.trace("skipping update");
 					return;
 				}
-				log.trace("refreshing JList");
 				model.setListData(wrappers, refresh.getPreviousLocation());
 			});
 		} catch (Exception e) {
