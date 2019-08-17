@@ -14,7 +14,6 @@ import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.ThreadPolicy;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
-import com.eriklievaart.toolkit.lang.api.collection.MapTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 
 public class ExecuteService implements QPlugin, QUi {
@@ -53,7 +52,10 @@ public class ExecuteService implements QPlugin, QUi {
 
 	@Override
 	public Map<String, Consumer<ActionContext>> getActionMap() {
-		return MapTool.of("q.execute.each", c -> controller.each(engine));
+		Map<String, Consumer<ActionContext>> actions = NewCollection.map();
+		actions.put("q.execute.each.frame", c -> controller.each(engine, true));
+		actions.put("q.execute.each.silent", c -> controller.each(engine, false));
+		return actions;
 	}
 
 	@Override

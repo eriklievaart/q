@@ -1,8 +1,13 @@
 
 menu[plugins]
-	item[q.execute.each]
-		label=Execute on each
-		action=q.execute.each
-		accelerator=control alt E
+	item[q.execute.each.silent]
+		label=Execute on each (terminal)
+		action=q.execute.each.frame
 		mnemonic=E
+
+	item[q.execute.each.frame]
+		label=Execute on each (silent)
+		action=q.execute.each.silent
+		accelerator=control alt E
+
 

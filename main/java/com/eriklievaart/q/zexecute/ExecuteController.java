@@ -87,10 +87,12 @@ public class ExecuteController {
 		addLine(TerminalLine.normal(hashes));
 	}
 
-	public void each(Supplier<Engine> engine) {
-		String input = JOptionPane.showInputDialog(null, "execute on each file", "echo $name $path $!url");
+	public void each(Supplier<Engine> engine, boolean frame) {
+		String prefill = frame ? "echo $name $path $!url" : "gvim $name";
+		String input = JOptionPane.showInputDialog(null, "execute on each file", prefill);
 		if (Str.notBlank(input)) {
-			engine.get().invoke("execute -ef | " + input);
+			String command = frame ? "execute -ef | " : "execute -e | ";
+			engine.get().invoke(command + input);
 		}
 	}
 }

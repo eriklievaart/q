@@ -74,6 +74,8 @@ public class RenameController {
 	}
 
 	private void initLists() {
+		fromList.setBackground(new Color(16, 16, 31));
+		toList.setBackground(new Color(16, 16, 31));
 		listPanel.add(fromList);
 		listPanel.add(toList);
 	}
@@ -127,8 +129,8 @@ public class RenameController {
 			RenameListElement toElement = toModel.getElementAt(i);
 
 			if (fromElement.getText().matches(regexField.getText())) {
-				fromElement.setForeground(Color.BLACK);
-				toElement.setForeground(Color.BLACK);
+				fromElement.setForeground(Color.WHITE);
+				toElement.setForeground(Color.WHITE);
 				toElement.setText(getReplacementText(fromElement));
 			} else {
 				fromElement.setForeground(Color.GRAY);

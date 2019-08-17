@@ -4,10 +4,10 @@ import java.awt.Color;
 
 import org.junit.Test;
 
-import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.q.zexecute.DummyQMainUi;
 import com.eriklievaart.q.zrename.ui.RenameController;
 import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.mock.SandboxTest;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFile;
 
 public class RenameControllerU extends SandboxTest {
@@ -40,9 +40,9 @@ public class RenameControllerU extends SandboxTest {
 		controller.regexUpdated();
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(0).getText(), "pical.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(0).getForeground(), Color.BLACK);
+		Check.isEqual(controller.fromList.getModel().getElementAt(0).getForeground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getElementAt(0).getText(), "pical.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(0).getForeground(), Color.BLACK);
+		Check.isEqual(controller.toList.getModel().getElementAt(0).getForeground(), Color.WHITE);
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(1).getText(), "son.java");
 		Check.isEqual(controller.fromList.getModel().getElementAt(1).getForeground(), Color.GRAY);
@@ -50,9 +50,9 @@ public class RenameControllerU extends SandboxTest {
 		Check.isEqual(controller.toList.getModel().getElementAt(1).getForeground(), Color.GRAY);
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(2).getText(), "thon.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(2).getForeground(), Color.BLACK);
+		Check.isEqual(controller.fromList.getModel().getElementAt(2).getForeground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "thon.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.BLACK);
+		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.WHITE);
 
 		Check.isEqual(controller.regexField.getBackground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
@@ -72,9 +72,9 @@ public class RenameControllerU extends SandboxTest {
 		controller.regexUpdated();
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(0).getText(), "pical.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(0).getForeground(), Color.BLACK);
+		Check.isEqual(controller.fromList.getModel().getElementAt(0).getForeground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getElementAt(0).getText(), "pypical.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(0).getForeground(), Color.BLACK);
+		Check.isEqual(controller.toList.getModel().getElementAt(0).getForeground(), Color.WHITE);
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(1).getText(), "son.java");
 		Check.isEqual(controller.fromList.getModel().getElementAt(1).getForeground(), Color.GRAY);
@@ -82,9 +82,9 @@ public class RenameControllerU extends SandboxTest {
 		Check.isEqual(controller.toList.getModel().getElementAt(1).getForeground(), Color.GRAY);
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(2).getText(), "thon.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(2).getForeground(), Color.BLACK);
+		Check.isEqual(controller.fromList.getModel().getElementAt(2).getForeground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "python.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.BLACK);
+		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.WHITE);
 
 		Check.isEqual(controller.regexField.getBackground(), Color.WHITE);
 		Check.isEqual(controller.toList.getModel().getSize(), 3);

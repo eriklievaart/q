@@ -13,6 +13,6 @@ public class NoColorFactory implements ColorFactory {
 
 	@Override
 	public Color getColor(final Object object) {
-		return Color.black;
+		return Color.WHITE;
 	}
 }
