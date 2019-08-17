@@ -169,9 +169,6 @@ component[q.left.browser.list]
 		event=FOCUS_GAINED
 		action=q.browser.gained.left
 	binding
-		event=SELECTION
-		action=q.browser.selected.left
-	binding
 		event=CLICK1
 		action=q.browser.click.left
 	binding
@@ -199,9 +196,6 @@ component[q.right.browser.list]
 	binding
 		event=FOCUS_GAINED
 		action=q.browser.gained.right
-	binding
-		event=SELECTION
-		action=q.browser.selected.right
 	binding
 		event=CLICK1
 		action=q.browser.click.right
