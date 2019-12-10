@@ -25,5 +25,3 @@ component[q.rename.accept.button]
 	binding
 		event=ACTION
 		action=q.rename.do
-
-

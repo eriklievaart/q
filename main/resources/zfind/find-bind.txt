@@ -37,8 +37,3 @@ component[q.find.delete.button]
 	binding
 		event=ACTION
 		action=q.find.delete
-
-
-
-
-

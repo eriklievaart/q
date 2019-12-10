@@ -63,4 +63,3 @@ menu[workspace]
 		label=Refresh
 		action=q.workspace.refresh
 		mnemonic=R
-

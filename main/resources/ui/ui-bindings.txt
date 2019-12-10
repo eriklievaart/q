@@ -219,4 +219,3 @@ component[q.main.command.field]
 	binding
 		event=KEY_RELEASED
 		action=q.command.assist
-

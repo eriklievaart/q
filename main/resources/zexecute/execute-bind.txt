@@ -9,5 +9,3 @@ menu[plugins]
 		label=Execute on each (silent)
 		action=q.execute.each.silent
 		accelerator=control alt E
-
-

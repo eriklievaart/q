@@ -4,5 +4,3 @@ menu[view]
 		label=Show Queue
 		action=q.engine.queue.show
 		accelerator=control Q
-
-
