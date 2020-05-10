@@ -1,5 +1,6 @@
 package com.eriklievaart.q.zsize.dir;
 
+import com.eriklievaart.q.api.RuntimeInterruptedException;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
@@ -7,7 +8,7 @@ public class DirCalculator {
 
 	public long sum(VirtualFile file) {
 		if (Thread.interrupted()) {
-			throw new RuntimeException("Thread interrupted!");
+			throw new RuntimeInterruptedException();
 		}
 		try {
 			if (file.isFile()) {

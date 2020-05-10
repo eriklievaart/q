@@ -72,7 +72,7 @@ public class BrowserActions {
 	}
 
 	private void openJumpDialog() {
-		beans.getDialogs().input("Jump to:", txt -> engine.executeTemplated("~" + UrlTool.escape(txt)));
+		dialogs.input("Jump to:", txt -> engine.executeTemplated("~" + UrlTool.escape(txt)));
 	}
 
 	private void openDirectory() {
