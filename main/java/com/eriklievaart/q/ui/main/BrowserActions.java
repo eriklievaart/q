@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import javax.swing.JOptionPane;
-
 import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.ui.UiBeanFactory;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
@@ -94,7 +92,7 @@ public class BrowserActions {
 	private void copyOrMoveDialog(String action) {
 		List<VirtualFileWrapper> selection = mediator.getActiveBrowser(components).fileList.getSelectedValuesList();
 		if (selection.isEmpty()) {
-			JOptionPane.showMessageDialog(components.mainFrame, "No files selected!");
+			dialogs.message("No files selected!");
 			return;
 		}
 		if (selection.size() == 1) {
@@ -117,10 +115,10 @@ public class BrowserActions {
 		List<VirtualFileWrapper> selection = mediator.getActiveBrowser(components).fileList.getSelectedValuesList();
 
 		if (selection.isEmpty()) {
-			JOptionPane.showMessageDialog(components.mainFrame, "No files selected!");
+			dialogs.message("No files selected!");
 
 		} else {
-			dialogs.confirm(confirmFiles("delete the following files?", selection), () -> {
+			dialogs.confirm(confirmFiles("<b>delete the following files?</b>", selection), () -> {
 				engine.executeRaw(Str.sub("delete -u %", createUrlString(selection)));
 			});
 		}
@@ -132,7 +130,7 @@ public class BrowserActions {
 			message.append("<br/>").append(selection.get(i).getVirtualFile().getName());
 		}
 		if (selection.size() > 10) {
-			message.append("...");
+			message.append("<br/>...");
 		}
 		return message.toString();
 	}

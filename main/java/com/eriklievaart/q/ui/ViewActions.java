@@ -41,6 +41,8 @@ public class ViewActions {
 	private void hideAll() {
 		UiComponents components = beans.getComponents();
 		beans.getViews().hideTabs();
+		components.northPanel.setVisible(false);
+		components.northPanel.removeAll();
 		components.southPanel.remove(components.commandField);
 		components.mainFrame.validate();
 	}

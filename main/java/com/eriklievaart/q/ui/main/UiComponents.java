@@ -19,13 +19,15 @@ import com.eriklievaart.q.ui.render.icons.Favicon;
 import com.eriklievaart.q.ui.render.label.LabelStyler;
 
 public class UiComponents {
-
 	private static final String FRAME_ID = "q.main.frame";
+
 	public JFrame mainFrame = new JFrame();
 	public JTabbedPane mainTabs = new JTabbedPane();
-	public JPanel mainPanel = new JPanel(new GridLayout(1, 0, 4, 0));
 
+	public JPanel northPanel = new JPanel(new GridLayout(0, 1));
+	public JPanel mainPanel = new JPanel(new GridLayout(1, 0, 4, 0));
 	public JPanel southPanel = new JPanel(new GridLayout(0, 1));
+
 	public JTextField commandField = new JTextField();
 	public JLabel assistLabel = new JLabel();
 
@@ -36,6 +38,7 @@ public class UiComponents {
 		Image favicon = new Favicon().getFavicon();
 
 		applyTheme();
+		northPanel.setVisible(false);
 		initMainFrame(favicon);
 		initBrowsers(beans);
 		southPanel.add(assistLabel);
@@ -50,6 +53,7 @@ public class UiComponents {
 
 	public void store(Map<String, Component> map) {
 		map.put(FRAME_ID, mainFrame);
+		map.put("q.main.north.panel", southPanel);
 		map.put("q.main.panel", mainPanel);
 		map.put("q.main.south.panel", southPanel);
 		map.put("q.main.command.field", commandField);
@@ -72,6 +76,7 @@ public class UiComponents {
 		mainFrame.setTitle("Q Filebrowser");
 		mainFrame.setIconImage(favicon);
 		mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		mainFrame.getContentPane().add(northPanel, BorderLayout.NORTH);
 		mainFrame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		mainFrame.getContentPane().add(southPanel, BorderLayout.SOUTH);
 		mainFrame.validate();
