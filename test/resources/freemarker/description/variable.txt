@@ -1,0 +1,36 @@
+
+<p>
+	This command can be used to substitute variables before passing them to other commands.
+	The available variables are listed under "syntax". A trivial usage example:
+</p>
+
+<code>variable | execute -f | echo '@{url}'</code><br/>
+<p>
+	By default the full urls of the variables are inserted,
+	but you can select the relevant part of the url by selecting it with a colon (:)
+</p>
+<code>variable | execute -f | echo '@{url:path}'</code><br/>
+<p>Here is a list of the available attributes</p>
+<table>
+	<tr><th>attribute</th> <th>description</th></tr>
+	<tr><td>:url</td>      <td>the full url starting with file:// (default)</td></tr>
+	<tr><td>:path</td>     <td>the file path (e.g. /tmp/foo.txt)</td></tr>
+	<tr><td>:name</td>     <td>file name with extension</td></tr>
+	<tr><td>:base</td>     <td>file name without extension</td></tr>
+	<tr><td>:ext</td>      <td>file extension only</td></tr>
+</table>
+<p>
+	When passing variables to the shell, it can be desirable to place every individual file in single quotes.
+	Simply append a single quote ['] to the variable name. This will also escape single quotes in the file names.
+	For example, to open the selected files in the xed editor:
+</p>
+<code>variable | execute | xed @{urls:path'}</code><br/>
+
+<p>
+	In some cases it might be preferable to use HTML type (%) character escaping.
+	Use a slash [/] instead of a quote [']
+</p>
+<code>variable | execute | vlc @{urls/}</code><br/>
+
+
+

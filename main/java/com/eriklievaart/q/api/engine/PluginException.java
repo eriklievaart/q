@@ -32,6 +32,19 @@ public class PluginException extends Exception {
 	}
 
 	/**
+	 * Throw {@link PluginException} with formatted message
+	 *
+	 * @param format
+	 *            message template
+	 * @param args
+	 *            arguments to the template
+	 * @see Str#sub(String, Object...)
+	 */
+	public PluginException(String format, Object... args) {
+		super(Str.sub(format, args));
+	}
+
+	/**
 	 * Shorthand for checking a boolean flag and throwing a ValidationException if the flag is true.
 	 *
 	 * @param condition
@@ -43,8 +56,7 @@ public class PluginException extends Exception {
 	 * @throws PluginException
 	 *             if condition evaluates to true.
 	 */
-	public static void on(final boolean condition, final String format, final Object... args)
-			throws PluginException {
+	public static void on(final boolean condition, final String format, final Object... args) throws PluginException {
 
 		if (condition) {
 			throw new PluginException(Str.sub(format, args));

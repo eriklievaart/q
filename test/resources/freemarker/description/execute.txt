@@ -21,3 +21,15 @@
 
 <code>execute -csf | ls test\wdir</code><br/>
 <p>Would invoke the ls command with a single argument "test dir".</p>
+
+<p>Use the -e or -d flags to execute a command on every file in every directory:</p>
+<code>execute -ef | echo "$!name:"; cat "$name"</code><br/>
+<p>The following variables are available to refer to the iterated file / directory:</p>
+<table>
+	<tr><th>unescaped</th><th>html escaping</th></tr>
+	<tr><td>$url</td> <td>$/url</td></tr>
+	<tr><td>$path</td><td>$/path</td></tr>
+	<tr><td>$name</td><td>$/name</td></tr>
+	<tr><td>$base</td><td>$/base</td></tr>
+	<tr><td>$ext</td> <td>$/ext</td></tr>
+</table>

@@ -15,13 +15,13 @@ public class ExecuteShellCommandU {
 		MemoryFile file = memory.resolve("ram/file name.txt");
 
 		Check.isEqual(ExecuteShellCommand.substitute("$url", file), "mem:///ram/file name.txt");
-		Check.isEqual(ExecuteShellCommand.substitute("$!url", file), "mem:///ram/file%20name.txt");
+		Check.isEqual(ExecuteShellCommand.substitute("$/url", file), "mem:///ram/file%20name.txt");
 		Check.isEqual(ExecuteShellCommand.substitute("$path", file), "/ram/file name.txt");
-		Check.isEqual(ExecuteShellCommand.substitute("$!path", file), "/ram/file%20name.txt");
+		Check.isEqual(ExecuteShellCommand.substitute("$/path", file), "/ram/file%20name.txt");
 		Check.isEqual(ExecuteShellCommand.substitute("$name", file), "file name.txt");
-		Check.isEqual(ExecuteShellCommand.substitute("$!name", file), "file%20name.txt");
+		Check.isEqual(ExecuteShellCommand.substitute("$/name", file), "file%20name.txt");
 		Check.isEqual(ExecuteShellCommand.substitute("$base", file), "file name");
-		Check.isEqual(ExecuteShellCommand.substitute("$!base", file), "file%20name");
+		Check.isEqual(ExecuteShellCommand.substitute("$/base", file), "file%20name");
 		Check.isEqual(ExecuteShellCommand.substitute("$ext", file), "txt");
 	}
 

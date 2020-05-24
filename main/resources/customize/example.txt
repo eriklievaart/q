@@ -1,0 +1,23 @@
+
+component[q.left.browser.list]
+	binding
+		keyPressed=control alt X
+		engine=:variable | execute | /usr/bin/xed @{urls:path'}
+	binding
+		keyPressed=control alt P
+		engine=:variable | execute | /usr/bin/vlc @{urls/}
+	binding
+		keyPressed=control alt V
+		engine=:variable | execute | /usr/bin/gvim @{urls:path'}
+
+component[q.right.browser.list]
+	binding
+		keyPressed=control alt X
+		engine=:variable | execute | /usr/bin/xed @{urls:path'}
+	binding
+		keyPressed=control alt P
+		engine=:variable | execute | /usr/bin/vlc @{urls/}
+	binding
+		keyPressed=control alt V
+		engine=:variable | execute | /usr/bin/gvim @{urls:path'}
+

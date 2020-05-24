@@ -144,13 +144,4 @@ public class Dialogs {
 		};
 		return action;
 	}
-
-	private FocusAdapter hideOnFocusLost() {
-		return new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				cleanupAndHide();
-			}
-		};
-	}
 }

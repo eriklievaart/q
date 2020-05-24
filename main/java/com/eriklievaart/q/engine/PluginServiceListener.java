@@ -1,14 +1,11 @@
 package com.eriklievaart.q.engine;
 
-import org.osgi.framework.ServiceEvent;
-import org.osgi.framework.ServiceListener;
-import org.osgi.framework.ServiceReference;
-
+import com.eriklievaart.osgi.toolkit.api.listener.SimpleServiceListener;
 import com.eriklievaart.q.api.QPlugin;
 import com.eriklievaart.q.engine.osgi.OsgiSupplierFactory;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
-public class PluginServiceListener implements ServiceListener {
+public class PluginServiceListener implements SimpleServiceListener<QPlugin> {
 
 	private OsgiSupplierFactory supplier;
 
@@ -17,23 +14,19 @@ public class PluginServiceListener implements ServiceListener {
 	}
 
 	@Override
-	public void serviceChanged(ServiceEvent event) {
-		ServiceReference<?> reference = event.getServiceReference();
-		Object service = supplier.getService(reference);
-		if (service instanceof QPlugin) {
-			long start = System.currentTimeMillis();
-			if (event.getType() == ServiceEvent.REGISTERED) {
-				generateIndex();
-				new LogTemplate(getClass()).debug("registering time: $ ms", System.currentTimeMillis() - start);
-			}
-			if (event.getType() == ServiceEvent.UNREGISTERING) {
-				generateIndex();
-			}
-		}
+	public void register(QPlugin service) {
+		generateIndex();
+	}
+
+	@Override
+	public void unregistering(QPlugin service) {
+		generateIndex();
 	}
 
 	void generateIndex() {
+		long start = System.currentTimeMillis();
 		PluginIndex index = supplier.getEngineSupplierFactory().getPluginIndex();
 		index.init(supplier.getServices(QPlugin.class), supplier.getEngineSupplierFactory());
+		new LogTemplate(getClass()).debug("registering time: $ ms", System.currentTimeMillis() - start);
 	}
 }
