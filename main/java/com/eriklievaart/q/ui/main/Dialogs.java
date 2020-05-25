@@ -20,8 +20,10 @@ import javax.swing.KeyStroke;
 
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.str.Str;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
 public class Dialogs {
+	private LogTemplate log = new LogTemplate(getClass());
 
 	private UiComponents components;
 	private JList<?> focused;
@@ -65,6 +67,8 @@ public class Dialogs {
 
 	private void showBodyWithButtons(JComponent body, List<JButton> actions) {
 		JPanel buttons = new JPanel(new GridLayout(1, 0));
+
+		storeFocus();
 		FocusAdapter hideOnFocusLost = new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent event) {
@@ -124,6 +128,7 @@ public class Dialogs {
 	}
 
 	private void cleanupAndHide() {
+		focused.requestFocus();
 		components.northPanel.removeAll();
 		components.northPanel.setVisible(false);
 	}
