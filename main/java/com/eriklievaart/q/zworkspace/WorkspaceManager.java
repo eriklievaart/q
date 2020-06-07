@@ -73,6 +73,10 @@ public class WorkspaceManager {
 		}
 	}
 
+	void customWorkspace() {
+		ui.get().getDialogs().input("open workspace", ws -> load(ws.trim()));
+	}
+
 	private String appendLeft(String name) {
 		return name + "-1";
 	}

@@ -8,14 +8,11 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import javax.swing.JOptionPane;
-
 import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.api.QPlugin;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.ui.api.QMainUi;
-import com.eriklievaart.toolkit.lang.api.str.Str;
 
 public class WorkspacePlugin implements QPlugin, QUi {
 
@@ -48,17 +45,10 @@ public class WorkspacePlugin implements QPlugin, QUi {
 			final String index = "" + i;
 			actions.put("q.workspace." + index, c -> manager.load(index));
 		}
-		actions.put("q.workspace.other", c -> customWorkspace());
+		actions.put("q.workspace.other", c -> manager.customWorkspace());
 		actions.put("q.workspace.refresh", c -> manager.refresh());
 
 		return actions;
-	}
-
-	private void customWorkspace() {
-		String input = JOptionPane.showInputDialog("open workspace");
-		if (!Str.isBlank(input)) {
-			manager.load(input.trim());
-		}
 	}
 
 	@Override

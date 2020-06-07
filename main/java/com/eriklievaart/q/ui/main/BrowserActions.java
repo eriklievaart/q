@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.ui.UiBeanFactory;
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;

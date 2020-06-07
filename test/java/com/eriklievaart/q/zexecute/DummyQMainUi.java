@@ -8,6 +8,7 @@ import javax.swing.ListCellRenderer;
 
 import com.eriklievaart.q.api.QView;
 import com.eriklievaart.q.api.render.ColorFactory;
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QMainUi;
 
@@ -50,5 +51,10 @@ public class DummyQMainUi implements QMainUi {
 
 	@Override
 	public void showBrowser() {
+	}
+
+	@Override
+	public Dialogs getDialogs() {
+		return null;
 	}
 }

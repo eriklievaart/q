@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 
 import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.ui.UiBeanFactory;
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;
-import com.eriklievaart.q.ui.main.Dialogs;
 import com.eriklievaart.toolkit.io.api.SystemClipboard;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.lang.api.str.Str;

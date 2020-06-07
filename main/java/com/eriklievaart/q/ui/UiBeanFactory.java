@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.eriklievaart.q.engine.api.Engine;
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.clipboard.ClipboardActions;
 import com.eriklievaart.q.ui.config.UiResourcePaths;
 import com.eriklievaart.q.ui.context.ContextMediator;
@@ -13,7 +14,7 @@ import com.eriklievaart.q.ui.event.BrowserObserver;
 import com.eriklievaart.q.ui.event.EngineEvent;
 import com.eriklievaart.q.ui.main.BrowserActions;
 import com.eriklievaart.q.ui.main.CommandActions;
-import com.eriklievaart.q.ui.main.Dialogs;
+import com.eriklievaart.q.ui.main.DialogsImpl;
 import com.eriklievaart.q.ui.main.UiComponents;
 import com.eriklievaart.q.ui.main.UiController;
 import com.eriklievaart.q.ui.render.browser.FsvIconFactory;
@@ -30,7 +31,7 @@ public class UiBeanFactory {
 	private final LruIndex index;
 	private final EngineEvent engineEvent;
 	private final UiComponents components = new UiComponents();
-	private final Dialogs dialogs = new Dialogs(components);
+	private final DialogsImpl dialogs = new DialogsImpl(components);
 	private final Views views = new Views(components);
 	private final ContextMediator mediator;
 	private final UiResourcePaths resources;

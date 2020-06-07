@@ -27,4 +27,6 @@ public interface QMainUi {
 	public void setMenuBar(JMenuBar menu);
 
 	public List<String> getRecentlyVisitedDirectories();
+
+	public Dialogs getDialogs();
 }

@@ -18,20 +18,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.str.Str;
-import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
-public class Dialogs {
-	private LogTemplate log = new LogTemplate(getClass());
+public class DialogsImpl implements Dialogs {
 
 	private UiComponents components;
 	private JList<?> focused;
 
-	public Dialogs(UiComponents components) {
+	public DialogsImpl(UiComponents components) {
 		this.components = components;
 	}
 
+	@Override
 	public void input(String message, Consumer<String> consumer) {
 		JTextField field = showLabelWithInput(message);
 		field.addActionListener(ae -> {
@@ -42,6 +42,7 @@ public class Dialogs {
 		});
 	}
 
+	@Override
 	public void input(String message, String initialValue, Consumer<String> consumer) {
 		JTextField field = showLabelWithInput(message);
 		field.setText(initialValue);
@@ -55,6 +56,7 @@ public class Dialogs {
 		});
 	}
 
+	@Override
 	public void confirm(String message, Runnable runnable) {
 		JButton ok = new JButton("ok");
 		JButton cancel = new JButton("cancel");
@@ -89,6 +91,7 @@ public class Dialogs {
 		components.northPanel.setVisible(true);
 	}
 
+	@Override
 	public void message(String message) {
 		showComponents(new JLabel(message));
 	}

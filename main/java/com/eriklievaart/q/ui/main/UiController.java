@@ -15,6 +15,7 @@ import com.eriklievaart.q.api.QView;
 import com.eriklievaart.q.engine.api.EngineResult;
 import com.eriklievaart.q.ui.ShutdownListener;
 import com.eriklievaart.q.ui.UiBeanFactory;
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.context.ContextMediator;

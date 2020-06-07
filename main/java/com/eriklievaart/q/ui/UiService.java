@@ -13,6 +13,7 @@ import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.api.QView;
 import com.eriklievaart.q.api.render.ColorFactory;
+import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.q.ui.config.UiResourcePaths;
@@ -27,10 +28,12 @@ public class UiService implements QUi, QMainUi {
 
 	private final UiController controller;
 	private final LruIndex index;
+	private final Dialogs dialogs;
 
 	public UiService(UiBeanFactory beans) {
 		controller = beans.getController();
 		index = beans.getLruIndex();
+		dialogs = beans.getDialogs();
 	}
 
 	@Override
@@ -107,5 +110,10 @@ public class UiService implements QUi, QMainUi {
 	@Override
 	public void showBrowser() {
 		controller.showBrowser();
+	}
+
+	@Override
+	public Dialogs getDialogs() {
+		return dialogs;
 	}
 }
