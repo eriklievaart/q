@@ -15,7 +15,10 @@ public class Activator extends ActivatorWrapper {
 		OsgiSupplierFactory supplier = new OsgiSupplierFactory(context);
 		EngineService engine = new EngineService(supplier.getEngineSupplierFactory());
 
-		addServiceListenerWithCleanup(QPlugin.class, new PluginServiceListener(supplier));
+		PluginServiceListener listener = new PluginServiceListener(supplier);
+		addServiceListenerWithCleanup(QPlugin.class, listener);
+		listener.generateIndex();
+
 		addServiceWithCleanup(Engine.class, engine);
 		addServiceWithCleanup(QUi.class, engine);
 	}

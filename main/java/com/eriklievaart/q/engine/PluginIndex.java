@@ -14,10 +14,13 @@ import com.eriklievaart.q.engine.meta.CommandMetadata;
 import com.eriklievaart.q.engine.meta.PluginIntrospector;
 import com.eriklievaart.q.engine.osgi.EngineSupplierFactory;
 import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.lang.api.collection.OptionalOne;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
 public class PluginIndex {
+	private LogTemplate log = new LogTemplate(getClass());
 
 	AtomicReference<List<CommandMetadata>> reference = new AtomicReference<>(new ArrayList<>());
 
@@ -38,6 +41,7 @@ public class PluginIndex {
 
 	public void init(List<QPlugin> plugins, EngineSupplierFactory factory) {
 		List<CommandMetadata> clone = new ArrayList<>(reference.get());
+		log.debug("plugin list $", ListTool.map(plugins, e -> e.getCommandName()));
 
 		purgeUnused(clone, plugins);
 		List<QPlugin> unprocessed = filterKeepUnprocessedPlugins(plugins, clone);
