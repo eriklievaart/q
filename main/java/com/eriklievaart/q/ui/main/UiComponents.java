@@ -58,6 +58,7 @@ public class UiComponents {
 		map.put("q.main.south.panel", southPanel);
 		map.put("q.main.command.field", commandField);
 		map.put("q.main.assist.label", assistLabel);
+		map.put("q.main.tabs", mainTabs);
 
 		leftBrowser.store(map);
 		rightBrowser.store(map);

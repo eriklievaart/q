@@ -54,7 +54,7 @@ public class RenameControllerU extends SandboxTest {
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "thon.py");
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.WHITE);
 
-		Check.isEqual(controller.regexField.getBackground(), Color.WHITE);
+		Check.isEqual(controller.regexField.getBackground(), new Color(100, 100, 100));
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
 	}
 
@@ -86,7 +86,7 @@ public class RenameControllerU extends SandboxTest {
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "python.py");
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.WHITE);
 
-		Check.isEqual(controller.regexField.getBackground(), Color.WHITE);
+		Check.isEqual(controller.regexField.getBackground(), new Color(100, 100, 100));
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
 	}
 }

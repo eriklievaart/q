@@ -34,6 +34,11 @@ public class RenameController {
 	private static final String VIEW_ID = "q.rename";
 	private static final String INITIAL_REGEX = ".*";
 
+	private static final Color INPUT = new Color(100, 100, 100);
+	private static final Color WARNING = Color.ORANGE;
+	private static final Color ACTIVE = Color.WHITE;
+	private static final Color INACTIVE = Color.GRAY;
+
 	private LogTemplate log = new LogTemplate(getClass());
 
 	private VirtualFile directory;
@@ -74,8 +79,6 @@ public class RenameController {
 	}
 
 	private void initLists() {
-		fromList.setBackground(new Color(16, 16, 31));
-		toList.setBackground(new Color(16, 16, 31));
 		listPanel.add(fromList);
 		listPanel.add(toList);
 	}
@@ -103,7 +106,7 @@ public class RenameController {
 
 	public void regexUpdated() {
 		boolean compiles = PatternTool.isCompilable(regexField.getText());
-		regexField.setBackground(compiles ? Color.WHITE : Color.ORANGE);
+		regexField.setBackground(compiles ? INPUT : WARNING);
 
 		if (compiles) {
 			log.trace("regex compiles; updating lists");
@@ -129,12 +132,12 @@ public class RenameController {
 			RenameListElement toElement = toModel.getElementAt(i);
 
 			if (fromElement.getText().matches(regexField.getText())) {
-				fromElement.setForeground(Color.WHITE);
-				toElement.setForeground(Color.WHITE);
+				fromElement.setForeground(ACTIVE);
+				toElement.setForeground(ACTIVE);
 				toElement.setText(getReplacementText(fromElement));
 			} else {
-				fromElement.setForeground(Color.GRAY);
-				toElement.setForeground(Color.GRAY);
+				fromElement.setForeground(INACTIVE);
+				toElement.setForeground(INACTIVE);
 				toElement.setText(fromElement.getText());
 			}
 		}
@@ -167,7 +170,7 @@ public class RenameController {
 		QMainUi main = ui.get();
 		if (!PatternTool.isCompilable(regexField.getText())) {
 			regexField.setText(INITIAL_REGEX);
-			regexField.setBackground(Color.WHITE);
+			regexField.setBackground(INPUT);
 		}
 		if (main != null) {
 			showUi(ui.get().getQContext().getActive().getDirectory());

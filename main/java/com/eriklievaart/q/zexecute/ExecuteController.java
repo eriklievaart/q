@@ -1,6 +1,5 @@
 package com.eriklievaart.q.zexecute;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Vector;
@@ -23,22 +22,21 @@ import com.eriklievaart.toolkit.swing.api.SwingThread;
 public class ExecuteController {
 
 	private Supplier<QMainUi> ui;
-
-	private JPanel panel = new JPanel(new GridLayout(1, 0));
-	private JList<TerminalLine> list = new JList<>();
-	private Vector<TerminalLine> lines = new Vector<>(1000);
 	private AtomicBoolean changed = new AtomicBoolean(false);
+	private Vector<TerminalLine> lines = new Vector<>(1000);
+
+	JPanel panel = new JPanel(new GridLayout(1, 0));
+	JList<TerminalLine> list = new JList<>();
 
 	public ExecuteController(Supplier<QMainUi> supplier) {
 		this.ui = supplier;
 		panel.add(new JScrollPane(list));
-		list.setBackground(new Color(16, 16, 31));
-		list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
 	}
 
 	public void showPanel() {
 		QMainUi controller = ui.get();
 		if (controller != null) {
+			list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, list.getFont().getSize()));
 			list.setCellRenderer(controller.createListCellRenderer(new ExecuteColorFactory()));
 			QView view = new QView("q.execute.terminal", panel);
 			view.setLabel("terminal");

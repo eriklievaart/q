@@ -1,0 +1,37 @@
+
+
+$font  = font Ubuntu 18
+$dark  = color 28,34,42
+$text  = color 236,236,236
+$input = color 100,100,100
+$caret = color 255,255,0
+
+
+javax.swing.JButton#font          = $font
+javax.swing.JButton#background    = $input
+javax.swing.JButton#foreground    = $text
+
+javax.swing.JList#background      = $dark
+javax.swing.JList#foreground      = $text
+javax.swing.JList#font            = $font
+
+javax.swing.JPanel#background     = $dark
+
+javax.swing.JTextField#background = $input
+javax.swing.JTextField#foreground = $text
+javax.swing.JTextField#caretColor = $caret
+javax.swing.JTextField#font       = $font
+
+javax.swing.JLabel#font           = $font
+javax.swing.JLabel#background     = $dark
+javax.swing.JLabel#foreground     = $text
+
+javax.swing.JMenu#font            = $font
+
+javax.swing.JMenuItem#font        = $font
+
+javax.swing.JTabbedPane#font      = $font
+javax.swing.JTabbedPane#background= $input
+javax.swing.JTabbedPane#foreground= color 0,0,0
+
+

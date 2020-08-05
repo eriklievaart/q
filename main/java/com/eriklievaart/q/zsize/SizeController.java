@@ -19,15 +19,15 @@ import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 public class SizeController {
 
 	private Supplier<QMainUi> ui;
-	private JPanel panel = new JPanel(new BorderLayout());
-	private JList<String> list = new JList<>();
-	private JLabel summary = new JLabel();
+
+	JPanel panel = new JPanel(new BorderLayout());
+	JList<String> list = new JList<>();
+	JLabel summary = new JLabel();
 
 	public SizeController(Supplier<QMainUi> supplier) {
 		this.ui = supplier;
 		panel.add(summary, BorderLayout.NORTH);
 		panel.add(new JScrollPane(list), BorderLayout.CENTER);
-		list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
 	}
 
 	public void showResults(List<DirCalculation> sizes) {
@@ -45,6 +45,7 @@ public class SizeController {
 
 	public void init() {
 		list.setListData(new String[] {});
+		list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, list.getFont().getSize()));
 		QView view = new QView("q.size", panel);
 		view.setLabel("dir sizes");
 		ui.get().showView(view);

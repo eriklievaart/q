@@ -47,7 +47,10 @@ public class ExecuteService implements QPlugin, QUi {
 
 	@Override
 	public Map<String, Component> getComponentMap() {
-		return NewCollection.map();
+		Map<String, Component> map = NewCollection.map();
+		map.put("q.execute.panel", controller.panel);
+		map.put("q.execute.list", controller.list);
+		return map;
 	}
 
 	@Override

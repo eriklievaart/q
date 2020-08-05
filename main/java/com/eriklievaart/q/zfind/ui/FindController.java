@@ -1,7 +1,6 @@
 package com.eriklievaart.q.zfind.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -54,8 +53,8 @@ public class FindController {
 
 	private void initUi() {
 		list.setModel(model);
-		list.setBackground(new Color(16, 16, 31));
-		list.setForeground(Color.white);
+		//		list.setBackground(new Color(16, 16, 31));
+		//		list.setForeground(Color.white);
 		panel.add(new JScrollPane(list), BorderLayout.CENTER);
 		panel.add(new JScrollPane(buttonPanel), BorderLayout.SOUTH);
 		buttonPanel.add(copyButton);

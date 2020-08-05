@@ -48,7 +48,11 @@ public class SizePlugin implements QPlugin, QUi {
 
 	@Override
 	public Map<String, Component> getComponentMap() {
-		return NewCollection.map();
+		Map<String, Component> components = NewCollection.map();
+		components.put("q.size.panel", controller.panel);
+		components.put("q.size.list", controller.list);
+		components.put("q.size.label", controller.summary);
+		return components;
 	}
 
 	@Override

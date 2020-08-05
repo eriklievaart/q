@@ -16,6 +16,7 @@ public class JMenuWrapper {
 
 	public JMenuWrapper(String id) {
 		this.id = id;
+		menu.setFont(menu.getFont().deriveFont(16.0f));
 	}
 
 	public void addItem(JMenuItemWrapper item) {

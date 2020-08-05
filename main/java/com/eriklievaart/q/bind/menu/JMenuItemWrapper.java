@@ -10,6 +10,10 @@ public class JMenuItemWrapper {
 	public JMenuItem item = new JMenuItem();
 	public String action;
 
+	{
+		item.setFont(item.getFont().deriveFont(16.0f));
+	}
+
 	@Override
 	public String toString() {
 		return ToString.simple(this, "$[$]", action);
