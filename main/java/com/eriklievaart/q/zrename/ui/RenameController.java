@@ -1,7 +1,6 @@
 package com.eriklievaart.q.zrename.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.List;
 import java.util.function.Supplier;
@@ -10,17 +9,16 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 import com.eriklievaart.q.api.QView;
-import com.eriklievaart.q.api.render.ColorFactory;
+import com.eriklievaart.q.api.render.JListThemed;
+import com.eriklievaart.q.api.render.JTextFieldThemed;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.toolkit.io.api.UrlTool;
@@ -34,11 +32,6 @@ public class RenameController {
 	private static final String VIEW_ID = "q.rename";
 	private static final String INITIAL_REGEX = ".*";
 
-	private static final Color INPUT = new Color(100, 100, 100);
-	private static final Color WARNING = Color.ORANGE;
-	private static final Color ACTIVE = Color.WHITE;
-	private static final Color INACTIVE = Color.GRAY;
-
 	private LogTemplate log = new LogTemplate(getClass());
 
 	private VirtualFile directory;
@@ -51,13 +44,14 @@ public class RenameController {
 	public JPanel buttonPanel = new JPanel(new GridLayout(1, 0, 0, 0));
 	public JPanel criteriaPanel = new JPanel(new GridLayout(0, 2, 5, 0));
 	public JLabel regexLabel = new JLabel("regex to match files:");
-	public JTextField regexField = new JTextField(INITIAL_REGEX);
+	public JTextFieldThemed regexField = new JTextFieldThemed(INITIAL_REGEX);
 	public JLabel renameLabel = new JLabel("renaming expression:");
 	public JTextField renameField = new JTextField("$0");
-	public JList<RenameListElement> fromList = new JList<>();
-	public JList<RenameListElement> toList = new JList<>();
+	public JListThemed<RenameListElement> fromList = new JListThemed<>();
+	public JListThemed<RenameListElement> toList = new JListThemed<>();
 	public JButton acceptButton = new JButton("Accept");
 	public JButton refreshButton = new JButton("Refresh");
+	public RenameColorFactory colors = new RenameColorFactory();
 
 	public RenameController(Supplier<QMainUi> ui, Supplier<Engine> engine) {
 		Check.notNull(ui, engine);
@@ -99,14 +93,13 @@ public class RenameController {
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	private ListCellRenderer<RenameListElement> createRenameRenderer() {
-		ColorFactory factory = c -> ((RenameListElement) c).getForeground();
-		return ui.get().createListCellRenderer(factory);
-	}
-
 	public void regexUpdated() {
 		boolean compiles = PatternTool.isCompilable(regexField.getText());
-		regexField.setBackground(compiles ? INPUT : WARNING);
+		if (compiles) {
+			regexField.setNormalState();
+		} else {
+			regexField.setInvalidState();
+		}
 
 		if (compiles) {
 			log.trace("regex compiles; updating lists");
@@ -132,21 +125,21 @@ public class RenameController {
 			RenameListElement toElement = toModel.getElementAt(i);
 
 			if (fromElement.getText().matches(regexField.getText())) {
-				fromElement.setForeground(ACTIVE);
-				toElement.setForeground(ACTIVE);
+				fromElement.setActive(true);
+				toElement.setActive(true);
 				toElement.setText(getReplacementText(fromElement));
 			} else {
-				fromElement.setForeground(INACTIVE);
-				toElement.setForeground(INACTIVE);
+				fromElement.setActive(false);
+				toElement.setActive(false);
 				toElement.setText(fromElement.getText());
 			}
 		}
 	}
 
 	private void createListRenderers() {
-		fromList.setCellRenderer(createRenameRenderer());
+		fromList.setForegroundFactory(colors);
 		fromList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		toList.setCellRenderer(createRenameRenderer());
+		toList.setForegroundFactory(colors);
 		toList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
@@ -170,7 +163,7 @@ public class RenameController {
 		QMainUi main = ui.get();
 		if (!PatternTool.isCompilable(regexField.getText())) {
 			regexField.setText(INITIAL_REGEX);
-			regexField.setBackground(INPUT);
+			regexField.setNormalState();
 		}
 		if (main != null) {
 			showUi(ui.get().getQContext().getActive().getDirectory());

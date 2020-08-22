@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 
 import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.ui.main.UiComponents;
-import com.eriklievaart.q.ui.render.label.LabelStyler;
 
 public class ViewActions {
 
@@ -27,15 +26,15 @@ public class ViewActions {
 	public void focusLeft() {
 		beans.getViews().openBrowserTab();
 		beans.getComponents().leftBrowser.fileList.requestFocus();
-		LabelStyler.styleNormal(beans.getComponents().leftBrowser.urlLabel);
-		LabelStyler.styleSubtle(beans.getComponents().rightBrowser.urlLabel);
+		beans.getComponents().leftBrowser.urlLabel.setNormalState();
+		beans.getComponents().rightBrowser.urlLabel.setSubtleState();
 	}
 
 	public void focusRight() {
 		beans.getViews().openBrowserTab();
 		beans.getComponents().rightBrowser.fileList.requestFocus();
-		LabelStyler.styleSubtle(beans.getComponents().leftBrowser.urlLabel);
-		LabelStyler.styleNormal(beans.getComponents().rightBrowser.urlLabel);
+		beans.getComponents().leftBrowser.urlLabel.setSubtleState();
+		beans.getComponents().rightBrowser.urlLabel.setNormalState();
 	}
 
 	private void hideAll() {

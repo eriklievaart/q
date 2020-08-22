@@ -42,6 +42,7 @@ public class RenameService implements QPlugin, QUi {
 		map.put("q.rename.to.list", controller.toList);
 		map.put("q.rename.accept.button", controller.acceptButton);
 		map.put("q.rename.refresh.button", controller.refreshButton);
+		map.put("q.rename.color", controller.colors);
 	}
 
 	@Override

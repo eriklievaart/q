@@ -13,7 +13,6 @@ import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.q.ui.render.label.FileSize;
-import com.eriklievaart.q.ui.render.label.LabelStyler;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
@@ -198,7 +197,7 @@ public class BrowserActions {
 			String size = FileSize.humanReadableFileSize(file.getVirtualFile().length());
 			String name = file.getVirtualFile().getName();
 			String label = file.getVirtualFile().isFile() ? name + " (" + size + ")" : name;
-			LabelStyler.styleSubtle(components.assistLabel);
+			components.assistLabel.setSubtleState();
 			components.assistLabel.setText(label);
 		}
 	}

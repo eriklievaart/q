@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.plaf.metal.MetalIconFactory;
 
-import com.eriklievaart.q.ui.render.list.IconFactory;
+import com.eriklievaart.q.api.render.IconFactory;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 

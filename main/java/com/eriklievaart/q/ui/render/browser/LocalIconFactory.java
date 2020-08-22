@@ -4,7 +4,7 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import com.eriklievaart.q.ui.render.list.IconFactory;
+import com.eriklievaart.q.api.render.IconFactory;
 
 public class LocalIconFactory implements IconFactory {
 

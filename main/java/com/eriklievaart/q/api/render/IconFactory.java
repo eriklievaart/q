@@ -1,4 +1,4 @@
-package com.eriklievaart.q.ui.render.list;
+package com.eriklievaart.q.api.render;
 
 import javax.swing.Icon;
 

@@ -1,7 +1,5 @@
 package com.eriklievaart.q.zrename;
 
-import java.awt.Color;
-
 import org.junit.Test;
 
 import com.eriklievaart.q.zexecute.DummyQMainUi;
@@ -22,7 +20,7 @@ public class RenameControllerU extends SandboxTest {
 		controller.regexField.setText("\\");
 		controller.regexUpdated();
 
-		Check.isEqual(controller.regexField.getBackground(), Color.ORANGE);
+		Check.isTrue(controller.regexField.isInvalidState());
 		Check.isEqual(controller.fromList.getModel().getElementAt(0).getText(), "thon.py");
 		Check.isEqual(controller.toList.getModel().getElementAt(0).getText(), "thon.py");
 	}
@@ -40,21 +38,21 @@ public class RenameControllerU extends SandboxTest {
 		controller.regexUpdated();
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(0).getText(), "pical.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(0).getForeground(), Color.WHITE);
+		Check.isTrue(controller.fromList.getModel().getElementAt(0).isActive());
 		Check.isEqual(controller.toList.getModel().getElementAt(0).getText(), "pical.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(0).getForeground(), Color.WHITE);
+		Check.isTrue(controller.toList.getModel().getElementAt(0).isActive());
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(1).getText(), "son.java");
-		Check.isEqual(controller.fromList.getModel().getElementAt(1).getForeground(), Color.GRAY);
+		Check.isFalse(controller.fromList.getModel().getElementAt(1).isActive());
 		Check.isEqual(controller.toList.getModel().getElementAt(1).getText(), "son.java");
-		Check.isEqual(controller.toList.getModel().getElementAt(1).getForeground(), Color.GRAY);
+		Check.isFalse(controller.toList.getModel().getElementAt(1).isActive());
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(2).getText(), "thon.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(2).getForeground(), Color.WHITE);
+		Check.isTrue(controller.fromList.getModel().getElementAt(2).isActive());
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "thon.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.WHITE);
+		Check.isTrue(controller.toList.getModel().getElementAt(2).isActive());
 
-		Check.isEqual(controller.regexField.getBackground(), new Color(100, 100, 100));
+		Check.isTrue(controller.regexField.isNormalState());
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
 	}
 
@@ -72,21 +70,21 @@ public class RenameControllerU extends SandboxTest {
 		controller.regexUpdated();
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(0).getText(), "pical.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(0).getForeground(), Color.WHITE);
+		Check.isTrue(controller.fromList.getModel().getElementAt(0).isActive());
 		Check.isEqual(controller.toList.getModel().getElementAt(0).getText(), "pypical.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(0).getForeground(), Color.WHITE);
+		Check.isTrue(controller.toList.getModel().getElementAt(0).isActive());
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(1).getText(), "son.java");
-		Check.isEqual(controller.fromList.getModel().getElementAt(1).getForeground(), Color.GRAY);
+		Check.isFalse(controller.fromList.getModel().getElementAt(1).isActive());
 		Check.isEqual(controller.toList.getModel().getElementAt(1).getText(), "son.java");
-		Check.isEqual(controller.toList.getModel().getElementAt(1).getForeground(), Color.GRAY);
+		Check.isFalse(controller.toList.getModel().getElementAt(1).isActive());
 
 		Check.isEqual(controller.fromList.getModel().getElementAt(2).getText(), "thon.py");
-		Check.isEqual(controller.fromList.getModel().getElementAt(2).getForeground(), Color.WHITE);
+		Check.isTrue(controller.fromList.getModel().getElementAt(2).isActive());
 		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "python.py");
-		Check.isEqual(controller.toList.getModel().getElementAt(2).getForeground(), Color.WHITE);
+		Check.isTrue(controller.toList.getModel().getElementAt(2).isActive());
 
-		Check.isEqual(controller.regexField.getBackground(), new Color(100, 100, 100));
+		Check.isTrue(controller.regexField.isNormalState());
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
 	}
 }

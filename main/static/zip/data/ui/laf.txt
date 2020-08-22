@@ -1,0 +1,61 @@
+
+$font     = font Ubuntu 18
+$dark     = color 28,34,42
+$input    = color 100,100,100
+$caret    = color 255,255,0
+$text     = color 236,236,236
+$subtle   = color 150,150,150
+$invalid  = color 236,0,0
+$selected = color 100, 20, 20
+$focused  = color 200, 25, 25
+$directory= color 0, 208, 208
+
+javax.swing.JButton#font          = $font
+javax.swing.JButton#background    = $input
+javax.swing.JButton#foreground    = $text
+
+javax.swing.JList#background      = $dark
+javax.swing.JList#foreground      = $text
+javax.swing.JList#font            = $font
+
+javax.swing.JPanel#background     = $dark
+
+javax.swing.JTextField#background = $input
+javax.swing.JTextField#foreground = $text
+javax.swing.JTextField#caretColor = $caret
+javax.swing.JTextField#font       = $font
+
+javax.swing.JLabel#font           = $font
+javax.swing.JLabel#background     = $dark
+javax.swing.JLabel#foreground     = $text
+
+javax.swing.JMenu#font            = $font
+
+javax.swing.JMenuItem#font        = $font
+
+javax.swing.JTabbedPane#font      = $font
+javax.swing.JTabbedPane#background= $input
+javax.swing.JTabbedPane#foreground= color 0,0,0
+
+com.eriklievaart.q.api.render.JListThemed#foregroundNormal     = $text
+com.eriklievaart.q.api.render.JListThemed#foregroundDirectory  = $directory
+com.eriklievaart.q.api.render.JListThemed#backgroundNormal     = $dark
+com.eriklievaart.q.api.render.JListThemed#backgroundSelected   = $selected
+com.eriklievaart.q.api.render.JListThemed#borderNormal         = $dark
+com.eriklievaart.q.api.render.JListThemed#borderSelected       = $selected
+com.eriklievaart.q.api.render.JListThemed#borderFocused        = $focused
+
+com.eriklievaart.q.api.render.JLabelThemed#normalColor         = $text
+com.eriklievaart.q.api.render.JLabelThemed#subtleColor         = $subtle
+com.eriklievaart.q.api.render.JLabelThemed#invalidColor        = $invalid
+
+com.eriklievaart.q.api.render.JTextFieldThemed#font            = $font
+com.eriklievaart.q.api.render.JTextFieldThemed#background      = $input
+com.eriklievaart.q.api.render.JTextFieldThemed#caretColor      = $caret
+com.eriklievaart.q.api.render.JTextFieldThemed#normalColor     = $text
+com.eriklievaart.q.api.render.JTextFieldThemed#subtleColor     = $subtle
+com.eriklievaart.q.api.render.JTextFieldThemed#invalidColor    = $invalid
+
+com.eriklievaart.q.zrename.ui.RenameColorFactory#activeColor   = $text
+com.eriklievaart.q.zrename.ui.RenameColorFactory#inactiveColor = $subtle
+

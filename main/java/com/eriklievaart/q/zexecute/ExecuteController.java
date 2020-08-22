@@ -6,12 +6,12 @@ import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.eriklievaart.q.api.QView;
+import com.eriklievaart.q.api.render.JListThemed;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.toolkit.lang.api.str.Str;
@@ -26,7 +26,7 @@ public class ExecuteController {
 	private Vector<TerminalLine> lines = new Vector<>(1000);
 
 	JPanel panel = new JPanel(new GridLayout(1, 0));
-	JList<TerminalLine> list = new JList<>();
+	JListThemed<TerminalLine> list = new JListThemed<>();
 
 	public ExecuteController(Supplier<QMainUi> supplier) {
 		this.ui = supplier;
@@ -37,12 +37,11 @@ public class ExecuteController {
 		QMainUi controller = ui.get();
 		if (controller != null) {
 			list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, list.getFont().getSize()));
-			list.setCellRenderer(controller.createListCellRenderer(new ExecuteColorFactory()));
+			list.setForegroundFactory(new ExecuteColorFactory());
 			QView view = new QView("q.execute.terminal", panel);
 			view.setLabel("terminal");
 			controller.showView(view);
 		}
-
 	}
 
 	public CliStreams createOutputStreams() {

@@ -4,10 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JMenuBar;
-import javax.swing.ListCellRenderer;
 
 import com.eriklievaart.q.api.QView;
-import com.eriklievaart.q.api.render.ColorFactory;
 import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QMainUi;
@@ -25,11 +23,6 @@ public class DummyQMainUi implements QMainUi {
 
 	@Override
 	public void hideView(String id) {
-	}
-
-	@Override
-	public <E> ListCellRenderer<E> createListCellRenderer(ColorFactory colors) {
-		return null;
 	}
 
 	@Override

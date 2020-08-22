@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.eriklievaart.q.api.render.IconFactory;
 import com.eriklievaart.q.engine.api.Engine;
 import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.clipboard.ClipboardActions;
@@ -20,7 +21,6 @@ import com.eriklievaart.q.ui.main.UiController;
 import com.eriklievaart.q.ui.render.browser.FsvIconFactory;
 import com.eriklievaart.q.ui.render.browser.LocalIconFactory;
 import com.eriklievaart.q.ui.render.browser.LocalIconLoader;
-import com.eriklievaart.q.ui.render.list.IconFactory;
 import com.eriklievaart.q.ui.view.Views;
 import com.eriklievaart.q.vfs.api.UrlResolver;
 

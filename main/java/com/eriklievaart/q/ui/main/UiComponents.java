@@ -7,16 +7,14 @@ import java.awt.Image;
 import java.util.Map;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import com.eriklievaart.q.api.render.JLabelThemed;
 import com.eriklievaart.q.ui.UiBeanFactory;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
-import com.eriklievaart.q.ui.render.Theme;
 import com.eriklievaart.q.ui.render.icons.Favicon;
-import com.eriklievaart.q.ui.render.label.LabelStyler;
 
 public class UiComponents {
 	private static final String FRAME_ID = "q.main.frame";
@@ -29,7 +27,7 @@ public class UiComponents {
 	public JPanel southPanel = new JPanel(new GridLayout(0, 1));
 
 	public JTextField commandField = new JTextField();
-	public JLabel assistLabel = new JLabel();
+	public JLabelThemed assistLabel = new JLabelThemed();
 
 	public BrowserComponents leftBrowser = new BrowserComponents(BrowserOrientation.LEFT);
 	public BrowserComponents rightBrowser = new BrowserComponents(BrowserOrientation.RIGHT);
@@ -37,18 +35,10 @@ public class UiComponents {
 	void init(UiBeanFactory beans) {
 		Image favicon = new Favicon().getFavicon();
 
-		applyTheme();
 		northPanel.setVisible(false);
 		initMainFrame(favicon);
 		initBrowsers(beans);
 		southPanel.add(assistLabel);
-	}
-
-	private void applyTheme() {
-		mainFrame.getContentPane().setBackground(Theme.BACKGROUND_COLOR);
-		mainPanel.setBackground(Theme.BACKGROUND_COLOR);
-		leftBrowser.applyTheme();
-		rightBrowser.applyTheme();
 	}
 
 	public void store(Map<String, Component> map) {
@@ -67,7 +57,7 @@ public class UiComponents {
 	private void initBrowsers(UiBeanFactory beans) {
 		leftBrowser.init(beans);
 		rightBrowser.init(beans);
-		LabelStyler.styleSubtle(rightBrowser.urlLabel);
+		rightBrowser.urlLabel.setSubtleState();
 		mainPanel.add(leftBrowser.panel);
 		mainPanel.add(rightBrowser.panel);
 	}

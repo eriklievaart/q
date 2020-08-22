@@ -3,10 +3,8 @@ package com.eriklievaart.q.ui.api;
 import java.util.List;
 
 import javax.swing.JMenuBar;
-import javax.swing.ListCellRenderer;
 
 import com.eriklievaart.q.api.QView;
-import com.eriklievaart.q.api.render.ColorFactory;
 
 public interface QMainUi {
 
@@ -17,8 +15,6 @@ public interface QMainUi {
 	public void showBrowser();
 
 	public void hideView(String id);
-
-	public <E> ListCellRenderer<E> createListCellRenderer(ColorFactory foreground);
 
 	public void swapBrowsers();
 

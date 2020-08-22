@@ -7,12 +7,10 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.swing.JMenuBar;
-import javax.swing.ListCellRenderer;
 
 import com.eriklievaart.q.api.ActionContext;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.api.QView;
-import com.eriklievaart.q.api.render.ColorFactory;
 import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QMainUi;
@@ -20,7 +18,6 @@ import com.eriklievaart.q.ui.config.UiResourcePaths;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.context.LruIndex;
 import com.eriklievaart.q.ui.main.UiController;
-import com.eriklievaart.q.ui.render.list.QListCellRenderer;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.swing.api.SwingThread;
 
@@ -74,13 +71,6 @@ public class UiService implements QUi, QMainUi {
 		SwingThread.invokeLater(() -> {
 			controller.hideView(id);
 		});
-	}
-
-	@Override
-	public <E> ListCellRenderer<E> createListCellRenderer(ColorFactory foreground) {
-		QListCellRenderer<E> renderer = new QListCellRenderer<>();
-		renderer.setForegroundFactory(foreground);
-		return renderer;
 	}
 
 	@Override

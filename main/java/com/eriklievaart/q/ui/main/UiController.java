@@ -20,7 +20,6 @@ import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;
-import com.eriklievaart.q.ui.render.label.LabelStyler;
 import com.eriklievaart.toolkit.io.api.StreamTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.swing.api.SwingThread;
@@ -58,9 +57,9 @@ public class UiController {
 	private void showCommandAssist(EngineResult message) {
 		SwingThread.invokeAndWaitUnchecked(() -> {
 			if (message.isError()) {
-				LabelStyler.styleError(components.assistLabel);
+				components.assistLabel.setInvalidState();
 			} else {
-				LabelStyler.styleSubtle(components.assistLabel);
+				components.assistLabel.setSubtleState();
 			}
 			components.assistLabel.setText(message.getMessage());
 		});
