@@ -5,11 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.logging.LogRecord;
 
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.osgi.framework.ServiceRegistration;
 
+import com.eriklievaart.osgi.toolkit.api.ActivatorWrapper;
 import com.eriklievaart.osgi.toolkit.api.ContextWrapper;
 import com.eriklievaart.q.api.QUi;
 import com.eriklievaart.q.engine.api.Engine;
@@ -19,33 +18,40 @@ import com.eriklievaart.q.vfs.api.UrlResolver;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.logging.api.Formatter;
 import com.eriklievaart.toolkit.logging.api.LogConfig;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.logging.api.appender.SimpleFileAppender;
+import com.eriklievaart.toolkit.swing.api.SwingThread;
 import com.eriklievaart.toolkit.swing.api.WindowSaver;
 
-public class Activator implements BundleActivator {
+public class Activator extends ActivatorWrapper {
+	LogTemplate log = new LogTemplate(getClass());
 
-	private ServiceRegistration<?> registration;
 	private ShutdownListener shutdown;
-	private UiService service;
 
 	@Override
-	public void start(BundleContext context) throws Exception {
+	protected void init(BundleContext context) throws Exception {
 		UiResourcePaths files = new UiResourcePaths(new ContextWrapper(context).getBundleParentDir());
 
 		initWindowSaver(files.getWindowSaverConfig());
 		UiBeanFactory beans = new UiBeanFactory(files, () -> getEngineService(context), () -> getUrlResolver(context));
 
-		service = new UiService(beans);
-		registration = context.registerService(getServiceClasses(), service, null);
-		configureLogFile(files.getFileOperationLog());
+		UiService service = new UiService(beans);
+		addServiceWithCleanup(QUi.class, service);
+		addServiceWithCleanup(QMainUi.class, service);
 
-		service.showFrame();
+		configureLogFile(files.getFileOperationLog());
 		shutdown = new ShutdownListener(context, beans);
 		beans.getController().registerShutdownListener(shutdown);
+
+		SwingThread.invokeLater(() -> {
+			service.showFrame();
+		});
 	}
 
-	private String[] getServiceClasses() {
-		return new String[] { QUi.class.getName(), QMainUi.class.getName() };
+	@Override
+	protected void shutdown() throws Exception {
+		shutdown.setOsgiFrameworkShutdown(false);
+		WindowSaver.shutdown();
 	}
 
 	private void configureLogFile(File file) throws FileNotFoundException {
@@ -78,13 +84,5 @@ public class Activator implements BundleActivator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void stop(BundleContext context) throws Exception {
-		shutdown.setOsgiFrameworkShutdown(false);
-		service.shutdown();
-		registration.unregister();
-		WindowSaver.shutdown();
 	}
 }
