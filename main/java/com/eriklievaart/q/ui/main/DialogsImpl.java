@@ -111,6 +111,17 @@ public class DialogsImpl implements Dialogs {
 		return field;
 	}
 
+	@Override
+	public void choice(String message, String[] options, Consumer<String> consumer) {
+		JPanel panel = new JPanel(new GridLayout(1, 0));
+		for (String option : options) {
+			JButton button = new JButton(runAndHide(() -> consumer.accept(option)));
+			button.setText(option);
+			panel.add(button);
+		}
+		showComponents(new JLabel(message), panel);
+	}
+
 	private void storeFocus() {
 		JList<VirtualFileWrapper> rightList = components.rightBrowser.fileList;
 		focused = rightList.isFocusOwner() ? rightList : components.leftBrowser.fileList;

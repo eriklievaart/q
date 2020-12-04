@@ -11,4 +11,6 @@ public interface Dialogs {
 	public void confirm(String message, Runnable runnable);
 
 	public void message(String message);
+
+	public void choice(String message, String[] options, Consumer<String> consumer);
 }

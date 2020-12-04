@@ -53,8 +53,6 @@ public class FindController {
 
 	private void initUi() {
 		list.setModel(model);
-		//		list.setBackground(new Color(16, 16, 31));
-		//		list.setForeground(Color.white);
 		panel.add(new JScrollPane(list), BorderLayout.CENTER);
 		panel.add(new JScrollPane(buttonPanel), BorderLayout.SOUTH);
 		buttonPanel.add(copyButton);
@@ -81,11 +79,9 @@ public class FindController {
 	}
 
 	public void find() {
-		String input = JOptionPane.showInputDialog("Search for files");
-		if (input == null) {
-			return;
-		}
-		engine.get().invoke(Str.sub("find -i `*$*`", UrlTool.escape(input)));
+		ui.get().getDialogs().input("Search for files", input -> {
+			engine.get().invoke(Str.sub("find -i `*$*`", UrlTool.escape(input)));
+		});
 	}
 
 	public void copy() {
@@ -99,14 +95,10 @@ public class FindController {
 	private void contextAction(String action) {
 		fileMessage(results -> {
 			String msg = createContextQuestion(action + " to which location?");
-			Object[] buttons = new Object[] { "$dir1", "$dir2" };
-			int ot = JOptionPane.DEFAULT_OPTION;
-			int mt = JOptionPane.QUESTION_MESSAGE;
-			int index = JOptionPane.showOptionDialog(panel, msg, "title", ot, mt, null, buttons, null);
-			if (index > -1) {
-				engine.get().invoke(Str.sub("$ -u % $", action, results.getUrls(), buttons[index]));
+			ui.get().getDialogs().choice(msg, new String[] { "$dir1", "$dir2" }, selected -> {
+				engine.get().invoke(Str.sub("$ -u % $", action, results.getUrls(), selected));
 				ui.get().showBrowser();
-			}
+			});
 		});
 	}
 
@@ -123,11 +115,9 @@ public class FindController {
 
 	public void delete() {
 		fileMessage(results -> {
-			String message = results.getFileMessage("delete files?");
-			int confirm = JOptionPane.showConfirmDialog(panel, message, null, JOptionPane.OK_CANCEL_OPTION);
-			if (confirm == JOptionPane.OK_OPTION) {
+			ui.get().getDialogs().confirm("delete files?", () -> {
 				engine.get().invoke(Str.sub("delete -u %", results.getUrls()));
-			}
+			});
 		});
 	}
 
