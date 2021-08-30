@@ -1,6 +1,6 @@
 # q
 A file browser with integrated command line.
-Requires a java virtual machine to be installed.
+Requires a java virtual machine to be installed (Java 11+).
 
 Simply download, unpack and run the release (right hand side of page).
 Use run.bat or run.sh to start the gui.
