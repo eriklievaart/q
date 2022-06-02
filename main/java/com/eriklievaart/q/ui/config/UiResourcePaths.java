@@ -2,6 +2,7 @@ package com.eriklievaart.q.ui.config;
 
 import java.io.File;
 
+import com.eriklievaart.toolkit.io.api.SystemProperties;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
@@ -26,7 +27,7 @@ public class UiResourcePaths {
 	}
 
 	public File getLruCache() {
-		return new File(root, "data/ui/visited.txt");
+		return new File(SystemProperties.getHomeDir(), ".cache/q/visited.txt");
 	}
 
 	public File getMimeTypes() {

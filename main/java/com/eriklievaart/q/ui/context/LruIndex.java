@@ -1,10 +1,11 @@
 package com.eriklievaart.q.ui.context;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.eriklievaart.toolkit.io.api.FileTool;
+import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
@@ -17,15 +18,15 @@ public class LruIndex {
 
 	public LruIndex(File file) {
 		this.file = file;
-		load();
+		index.addAll(load());
 		log.info("LRU index file($) $", index.size(), file.getAbsolutePath());
 	}
 
-	public void add(String url) {
-		boolean recent = isRecent(url);
+	public void add(String path) {
+		boolean recent = isRecent(path);
 
-		index.remove(url);
-		index.add(0, url);
+		index.remove(path);
+		index.add(path);
 
 		if (!recent) {
 			store();
@@ -33,23 +34,24 @@ public class LruIndex {
 	}
 
 	private boolean isRecent(String url) {
-		for (int i = 0; i < 10 && i < index.size(); i++) {
-			if (index.get(i).equals(url)) {
-				return true;
-			}
-		}
-		return false;
+		return ListTool.subList(getRecentlyVisited(), 0, 10).contains(url);
 	}
 
-	private void load() {
+	private List<String> load() {
 		if (file.exists()) {
-			index = FileTool.readLines(file);
+			return FileTool.readLines(file);
 		} else {
 			log.warn("File does not exist: $", file);
+			return Collections.emptyList();
 		}
 	}
 
 	private void store() {
+		for (String line : load()) {
+			if (!index.contains(line)) {
+				index.add(line);
+			}
+		}
 		FileTool.writeLines(file, getLines());
 	}
 
@@ -59,15 +61,12 @@ public class LruIndex {
 		}
 		List<String> list = NewCollection.list();
 		for (int i = 0; i < index.size(); i++) {
-			String line = index.get(i);
-			if (!line.startsWith("mem://")) {
-				list.add(line);
-			}
+			list.add(index.get(i));
 		}
 		return list;
 	}
 
 	public List<String> getRecentlyVisited() {
-		return new ArrayList<>(index);
+		return ListTool.reversedCopy(index);
 	}
 }

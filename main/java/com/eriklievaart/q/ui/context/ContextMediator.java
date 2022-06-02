@@ -9,6 +9,7 @@ import com.eriklievaart.q.ui.event.BrowserObserver;
 import com.eriklievaart.q.ui.main.BrowserComponents;
 import com.eriklievaart.q.ui.main.UiComponents;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
+import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 /**
@@ -151,7 +152,9 @@ public class ContextMediator {
 			right = dir;
 			rightObserver.update(dir);
 		}
-		index.add(dir.getUrl().getUrlUnescaped());
+		if (dir instanceof SystemFile) {
+			index.add(dir.getPath());
+		}
 	}
 
 	public VirtualFile getSelectedDirectory(BrowserOrientation orientation) {
