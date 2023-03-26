@@ -14,7 +14,7 @@ public class PluginContextImpl implements PluginContext {
 	private VariableResolver resolver;
 
 	public PluginContextImpl(ShellCommand command, QContext context, VariableResolver resolver) {
-		Check.notNull(command, context, resolver);
+		Check.noneNull(command, context, resolver);
 		this.context = context;
 		this.resolver = resolver;
 		swallow = command.getSwallowed();

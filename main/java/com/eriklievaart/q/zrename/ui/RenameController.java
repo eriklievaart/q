@@ -54,7 +54,7 @@ public class RenameController {
 	public RenameColorFactory colors = new RenameColorFactory();
 
 	public RenameController(Supplier<QMainUi> ui, Supplier<Engine> engine) {
-		Check.notNull(ui, engine);
+		Check.noneNull(ui, engine);
 		this.ui = ui;
 		this.engine = engine;
 		initComponents();

@@ -183,23 +183,23 @@ public class ListenerFactory {
 	}
 
 	public static void unbindMouseListener(Binding binding) {
-		Check.notNull(binding.component.instance, binding.bound);
+		Check.noneNull(binding.component.instance, binding.bound);
 		binding.component.instance.removeMouseListener((MouseListener) binding.bound);
 	}
 
 	public static void unbindFocusListener(Binding binding) {
-		Check.notNull(binding.component.instance, binding.bound);
+		Check.noneNull(binding.component.instance, binding.bound);
 		binding.component.instance.removeFocusListener((FocusListener) binding.bound);
 	}
 
 	public static void unbindWindowListener(Binding binding) {
-		Check.notNull(binding.component.instance, binding.bound);
+		Check.noneNull(binding.component.instance, binding.bound);
 		JFrame frame = (JFrame) binding.component.instance;
 		frame.removeWindowListener((WindowListener) binding.bound);
 	}
 
 	public static void unbindActionListener(Binding binding) {
-		Check.notNull(binding.component.instance, binding.bound);
+		Check.noneNull(binding.component.instance, binding.bound);
 		if (binding.component.instance instanceof JButton) {
 			JButton button = (JButton) binding.component.instance;
 			button.removeActionListener((ActionListener) binding.bound);
@@ -211,13 +211,13 @@ public class ListenerFactory {
 	}
 
 	public static void unbindListSelectionListener(Binding binding) {
-		Check.notNull(binding.component.instance, binding.bound);
+		Check.noneNull(binding.component.instance, binding.bound);
 		JList<?> list = (JList<?>) binding.component.instance;
 		list.removeListSelectionListener((ListSelectionListener) binding.bound);
 	}
 
 	public static void unbindKeyListener(Binding binding) {
-		Check.notNull(binding.component.instance, binding.bound);
+		Check.noneNull(binding.component.instance, binding.bound);
 		JComponent component = (JComponent) binding.component.instance;
 		component.removeKeyListener((KeyListener) binding.bound);
 	}

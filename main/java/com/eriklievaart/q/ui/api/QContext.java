@@ -13,7 +13,7 @@ public class QContext {
 	private boolean leftActive;
 
 	public QContext(BrowserContext left, BrowserContext right) {
-		Check.notNull(left, right);
+		Check.noneNull(left, right);
 		this.left = left;
 		this.right = right;
 	}

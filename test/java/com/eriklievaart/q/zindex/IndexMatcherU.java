@@ -5,6 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 
 public class IndexMatcherU {
@@ -81,7 +82,18 @@ public class IndexMatcherU {
 
 		List<String> result = new IndexMatcher(urls).lookup("tmp tain");
 		Assertions.assertThat(result).containsExactly("file:///tmp/containing.txt");
+	}
 
+	@Test
+	public void lookupSortShortestPathFirst() {
+		String l1 = "mem:///tmp/find";
+		String l2 = "mem:///tmp/find/deeply";
+		String l3 = "mem:///tmp/find/deeply/nested";
+		String l4 = "mem:///tmp/find/deeply/nested/path";
+
+		List<String> urls = ListTool.of(l4, l2, l1, l3);
+		List<String> result = new IndexMatcher(urls).lookup("tmp find");
+		Assertions.assertThat(result).containsExactly(l1, l2, l3, l4);
 	}
 
 	@Test

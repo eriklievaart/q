@@ -2,6 +2,7 @@ package com.eriklievaart.q.zexecute;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JMenuBar;
 
@@ -9,8 +10,18 @@ import com.eriklievaart.q.api.QView;
 import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.ui.api.QMainUi;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
 public class DummyQMainUi implements QMainUi {
+	private LogTemplate log = new LogTemplate(getClass());
+
+	private List<String> recent = NewCollection.list();
+	private Map<String, String> navigation = NewCollection.map();
+
+	public void addRecentlyVisitedDirectory(String path) {
+		recent.add(path);
+	}
 
 	@Override
 	public QContext getQContext() {
@@ -31,6 +42,12 @@ public class DummyQMainUi implements QMainUi {
 
 	@Override
 	public void navigateFuzzy(String orientation, String path) {
+		navigation.put(orientation, path);
+		log.debug("navigating $ to %", orientation, path);
+	}
+
+	public String getActivePath() {
+		return navigation.get("active");
 	}
 
 	@Override
@@ -39,7 +56,7 @@ public class DummyQMainUi implements QMainUi {
 
 	@Override
 	public List<String> getRecentlyVisitedDirectories() {
-		return Collections.emptyList();
+		return Collections.unmodifiableList(recent);
 	}
 
 	@Override

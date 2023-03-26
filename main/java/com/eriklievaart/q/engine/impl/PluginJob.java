@@ -28,7 +28,7 @@ public class PluginJob implements Runnable {
 	private String label;
 
 	public PluginJob(long id, ShellCommand command, PluginContext context) {
-		Check.notNull(command, context);
+		Check.noneNull(command, context);
 		this.id = id;
 		this.command = command;
 		this.context = context;

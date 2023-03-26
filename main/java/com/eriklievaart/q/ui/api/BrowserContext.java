@@ -13,7 +13,7 @@ public class BrowserContext {
 	private final List<VirtualFile> urls;
 
 	public BrowserContext(VirtualFile dir, List<VirtualFile> urls) {
-		Check.notNull(dir, urls);
+		Check.noneNull(dir, urls);
 		this.dir = dir;
 		this.urls = urls;
 	}

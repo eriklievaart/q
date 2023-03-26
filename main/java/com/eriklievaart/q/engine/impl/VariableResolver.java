@@ -25,7 +25,7 @@ public class VariableResolver {
 	}
 
 	public String lookup(String variable, QContext context) {
-		Check.notNull(variable, context);
+		Check.noneNull(variable, context);
 		BrowserContext browser = getBrowserContext(context, variable);
 		return resolve(variable, browser);
 	}

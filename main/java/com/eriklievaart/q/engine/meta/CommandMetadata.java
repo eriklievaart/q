@@ -24,7 +24,7 @@ public class CommandMetadata {
 	private final Map<Character, FlagMetadata> flags;
 
 	public CommandMetadata(QPlugin plugin, List<FlagGroupMetadata> groups) {
-		Check.notNull(plugin, groups);
+		Check.noneNull(plugin, groups);
 		Check.notNull(plugin.getThreadPolicy());
 		Check.notBlank(plugin.getCommandName(), "Command must have a name: $", plugin.getClass());
 

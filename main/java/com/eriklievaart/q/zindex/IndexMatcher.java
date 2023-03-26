@@ -1,9 +1,11 @@
 package com.eriklievaart.q.zindex;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import com.eriklievaart.toolkit.io.api.UrlTool;
+import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 
 public class IndexMatcher {
@@ -15,6 +17,13 @@ public class IndexMatcher {
 	}
 
 	public List<String> lookup(String location) {
+		List<IndexMatch> matches = allMatches(location);
+		Collections.sort(matches);
+		List<IndexMatch> limited = ListTool.limitSize(matches, 100);
+		return ListTool.map(limited, m -> m.url);
+	}
+
+	private List<IndexMatch> allMatches(String location) {
 		List<IndexMatch> matches = NewCollection.list();
 		for (String url : urls) {
 			IndexMatch match = getMatch(location, url);
@@ -22,22 +31,7 @@ public class IndexMatcher {
 				matches.add(match);
 			}
 		}
-		return extractPrioritized(matches);
-	}
-
-	private List<String> extractPrioritized(List<IndexMatch> matches) {
-		List<String> result = NewCollection.list();
-		for (IndexMatchType type : IndexMatchType.values()) {
-			for (IndexMatch match : matches) {
-				if (match.type == type) {
-					result.add(match.url);
-					if (result.size() == 100) {
-						return result;
-					}
-				}
-			}
-		}
-		return result;
+		return matches;
 	}
 
 	private IndexMatch getMatch(String location, String url) {

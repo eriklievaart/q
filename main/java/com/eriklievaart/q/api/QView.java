@@ -12,7 +12,7 @@ public class QView {
 	private String label;
 
 	public QView(String id, JComponent component) {
-		Check.notNull(id, component);
+		Check.noneNull(id, component);
 		this.id = id;
 		this.component = component;
 	}

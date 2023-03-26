@@ -13,7 +13,7 @@ class WildcardResolver {
 	private final String query;
 
 	WildcardResolver(final String query, final TreeSet<String> fileNames) {
-		Check.notNull(query, fileNames);
+		Check.noneNull(query, fileNames);
 		this.files = fileNames;
 		this.query = StringUtils.endsWith(query, "*") || StringUtils.endsWith(query, "?") ? query : query + "*";
 	}
