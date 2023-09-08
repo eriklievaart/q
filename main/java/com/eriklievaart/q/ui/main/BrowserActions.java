@@ -1,5 +1,6 @@
 package com.eriklievaart.q.ui.main;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;
+import com.eriklievaart.q.ui.event.FileListKeyEvent;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.q.ui.render.label.FileSize;
 import com.eriklievaart.toolkit.io.api.UrlTool;
@@ -28,6 +30,7 @@ public class BrowserActions {
 	private ContextMediator mediator;
 	private UiComponents components;
 	private Dialogs dialogs;
+	private FileListKeyEvent fileListRelease = new FileListKeyEvent();
 
 	public BrowserActions(UiBeanFactory beans) {
 		this.beans = beans;
@@ -179,7 +182,12 @@ public class BrowserActions {
 		});
 		map.put("q.browser.gained." + lower, c -> browserFocus(orientation));
 		map.put("q.browser.click." + lower, c -> updateStatusLabelWithFileSize());
-		map.put("q.browser.key.release." + lower, c -> updateStatusLabelWithFileSize());
+		map.put("q.browser.key.release." + lower, c -> keyRelease((KeyEvent) c.getEventObject()));
+	}
+
+	private void keyRelease(KeyEvent event) {
+		fileListRelease.character(event.getKeyChar(), mediator.getActiveBrowser(components).fileList);
+		updateStatusLabelWithFileSize();
 	}
 
 	private void browserFocus(BrowserOrientation orientation) {

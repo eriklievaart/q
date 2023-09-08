@@ -48,6 +48,7 @@ public class SizeController {
 		list.setFont(new Font(Font.MONOSPACED, Font.PLAIN, list.getFont().getSize()));
 		QView view = new QView("q.size", panel);
 		view.setLabel("dir sizes");
+		summary.setText("calculating...");
 		ui.get().showView(view);
 	}
 

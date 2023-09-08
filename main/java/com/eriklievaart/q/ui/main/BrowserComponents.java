@@ -3,6 +3,7 @@ package com.eriklievaart.q.ui.main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyListener;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -31,6 +32,15 @@ public class BrowserComponents {
 
 	public BrowserComponents(BrowserOrientation orientation) {
 		this.orientation = orientation;
+		removeDefaultKeyListener();
+	}
+
+	private void removeDefaultKeyListener() {
+		for (KeyListener listener : fileList.getKeyListeners()) {
+			if (listener.getClass().getName().contains("javax.swing.plaf.basic.BasicListUI")) {
+				fileList.removeKeyListener(listener);
+			}
+		}
 	}
 
 	public void init(UiBeanFactory beans) {
