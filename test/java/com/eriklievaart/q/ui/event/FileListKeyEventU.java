@@ -29,6 +29,13 @@ public class FileListKeyEventU {
 	}
 
 	@Test
+	public void characterSelectAfterLastItem() {
+		JList<String> list = new JList<>(new String[] { "a", "b", "c" });
+		new FileListKeyEvent().character('d', list);
+		Check.isEqual(list.getSelectedValue(), "c");
+	}
+
+	@Test
 	public void characterSelectFirstMatch() {
 		JList<String> list = new JList<>(new String[] { "aa", "ab", "ba", "bb" });
 		new FileListKeyEvent().character('b', list);

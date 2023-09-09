@@ -62,7 +62,7 @@ public class FileListKeyEvent {
 	private int searchForApproximation(String query, List<String> list) {
 		Console.println("searching for % in $", query, list);
 		int select = 0;
-		while (select < list.size()) {
+		while (select < list.size() - 1) {
 			int compare = query.compareTo(list.get(select));
 			Console.println("compare to $: $", list.get(select), compare);
 			if (compare <= 0) {
