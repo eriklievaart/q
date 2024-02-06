@@ -126,8 +126,9 @@ class CopyShellCommand implements Invokable {
 
 	private String getTimestampedName() {
 		String ext = singleFile.getUrl().getExtension();
-		String base = singleFile.getUrl().getBaseName() + "-" + System.currentTimeMillis();
-		return Str.isBlank(ext) ? base : base + "." + ext;
+		String base = singleFile.getUrl().getBaseName().replaceFirst("-\\d{13}$", "");
+		String stamped = base + "-" + System.currentTimeMillis();
+		return Str.isBlank(ext) ? stamped : stamped + "." + ext;
 	}
 
 	@Override

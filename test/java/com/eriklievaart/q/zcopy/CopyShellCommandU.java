@@ -71,6 +71,26 @@ public class CopyShellCommandU extends SandboxTest {
 	}
 
 	@Test
+	public void copySingleFileReplaceTimestamp() throws Exception {
+		SystemFile parentDir = systemFile("source");
+		SystemFile sourceFile = systemFile("source/file-1707213002754.txt");
+
+		sourceFile.createFile();
+		Assertions.assertThat(parentDir.getChildren()).hasSize(1);
+
+		testable.single(sourceFile, parentDir, ORIGINAL_NAME).invoke(null);
+		checkIsFile("source/file-1707213002754.txt");
+
+		List<VirtualFile> children = parentDir.getChildren();
+		CheckCollection.isSize(children, 2);
+		children.remove(sourceFile);
+		CheckCollection.isSize(children, 1);
+
+		String created = children.get(0).getName();
+		Check.matches(created, "file-\\d++.txt");
+	}
+
+	@Test
 	public void copySingleFileWithExtensionTimestamp() throws Exception {
 		SystemFile parentDir = systemFile("source");
 		SystemFile sourceFile = systemFile("source/file.txt");
