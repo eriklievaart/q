@@ -16,4 +16,7 @@
 	<#list plugins as plugin>
 		<a href="${plugin}.xhtml">${plugin}</a>
 	</#list>
+
+	<h1>UI</h1>
+	<a href="bindings.xhtml">bindings</a>
 </div>

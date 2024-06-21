@@ -43,6 +43,7 @@ public class DocGenerator {
 		generateManualPage("syntax", plugins);
 		generateManualPage("templates", plugins);
 		generateManualPage("commands", plugins);
+		generateManualPage("bindings", plugins);
 
 		commands.forEach((name, literal) -> {
 			generateCommandPage(name, literal, plugins);

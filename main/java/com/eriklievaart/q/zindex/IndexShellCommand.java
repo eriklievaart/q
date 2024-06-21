@@ -11,10 +11,12 @@ import com.eriklievaart.q.api.engine.annotation.Flag;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.q.vfs.api.UrlResolver;
 import com.eriklievaart.toolkit.lang.api.str.Str;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 @Doc("lookup locations in the index of recently visited directories")
 public class IndexShellCommand implements Invokable {
+	private LogTemplate log = new LogTemplate(getClass());
 
 	private final Supplier<QMainUi> ui;
 	private final Supplier<UrlResolver> resolver;
@@ -40,6 +42,7 @@ public class IndexShellCommand implements Invokable {
 			String entry = result.get(i);
 			VirtualFile file = resolver.get().resolve(entry);
 			if (file.exists() && file.isDirectory()) {
+				log.trace("navigating to $", file);
 				ui.get().navigateFuzzy("active", entry);
 				return;
 			}
