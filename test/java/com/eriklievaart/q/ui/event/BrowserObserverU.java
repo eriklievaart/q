@@ -19,13 +19,13 @@ public class BrowserObserverU extends SandboxTest {
 
 		observer.update(memory.resolve("/"));
 		observer.update(memory.resolve("/bla"));
-		Check.isEqual(components.urlLabel.getText(), "/bla");
+		Check.isEqual(components.urlLabel.getText(), "mem:///bla");
 
 		observer.openPrevious();
-		Check.isEqual(components.urlLabel.getText(), "/");
+		Check.isEqual(components.urlLabel.getText(), "mem:///");
 
 		observer.openPrevious();
-		Check.isEqual(components.urlLabel.getText(), "/");
+		Check.isEqual(components.urlLabel.getText(), "mem:///");
 	}
 
 	@Test
@@ -53,13 +53,13 @@ public class BrowserObserverU extends SandboxTest {
 
 		observer.update(memory.resolve("/"));
 		observer.update(memory.resolve("/bla"));
-		Check.isEqual(components.urlLabel.getText(), "/bla");
+		Check.isEqual(components.urlLabel.getText(), "mem:///bla");
 
 		observer.openPrevious();
-		Check.isEqual(components.urlLabel.getText(), "/");
+		Check.isEqual(components.urlLabel.getText(), "mem:///");
 
 		observer.openRedoHistory();
-		Check.isEqual(components.urlLabel.getText(), "/bla");
+		Check.isEqual(components.urlLabel.getText(), "mem:///bla");
 	}
 
 	@Test
@@ -72,15 +72,15 @@ public class BrowserObserverU extends SandboxTest {
 
 		observer.update(memory.resolve("/"));
 		observer.update(memory.resolve("/foo"));
-		Check.isEqual(components.urlLabel.getText(), "/foo");
+		Check.isEqual(components.urlLabel.getText(), "mem:///foo");
 
 		observer.openPrevious();
-		Check.isEqual(components.urlLabel.getText(), "/");
+		Check.isEqual(components.urlLabel.getText(), "mem:///");
 
 		observer.update(memory.resolve("/bar")); // foo should never be visited again
-		Check.isEqual(components.urlLabel.getText(), "/bar");
+		Check.isEqual(components.urlLabel.getText(), "mem:///bar");
 
 		observer.openRedoHistory();
-		Check.isEqual(components.urlLabel.getText(), "/bar");
+		Check.isEqual(components.urlLabel.getText(), "mem:///bar");
 	}
 }

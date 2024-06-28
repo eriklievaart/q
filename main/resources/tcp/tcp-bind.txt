@@ -1,0 +1,26 @@
+
+menu[tcp]
+	label=tcp
+	mnemonic=S
+	order=600
+
+	item[tcp.client.connect]
+		label=connect
+		action=q.tcp.client.connect
+
+	item[tcp.client.reconnect]
+		label=reconnect
+		action=q.tcp.client.reconnect
+
+	item[tcp.client.disconnect]
+		label=disconnect
+		action=q.tcp.client.disconnect
+
+	item[tcp.server.start]
+		label=start server
+		action=q.tcp.server.start
+
+	item[tcp.server.stop]
+		label=stop server
+		action=q.tcp.server.stop
+

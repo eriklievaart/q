@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.q.ui.api.Dialogs;
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 
 public class DialogsImpl implements Dialogs {

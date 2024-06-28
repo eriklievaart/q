@@ -14,10 +14,10 @@ import javax.swing.KeyStroke;
 
 import com.eriklievaart.q.api.render.JLabelThemed;
 import com.eriklievaart.q.api.render.JListThemed;
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.q.ui.UiBeanFactory;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.event.BrowserObserver;
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.q.ui.render.browser.VirtualFileWrapperColorFactory;
 
 public class BrowserComponents {

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import com.eriklievaart.q.api.engine.DummyPluginContext;
 import com.eriklievaart.q.vfs.impl.UrlResolverService;
+import com.eriklievaart.q.vfs.protocol.MemoryProtocolResolver;
 import com.eriklievaart.q.zexecute.DummyQMainUi;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
@@ -56,6 +57,8 @@ public class IndexShellCommandU {
 
 	private void runIndexShellCommand(String query, DummyQMainUi ui) throws Exception {
 		UrlResolverService resolver = new UrlResolverService();
+		resolver.register(new MemoryProtocolResolver());
+
 		for (String directory : ui.getRecentlyVisitedDirectories()) {
 			resolver.resolve(UrlTool.append(directory, "dummy.txt"));
 		}

@@ -22,6 +22,7 @@ import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;
 import com.eriklievaart.toolkit.io.api.StreamTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
+import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.swing.api.SwingThread;
 import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
@@ -129,6 +130,7 @@ public class UiController {
 		VirtualFile directory = mediator.getSelectedDirectory(orientation);
 		beans.withUrlResolver(resolver -> {
 			VirtualFile resolved = resolver.resolveFuzzy(directory, location);
+			new LogTemplate(getClass()).info("resolved $ -> $", location, resolved);
 			navigate(orientation, resolved);
 		});
 	}
@@ -141,6 +143,7 @@ public class UiController {
 
 	public void setMenuBar(JMenuBar menu) {
 		components.mainFrame.setJMenuBar(menu);
+		components.mainFrame.setVisible(true);
 	}
 
 	public void showFrame() {

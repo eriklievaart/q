@@ -11,8 +11,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import com.eriklievaart.q.ui.config.UiResourcePaths;
-import com.eriklievaart.toolkit.io.api.properties.PropertiesIO;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
+import com.eriklievaart.toolkit.io.api.properties.PropertiesIO;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.check.CheckStr;
 import com.eriklievaart.toolkit.lang.api.collection.MultiMap;

@@ -17,11 +17,11 @@ public class FuzzyUrlResolver {
 	public VirtualFile resolve(VirtualFile start, String location) {
 		Optional<String> optional = UrlTool.getProtocol(location);
 		boolean hasProtocol = optional.isPresent();
-		boolean absolute = location.startsWith("/");
+		boolean absolute = location.startsWith("/") || UrlTool.isWindowsPath(location);
 		String protocol = optional.isPresent() ? optional.get() : start.getUrl().getProtocol();
 
 		if (hasProtocol || absolute) {
-			return resolveRelative(protocol + ":///", UrlTool.getPath(location).replaceFirst("^[/\\\\]++", ""));
+			return resolveRelative(protocol + "://", location);
 
 		} else {
 			return resolveRelative(start.getUrl().getUrlEscaped(), location);
@@ -50,7 +50,7 @@ public class FuzzyUrlResolver {
 	}
 
 	private VirtualFile resolveFull(String base, String path) {
-		String full = UrlTool.append(base, path);
+		String full = base.matches("[a-zA-Z]{2,}://") ? base + path : UrlTool.append(base, path);
 		VirtualFile resolved = delegate.resolve(full);
 		return resolved;
 	}

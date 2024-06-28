@@ -39,7 +39,7 @@ public class Activator extends ActivatorWrapper {
 		addServiceWithCleanup(QUi.class, service);
 		addServiceWithCleanup(QMainUi.class, service);
 
-		configureLogFile(files.getFileOperationLog());
+		configureFileOperationLogFile(files.getFileOperationLog());
 		shutdown = new ShutdownListener(context, beans);
 		beans.getController().registerShutdownListener(shutdown);
 
@@ -54,7 +54,7 @@ public class Activator extends ActivatorWrapper {
 		WindowSaver.shutdown();
 	}
 
-	private void configureLogFile(File file) throws FileNotFoundException {
+	private void configureFileOperationLogFile(File file) throws FileNotFoundException {
 		SimpleFileAppender appender = new SimpleFileAppender(file);
 		appender.setFormatter(new Formatter() {
 			@Override

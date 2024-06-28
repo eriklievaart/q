@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.plaf.metal.MetalIconFactory;
 
 import com.eriklievaart.q.api.render.IconFactory;
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 
@@ -61,7 +62,9 @@ public class FsvIconFactory implements IconFactory {
 		if (LINUX) {
 			return DIR_ICON;
 		}
-		return FileSystemView.getFileSystemView().getSystemIcon(new File("").getParentFile());
+		Icon icon = FileSystemView.getFileSystemView().getSystemIcon(new File("c:/Users"));
+		log.debug("directory icon: " + icon);
+		return icon == null ? DIR_ICON : icon;
 	}
 
 	private Icon loadSystemIcon(final VirtualFileWrapper wrapper) throws IOException {

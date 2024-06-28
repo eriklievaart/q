@@ -9,9 +9,9 @@ import javax.swing.DefaultListModel;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.main.BrowserComponents;
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;

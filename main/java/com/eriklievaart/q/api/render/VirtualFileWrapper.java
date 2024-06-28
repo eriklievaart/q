@@ -1,4 +1,4 @@
-package com.eriklievaart.q.ui.render.browser;
+package com.eriklievaart.q.api.render;
 
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;

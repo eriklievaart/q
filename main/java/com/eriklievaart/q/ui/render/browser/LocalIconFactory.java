@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.Icon;
 
 import com.eriklievaart.q.api.render.IconFactory;
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 
 public class LocalIconFactory implements IconFactory {
 

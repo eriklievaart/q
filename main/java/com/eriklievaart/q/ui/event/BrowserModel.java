@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import javax.swing.DefaultListModel;
 
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.q.ui.main.BrowserComponents;
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.collection.ListTool;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;

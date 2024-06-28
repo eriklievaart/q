@@ -7,8 +7,8 @@ import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import com.eriklievaart.q.vfs.api.UrlResolver;
 import com.eriklievaart.q.vfs.impl.UrlResolverService;
+import com.eriklievaart.q.vfs.protocol.MemoryProtocolResolver;
 import com.eriklievaart.toolkit.convert.api.Converters;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
@@ -45,7 +45,8 @@ public class PluginConvertersProviderU {
 	}
 
 	private Converters createConverters() {
-		UrlResolver resolver = new UrlResolverService();
+		UrlResolverService resolver = new UrlResolverService();
+		resolver.register(new MemoryProtocolResolver());
 		return new CollectionConvertersProvider(() -> resolver).get();
 	}
 }

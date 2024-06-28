@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import com.eriklievaart.q.api.render.ColorFactory;
 import com.eriklievaart.q.api.render.JListThemed;
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 
 public class VirtualFileWrapperColorFactory implements ColorFactory {
 

@@ -18,6 +18,8 @@ import com.eriklievaart.q.ui.api.QContextFactory;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.q.ui.config.UiResourcePaths;
 import com.eriklievaart.q.vfs.impl.UrlResolverService;
+import com.eriklievaart.q.vfs.protocol.FileProtocolResolver;
+import com.eriklievaart.q.vfs.protocol.MemoryProtocolResolver;
 import com.eriklievaart.q.zexecute.ExecuteService;
 import com.eriklievaart.q.zfind.FindService;
 
@@ -38,6 +40,8 @@ public class DummyBeanFactory {
 
 	public DummyBeanFactory() {
 		engineReference.set(engine);
+		resolver.register(new FileProtocolResolver());
+		resolver.register(new MemoryProtocolResolver());
 	}
 
 	private QMainUi getUiBean() {

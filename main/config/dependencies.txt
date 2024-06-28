@@ -1,6 +1,9 @@
 
 [bundle]
+osgi-appender @local @snapshot
 osgi-toolkit @local @snapshot
+tiqqer-agent @local @snapshot
+tiqqer-swing @local @snapshot
 toolkit-ant @local @snapshot
 toolkit-convert @local @snapshot
 toolkit-io @local @snapshot

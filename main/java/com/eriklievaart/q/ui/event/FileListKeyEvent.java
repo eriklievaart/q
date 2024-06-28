@@ -70,7 +70,6 @@ public class FileListKeyEvent {
 			}
 			select++;
 		}
-		System.out.println("selected: " + list.get(select));
 		return select;
 	}
 }

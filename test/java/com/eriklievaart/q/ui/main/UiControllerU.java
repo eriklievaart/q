@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFileSystem;

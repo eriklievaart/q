@@ -7,13 +7,13 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import com.eriklievaart.q.api.ActionContext;
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.q.ui.UiBeanFactory;
 import com.eriklievaart.q.ui.api.Dialogs;
 import com.eriklievaart.q.ui.context.BrowserOrientation;
 import com.eriklievaart.q.ui.context.ContextMediator;
 import com.eriklievaart.q.ui.event.EngineEvent;
 import com.eriklievaart.q.ui.event.FileListKeyEvent;
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.q.ui.render.label.FileSize;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.str.Str;
@@ -224,6 +224,10 @@ public class BrowserActions {
 
 		} else if (file instanceof SystemFile) {
 			DesktopActions.open(file);
+
+		} else {
+			components.assistLabel.setInvalidState();
+			components.assistLabel.setText("*error* not a regular file; cannot open! ");
 		}
 	}
 

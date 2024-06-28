@@ -7,12 +7,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.q.ui.main.BrowserComponents;
-import com.eriklievaart.q.ui.render.browser.VirtualFileWrapper;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.swing.api.SwingThread;
+import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 
 public class BrowserObserver {
@@ -73,7 +74,7 @@ public class BrowserObserver {
 
 	private void open(VirtualFile dir) {
 		refresh.setLocation(dir);
-		components.urlLabel.setText(dir.getPath());
+		components.urlLabel.setText(dir instanceof SystemFile ? dir.getPath() : dir.getUrl().getUrlUnescaped());
 	}
 
 	public List<VirtualFile> getSelection() {

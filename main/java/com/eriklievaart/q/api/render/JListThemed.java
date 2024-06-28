@@ -18,6 +18,7 @@ public class JListThemed<E> extends JList<E> implements ListCellRenderer<E> {
 	private AtomicReference<Color> fgDirectory = new AtomicReference<>(Color.BLUE);
 	private AtomicReference<Color> bgNormal = new AtomicReference<>(Color.WHITE);
 	private AtomicReference<Color> bgSelected = new AtomicReference<>(Color.GRAY);
+	private AtomicReference<Color> bgSpecial = new AtomicReference<>(Color.YELLOW);
 	private AtomicReference<Color> borderNormal = new AtomicReference<>(Color.RED);
 	private AtomicReference<Color> borderFocused = new AtomicReference<>(Color.RED);
 	private AtomicReference<Color> borderSelected = new AtomicReference<>(Color.RED);
@@ -82,6 +83,11 @@ public class JListThemed<E> extends JList<E> implements ListCellRenderer<E> {
 		bgSelected.set(color);
 	}
 
+	public void setBackgroundSpecial(Color color) {
+		Check.notNull(color);
+		bgSpecial.set(color);
+	}
+
 	public void setBorderNormal(Color color) {
 		Check.notNull(color);
 		borderNormal.set(color);
@@ -111,8 +117,17 @@ public class JListThemed<E> extends JList<E> implements ListCellRenderer<E> {
 		label.setBorder(BorderFactory.createLineBorder(border, 1));
 		label.setForeground(foregroundFactory.getColor(value));
 		label.setOpaque(true);
-		label.setBackground(isSelected ? bgSelected.get() : bgNormal.get());
+		label.setBackground(isSelected ? getSelectedColor(value) : bgNormal.get());
 		label.setIcon(iconFactory.getIcon(value));
 		return label;
+	}
+
+	private Color getSelectedColor(E value) {
+		if (value instanceof VirtualFileWrapper) {
+			VirtualFileWrapper wrapper = (VirtualFileWrapper) value;
+			String protocol = wrapper.getVirtualFile().getUrl().getProtocol();
+			return protocol.equalsIgnoreCase("file") ? bgSelected.get() : bgSpecial.get();
+		}
+		return bgSelected.get();
 	}
 }

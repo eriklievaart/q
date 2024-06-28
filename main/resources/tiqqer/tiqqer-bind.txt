@@ -1,0 +1,6 @@
+
+menu[plugins]
+	item[q.tiqqer.show]
+		label=show log
+		action=q.tiqqer.show
+

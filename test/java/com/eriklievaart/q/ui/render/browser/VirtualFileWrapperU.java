@@ -2,6 +2,7 @@ package com.eriklievaart.q.ui.render.browser;
 
 import org.junit.Test;
 
+import com.eriklievaart.q.api.render.VirtualFileWrapper;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.vfs.api.file.MemoryFileSystem;
 
