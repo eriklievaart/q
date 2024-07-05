@@ -1,17 +1,22 @@
 package com.eriklievaart.q.zindex;
 
+import java.io.File;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import com.eriklievaart.q.api.engine.DummyPluginContext;
+import com.eriklievaart.q.ui.api.BrowserContext;
+import com.eriklievaart.q.ui.api.QContext;
 import com.eriklievaart.q.vfs.impl.UrlResolverService;
+import com.eriklievaart.q.vfs.protocol.FileProtocolResolver;
 import com.eriklievaart.q.vfs.protocol.MemoryProtocolResolver;
 import com.eriklievaart.q.zexecute.DummyQMainUi;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
+import com.eriklievaart.toolkit.vfs.api.file.SystemFile;
 
 public class IndexShellCommandU {
 
@@ -39,6 +44,51 @@ public class IndexShellCommandU {
 
 		List<String> filtered = IndexShellCommand.filterDirectories(all, "tcp");
 		Assertions.assertThat(filtered).containsExactly("tcp://home", "tcp://bla");
+	}
+
+	@Test
+	public void addProtocolOfActiveLocationSuccess() throws Exception {
+		MemoryProtocolResolver memory = new MemoryProtocolResolver();
+		memory.resolve("/mem/findme/dummy.txt");
+
+		DummyQMainUi ui = uiWithRecentlyVisited("/tmp/first", "mem:///mem/findme/", "/tmp/findme");
+		BrowserContext left = new BrowserContext(new SystemFile(new File("/tmp/dummy")), NewCollection.list());
+		BrowserContext right = new BrowserContext(memory.resolve("/elsewhere"), NewCollection.list());
+		ui.setQContext(new QContext(left, right));
+
+		UrlResolverService resolver = new UrlResolverService();
+		resolver.register(memory);
+		resolver.register(new FileProtocolResolver());
+
+		IndexShellCommand testable = new IndexShellCommand(() -> ui, () -> resolver);
+
+		ui.getQContext().setRightActive();
+		testable.open("findme");
+		testable.invoke(new DummyPluginContext());
+		Check.isEqual(ui.getActivePath(), "mem:///mem/findme/");
+	}
+
+	@Test
+	public void addProtocolOfActiveLocationFailureWrongProtocol() throws Exception {
+		MemoryProtocolResolver memory = new MemoryProtocolResolver();
+		memory.resolve("/mem/findme/dummy.txt");
+
+		DummyQMainUi ui = uiWithRecentlyVisited("/tmp/first", "mem:///mem/findme/", "/tmp/findme");
+		BrowserContext left = new BrowserContext(new SystemFile(new File("/tmp/dummy")), NewCollection.list());
+		BrowserContext right = new BrowserContext(memory.resolve("/elsewhere"), NewCollection.list());
+		ui.setQContext(new QContext(left, right));
+
+		UrlResolverService resolver = new UrlResolverService();
+		resolver.register(memory);
+		resolver.register(new FileProtocolResolver());
+
+		IndexShellCommand testable = new IndexShellCommand(() -> ui, () -> resolver);
+
+		ui.getQContext().setLeftActive();
+		testable.open("findme");
+		testable.invoke(new DummyPluginContext());
+		Check.isNull(ui.getActivePath());
+
 	}
 
 	@Test

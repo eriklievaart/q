@@ -48,7 +48,7 @@ public class IndexShellCommand implements Invokable {
 	public void invoke(PluginContext context) throws Exception {
 		List<String> result = new IndexMatcher(getDirectoryList()).lookup(location);
 		for (int i = 0; i < result.size(); i++) {
-			String entry = result.get(i);
+			String entry = addProtocol(result.get(i));
 			VirtualFile file = resolver.get().resolve(entry);
 			if (file.exists() && file.isDirectory()) {
 				log.trace("navigating to $", file);
@@ -56,6 +56,14 @@ public class IndexShellCommand implements Invokable {
 				return;
 			}
 		}
+	}
+
+	private String addProtocol(String path) {
+		Optional<String> optional = UrlTool.getProtocol(path);
+		if (optional.isPresent()) {
+			return path;
+		}
+		return protocol + "://" + path;
 	}
 
 	private List<String> getDirectoryList() {

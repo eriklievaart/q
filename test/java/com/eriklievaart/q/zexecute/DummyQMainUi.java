@@ -16,6 +16,7 @@ import com.eriklievaart.toolkit.logging.api.LogTemplate;
 public class DummyQMainUi implements QMainUi {
 	private LogTemplate log = new LogTemplate(getClass());
 
+	private QContext context = null;
 	private List<String> recent = NewCollection.list();
 	private Map<String, String> navigation = NewCollection.map();
 
@@ -25,7 +26,11 @@ public class DummyQMainUi implements QMainUi {
 
 	@Override
 	public QContext getQContext() {
-		return null;
+		return context;
+	}
+
+	public void setQContext(QContext ctx) {
+		this.context = ctx;
 	}
 
 	@Override
