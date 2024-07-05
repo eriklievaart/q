@@ -152,8 +152,8 @@ public class ContextMediator {
 			right = dir;
 			rightObserver.update(dir);
 		}
-		if (dir instanceof SystemFile) {
-			index.add(dir.getPath());
+		if (dir.isDirectory() && dir.exists()) {
+			index.add(dir instanceof SystemFile ? dir.getPath() : dir.getUrl().getUrlUnescaped());
 		}
 	}
 

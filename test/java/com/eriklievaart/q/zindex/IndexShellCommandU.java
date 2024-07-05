@@ -1,5 +1,8 @@
 package com.eriklievaart.q.zindex;
 
+import java.util.List;
+
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import com.eriklievaart.q.api.engine.DummyPluginContext;
@@ -8,8 +11,35 @@ import com.eriklievaart.q.vfs.protocol.MemoryProtocolResolver;
 import com.eriklievaart.q.zexecute.DummyQMainUi;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 
 public class IndexShellCommandU {
+
+	@Test
+	public void filterDirectoriesForFiles() {
+		List<String> all = NewCollection.list();
+		all.add("/");
+		all.add("/tmp");
+		all.add("/home");
+		all.add("tcp://home");
+		all.add("tcp://bla");
+
+		List<String> filtered = IndexShellCommand.filterDirectories(all, "file");
+		Assertions.assertThat(filtered).containsExactly("/", "/tmp", "/home");
+	}
+
+	@Test
+	public void filterDirectoriesForTcp() {
+		List<String> all = NewCollection.list();
+		all.add("/");
+		all.add("/tmp");
+		all.add("/home");
+		all.add("tcp://home");
+		all.add("tcp://bla");
+
+		List<String> filtered = IndexShellCommand.filterDirectories(all, "tcp");
+		Assertions.assertThat(filtered).containsExactly("tcp://home", "tcp://bla");
+	}
 
 	@Test
 	public void lookupExact() throws Exception {
@@ -63,6 +93,7 @@ public class IndexShellCommandU {
 			resolver.resolve(UrlTool.append(directory, "dummy.txt"));
 		}
 		IndexShellCommand testable = new IndexShellCommand(() -> ui, () -> resolver);
+		testable.protocol("mem");
 		testable.open(query);
 		testable.invoke(new DummyPluginContext());
 	}

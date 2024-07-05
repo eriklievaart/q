@@ -1,6 +1,7 @@
 package com.eriklievaart.q.zindex;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.eriklievaart.q.api.engine.Invokable;
@@ -10,6 +11,8 @@ import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.q.vfs.api.UrlResolver;
+import com.eriklievaart.toolkit.io.api.UrlTool;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
@@ -22,10 +25,17 @@ public class IndexShellCommand implements Invokable {
 	private final Supplier<UrlResolver> resolver;
 
 	private String location;
+	private String protocol;
 
 	public IndexShellCommand(Supplier<QMainUi> ui, Supplier<UrlResolver> resolver) {
 		this.ui = ui;
 		this.resolver = resolver;
+	}
+
+	@Flag(values = "`file`")
+	@Doc("specify protocol; uses protocol of active location by default")
+	public void protocol(String value) {
+		this.protocol = value;
 	}
 
 	@Flag(group = "main", values = "`query`", primary = true)
@@ -36,8 +46,7 @@ public class IndexShellCommand implements Invokable {
 
 	@Override
 	public void invoke(PluginContext context) throws Exception {
-		List<String> directories = ui.get().getRecentlyVisitedDirectories();
-		List<String> result = new IndexMatcher(directories).lookup(location);
+		List<String> result = new IndexMatcher(getDirectoryList()).lookup(location);
 		for (int i = 0; i < result.size(); i++) {
 			String entry = result.get(i);
 			VirtualFile file = resolver.get().resolve(entry);
@@ -47,6 +56,31 @@ public class IndexShellCommand implements Invokable {
 				return;
 			}
 		}
+	}
+
+	private List<String> getDirectoryList() {
+		List<String> unfiltered = ui.get().getRecentlyVisitedDirectories();
+		if (protocol == null) {
+			protocol = ui.get().getQContext().getActive().getDirectory().getUrl().getProtocol();
+		}
+		return filterDirectories(unfiltered, protocol);
+	}
+
+	static List<String> filterDirectories(List<String> all, String protocol) {
+		List<String> result = NewCollection.list();
+
+		for (String entry : all) {
+			Optional<String> found = UrlTool.getProtocol(entry);
+
+			if (found.isPresent()) {
+				if (found.get().equals(protocol)) {
+					result.add(entry);
+				}
+			} else if (Str.isEqualIgnoreCase(protocol, "file")) {
+				result.add(entry);
+			}
+		}
+		return result;
 	}
 
 	@Override
