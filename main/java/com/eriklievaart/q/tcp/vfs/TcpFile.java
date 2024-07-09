@@ -25,7 +25,7 @@ public class TcpFile extends AbstractVirtualFile {
 		this.path = path;
 		this.type = type;
 
-		Check.isFalse(path.startsWith("tcp://"));
+		Check.isFalse(path.startsWith("tcp://"), "invalid path %; supply base path only", path);
 	}
 
 	@Override
