@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 
 import com.eriklievaart.osgi.toolkit.api.ServiceCollection;
 import com.eriklievaart.q.api.QView;
+import com.eriklievaart.q.tcp.shared.TunnelCommand;
+import com.eriklievaart.q.tcp.shared.TunnelVO;
 import com.eriklievaart.q.ui.api.QMainUi;
 import com.eriklievaart.toolkit.swing.api.SwingThread;
 
@@ -27,18 +29,18 @@ public class TcpController {
 		panel.add(new JScrollPane(list), BorderLayout.CENTER);
 	}
 
-	public void receivedRequest(final String request) {
+	public void receivedRequest(final TunnelVO vo) {
 		SwingThread.invokeLater(() -> {
-			if (!model.isEmpty() && model.lastElement().equals(request)) {
+			if (!model.isEmpty() && model.lastElement().equals(vo.args)) {
 				return;
 			}
-			if (request.toUpperCase().startsWith("INFO ")) {
+			if (vo.command == TunnelCommand.INFO) {
 				return;
 			}
-			if (request.startsWith("LS") && sameAsLastListing(request)) {
+			if (vo.command == TunnelCommand.LS && sameAsLastListing(vo.getCommandLine())) {
 				return;
 			}
-			model.addElement(request);
+			model.addElement(vo.getCommandLine());
 			showList();
 		});
 

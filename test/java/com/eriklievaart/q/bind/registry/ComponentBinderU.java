@@ -104,7 +104,7 @@ public class ComponentBinderU {
 		testable.bindAll(MapTool.of(2l, ui));
 		Check.isEqual(list.getKeyListeners().length, 3);
 
-		int mask = KeyEvent.CTRL_MASK + KeyEvent.CTRL_DOWN_MASK;
+		int mask = KeyEvent.CTRL_DOWN_MASK;
 		KeyEvent event = new KeyEvent(list, KeyEvent.KEY_RELEASED, 0, mask, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED);
 		for (KeyListener listener : list.getKeyListeners()) {
 			listener.keyReleased(event);

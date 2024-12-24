@@ -21,6 +21,7 @@ import com.eriklievaart.toolkit.io.api.ini.IniNode;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.mock.BombSquad;
 
+@SuppressWarnings("deprecation")
 public class BindingParserU {
 
 	private Map<String, Component> components;

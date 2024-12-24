@@ -12,6 +12,7 @@ import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.io.api.sha1.Sha1Digest;
 import com.eriklievaart.toolkit.io.api.sha1.Sha1InputStream;
 import com.eriklievaart.toolkit.io.api.sha1.Sha1OutputStream;
+import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
@@ -82,6 +83,8 @@ public class TcpTransfer {
 	private String readStringSilent() {
 		try {
 			int len = is.read();
+			TcpDisconnectException.on(len == -1);
+
 			byte[] bytes = new byte[len];
 			is.read(bytes);
 			return new String(bytes);
@@ -144,6 +147,30 @@ public class TcpTransfer {
 		}
 	}
 
+	public void writeBytes(byte[] buffer, int length) {
+		try {
+			os.write(buffer, 0, length);
+		} catch (IOException e) {
+			throw new RuntimeIOException(e);
+		}
+	}
+
+	public byte[] readBytes(int length) {
+		Check.isTrue(length <= MEGABYTE, "chunk is too large! $ bytes", length);
+		byte[] buffer = new byte[length];
+
+		try {
+			int progress = 0;
+			while (progress < length) {
+				progress += is.read(buffer, progress, length - progress);
+			}
+			return buffer;
+
+		} catch (IOException e) {
+			throw new RuntimeIOException(e);
+		}
+	}
+
 	public void download(Sha1OutputStream destination) throws IOException {
 		byte[] chunk = new byte[MEGABYTE];
 
@@ -181,7 +208,7 @@ public class TcpTransfer {
 			public void close() throws IOException {
 				buffer.writeBack();
 				writeIntSilent(-1);
-				writeString(digest.getHash());
+				writeString(digest.calculateHash());
 				log.debug("closing OutputStream; upload complete!");
 				onclose.run();
 				super.close();
