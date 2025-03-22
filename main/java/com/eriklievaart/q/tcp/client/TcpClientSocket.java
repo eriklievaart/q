@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import com.eriklievaart.osgi.toolkit.api.ServiceCollection;
+import com.eriklievaart.q.tcp.shared.TcpDisconnectException;
 import com.eriklievaart.q.tcp.shared.TunnelCommand;
 import com.eriklievaart.q.tcp.shared.TunnelVO;
 import com.eriklievaart.q.tcp.shared.chunk.TcpChunkOutputStream;
@@ -22,6 +23,7 @@ import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.Box2;
 import com.eriklievaart.toolkit.lang.api.str.Str;
 import com.eriklievaart.toolkit.logging.api.LogTemplate;
+import com.eriklievaart.toolkit.swing.api.SwingThread;
 
 public class TcpClientSocket implements Runnable {
 	private LogTemplate log = new LogTemplate(getClass());
@@ -32,6 +34,7 @@ public class TcpClientSocket implements Runnable {
 	private ServiceCollection<QMainUi> ui;
 	private Map<String, Box2<String, String>> cache = new Hashtable<>();
 	private AtomicReference<String> root = new AtomicReference<>();
+	private AtomicReference<String> previousLocation = new AtomicReference<>();
 
 	public TcpClientSocket(ServiceCollection<QMainUi> ui, Socket socket) {
 		Check.noneNull(ui, socket);
@@ -87,6 +90,7 @@ public class TcpClientSocket implements Runnable {
 		}
 		log.debug("remote root: $", root.get());
 		checkIsValidPath(root.get());
+		previousLocation.set(ui.oneReturns(u -> u.getQContext().getRight().getDirectory()).getUrl().getUrlUnescaped());
 		ui.oneCall(u -> u.navigateFuzzy("right", "tcp://" + root.get()));
 	}
 
@@ -104,6 +108,15 @@ public class TcpClientSocket implements Runnable {
 		outerTunnel = null;
 		innerTunnel = null;
 		cache.clear();
+		navigateToNonTcpLocation();
+	}
+
+	private void navigateToNonTcpLocation() {
+		SwingThread.invokeLater(() -> {
+			if (ui.oneReturns(u -> u.getQContext().getRight().getDirectory().getUrl().getProtocol()).equals("tcp")) {
+				ui.oneCall(u -> u.navigateFuzzy("right", previousLocation.get()));
+			}
+		});
 	}
 
 	public TunnelVO sendRequest(TunnelVO vo) {
@@ -111,22 +124,28 @@ public class TcpClientSocket implements Runnable {
 	}
 
 	public TunnelVO sendCachedRequest(TunnelVO request) {
-		String key = request.getCommandLine();
+		try {
+			String key = request.getCommandLine();
 
-		outerTunnel.tryLock(tunnel -> {
-			// connection isn't busy, so might as well ask server for latest info
-			TunnelVO vo = tunnel.sendAndReceiveVO(request);
-			cache.put(key, new Box2<>(vo.args, vo.getBodyAsString()));
-		});
-		if (!cache.containsKey(key)) {
-			// not in cache, so we HAVE to call the server synchronously
-			TunnelVO vo = outerTunnel.sendAndReceiveVO(request);
-			cache.put(key, new Box2<>(vo.args, vo.getBodyAsString()));
+			outerTunnel.tryLock(tunnel -> {
+				// connection isn't busy, so might as well ask server for latest info
+				TunnelVO vo = tunnel.sendAndReceiveVO(request);
+				cache.put(key, new Box2<>(vo.args, vo.getBodyAsString()));
+			});
+			if (!cache.containsKey(key)) {
+				// not in cache, so we HAVE to call the server synchronously
+				TunnelVO vo = outerTunnel.sendAndReceiveVO(request);
+				cache.put(key, new Box2<>(vo.args, vo.getBodyAsString()));
+			}
+			Box2<String, String> cached = cache.get(key);
+			TunnelVO result = new TunnelVO(TunnelCommand.RESPONSE, cached.getFirst());
+			result.setBody(cached.getSecond());
+			return result;
+
+		} catch (TcpDisconnectException e) {
+			navigateToNonTcpLocation();
+			throw e;
 		}
-		Box2<String, String> cached = cache.get(key);
-		TunnelVO result = new TunnelVO(TunnelCommand.RESPONSE, cached.getFirst());
-		result.setBody(cached.getSecond());
-		return result;
 	}
 
 	public void runWithLock(Consumer<TcpTunnel> consumer) {

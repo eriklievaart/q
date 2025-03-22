@@ -10,8 +10,6 @@ import java.util.List;
 
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.io.api.sha1.Sha1Digest;
-import com.eriklievaart.toolkit.io.api.sha1.Sha1InputStream;
-import com.eriklievaart.toolkit.io.api.sha1.Sha1OutputStream;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.lang.api.str.Str;
@@ -171,7 +169,8 @@ public class TcpTransfer {
 		}
 	}
 
-	public void download(Sha1OutputStream destination) throws IOException {
+	public void download(OutputStream destination) throws IOException {
+		Sha1Digest digest = new Sha1Digest();
 		byte[] chunk = new byte[MEGABYTE];
 
 		int serverChunk = readIntSilent();
@@ -180,11 +179,12 @@ public class TcpTransfer {
 			while (transferred < serverChunk) {
 				int chunkSize = is.read(chunk, 0, serverChunk - transferred);
 				destination.write(chunk, 0, chunkSize);
+				digest.update(chunk, 0, chunkSize);
 				transferred += chunkSize;
 			}
 			serverChunk = readIntSilent();
 		}
-		if (!readString().equals(destination.getHash())) {
+		if (!readString().equals(digest.calculateHash())) {
 			throw new IOException("file corrupted in transfer!");
 		}
 	}
@@ -216,18 +216,20 @@ public class TcpTransfer {
 		};
 	}
 
-	public void upload(Sha1InputStream data) {
+	public void upload(InputStream data) {
 		try {
+			Sha1Digest digest = new Sha1Digest();
 			byte[] chunk = new byte[MEGABYTE];
 
 			while (true) {
 				int len = data.read(chunk);
 				writeIntSilent(len);
 				if (len == -1) {
-					writeString(data.getHash());
+					writeString(digest.calculateHash());
 					return;
 				}
 				os.write(chunk, 0, len);
+				digest.update(chunk, 0, len);
 			}
 		} catch (IOException e) {
 			throw new RuntimeIOException(e);

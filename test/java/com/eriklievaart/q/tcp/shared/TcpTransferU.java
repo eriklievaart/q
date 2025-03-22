@@ -7,8 +7,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.eriklievaart.toolkit.io.api.StreamTool;
-import com.eriklievaart.toolkit.io.api.sha1.Sha1InputStream;
-import com.eriklievaart.toolkit.io.api.sha1.Sha1OutputStream;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.mock.BombSquad;
 
@@ -33,13 +31,13 @@ public class TcpTransferU {
 
 		ByteArrayOutputStream transmitterOut = new ByteArrayOutputStream();
 		TcpTransfer transmitter = new TcpTransfer(new ByteArrayInputStream(new byte[1024]), transmitterOut);
-		transmitter.upload(new Sha1InputStream(StreamTool.toInputStream(data)));
+		transmitter.upload(StreamTool.toInputStream(data));
 
 		ByteArrayInputStream receiverIn = new ByteArrayInputStream(transmitterOut.toByteArray());
 		TcpTransfer receiver = new TcpTransfer(receiverIn, new ByteArrayOutputStream());
 
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		receiver.download(new Sha1OutputStream(buffer));
+		receiver.download(buffer);
 		Check.isEqual(new String(buffer.toByteArray()), data);
 	}
 
@@ -49,14 +47,14 @@ public class TcpTransferU {
 
 		ByteArrayOutputStream transmitterOut = new ByteArrayOutputStream();
 		TcpTransfer transmitter = new TcpTransfer(new ByteArrayInputStream(new byte[1024]), transmitterOut);
-		transmitter.upload(new Sha1InputStream(StreamTool.toInputStream(data)));
+		transmitter.upload(StreamTool.toInputStream(data));
 
 		byte[] bytes = transmitterOut.toByteArray();
 		bytes[8] = 8; // corruption
 		TcpTransfer receiver = new TcpTransfer(new ByteArrayInputStream(bytes), new ByteArrayOutputStream());
 
 		BombSquad.diffuse("file corrupted", () -> {
-			receiver.download(new Sha1OutputStream(new ByteArrayOutputStream()));
+			receiver.download(new ByteArrayOutputStream());
 		});
 	}
 }

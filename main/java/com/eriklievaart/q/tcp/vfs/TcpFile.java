@@ -6,10 +6,12 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Optional;
 
+import com.eriklievaart.q.tcp.shared.TcpDisconnectException;
 import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.AssertionException;
 import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
 import com.eriklievaart.toolkit.vfs.api.file.AbstractVirtualFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFile;
 import com.eriklievaart.toolkit.vfs.api.file.VirtualFileContent;
@@ -54,7 +56,11 @@ public class TcpFile extends AbstractVirtualFile {
 
 	@Override
 	public List<? extends VirtualFile> getChildren() {
-		return remote.list(path);
+		try {
+			return remote.list(path);
+		} catch (TcpDisconnectException e) {
+			return NewCollection.list();
+		}
 	}
 
 	@Override
