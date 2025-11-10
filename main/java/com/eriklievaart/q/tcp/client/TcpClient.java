@@ -3,8 +3,10 @@ package com.eriklievaart.q.tcp.client;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 
 import com.eriklievaart.osgi.toolkit.api.ServiceCollection;
@@ -82,8 +84,6 @@ public class TcpClient {
 	public void connect() {
 		String message = "supply remote [host] or [host]:[port]";
 		ui.oneCall(u -> u.getDialogs().input(message, hosts.getMostRecent(), address -> {
-			closeSocket();
-			log.info("connecting to host: $", address);
 			openSocket(address);
 			hosts.add(address);
 		}));
@@ -114,28 +114,31 @@ public class TcpClient {
 	}
 
 	private void openSocket(String address) {
-		int port = address.contains(":") ? Integer.parseInt(address.replaceFirst("[^:]++:", "")) : 9090;
-		String ip = address.replaceFirst(":.*", "");
-		openSocket(ip, port);
-	}
-
-	private void openSocket(String ip, int port) {
-		if (socket != null) {
-			socket.close();
-			socket = null;
-		}
+		Check.notBlank(address);
 		try {
-			log.info("connecting to $:$", ip, port);
-			hosts.setActive(ip);
-			socket = new TcpClientSocket(ui, new Socket(ip, port));
-			socket.setInitialLocation(hosts.getMostRecentDirectory(ip));
-			Thread.sleep(100);
-			new Thread(socket).start();
+			closeSocket();
+			int port = address.contains(":") ? Integer.parseInt(address.replaceFirst("[^:]++:", "")) : 9090;
+			String ip = address.replaceFirst(":.*", "");
+			openSocket(ip, port);
 
 		} catch (IOException | InterruptedException e) {
 			log.debug(e);
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "unable to connect to " + address);
 		}
+	}
+
+	private void openSocket(String ip, int port) throws InterruptedException, UnknownHostException, IOException {
+		if (socket != null) {
+			socket.close();
+			socket = null;
+		}
+		log.info("connecting to $:$", ip, port);
+		hosts.setActive(ip);
+		socket = new TcpClientSocket(ui, new Socket(ip, port));
+		socket.setInitialLocation(hosts.getMostRecentDirectory(ip));
+		Thread.sleep(100);
+		new Thread(socket).start();
 	}
 
 	private void closeSocket() {

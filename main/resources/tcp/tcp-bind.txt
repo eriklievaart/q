@@ -1,20 +1,24 @@
 
 menu[tcp]
 	label=tcp
-	mnemonic=S
+	mnemonic=T
 	order=600
 
 	item[tcp.client.connect]
 		label=connect
 		action=q.tcp.client.connect
+		mnemonic=c
 
 	item[tcp.client.reconnect]
 		label=reconnect
 		action=q.tcp.client.reconnect
+		accelerator=control alt R
+		mnemonic=r
 
 	item[tcp.client.disconnect]
 		label=disconnect
 		action=q.tcp.client.disconnect
+		mnemonic=d
 
 	item[tcp.server.start]
 		label=start server
