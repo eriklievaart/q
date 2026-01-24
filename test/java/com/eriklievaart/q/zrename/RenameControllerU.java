@@ -87,4 +87,37 @@ public class RenameControllerU extends SandboxTest {
 		Check.isTrue(controller.regexField.isNormalState());
 		Check.isEqual(controller.toList.getModel().getSize(), 3);
 	}
+
+	@Test
+	public void updateRegexPartial() {
+		MemoryFile dir = memoryFile("root");
+		dir.resolve("py.txt").createFile();
+		dir.resolve("son.java").createFile();
+		dir.resolve("thon.py").createFile();
+
+		RenameController controller = new RenameController(() -> new DummyQMainUi(), () -> null);
+		controller.showUi(dir);
+		controller.regexField.setText("py");
+		controller.renameField.setText("python");
+		controller.partialCheckBox.setSelected(true);
+		controller.regexUpdated();
+
+		Check.isEqual(controller.fromList.getModel().getElementAt(0).getText(), "py.txt");
+		Check.isTrue(controller.fromList.getModel().getElementAt(0).isActive());
+		Check.isEqual(controller.toList.getModel().getElementAt(0).getText(), "python.txt");
+		Check.isTrue(controller.toList.getModel().getElementAt(0).isActive());
+
+		Check.isEqual(controller.fromList.getModel().getElementAt(1).getText(), "son.java");
+		Check.isFalse(controller.fromList.getModel().getElementAt(1).isActive());
+		Check.isEqual(controller.toList.getModel().getElementAt(1).getText(), "son.java");
+		Check.isFalse(controller.toList.getModel().getElementAt(1).isActive());
+
+		Check.isEqual(controller.fromList.getModel().getElementAt(2).getText(), "thon.py");
+		Check.isTrue(controller.fromList.getModel().getElementAt(2).isActive());
+		Check.isEqual(controller.toList.getModel().getElementAt(2).getText(), "thon.python");
+		Check.isTrue(controller.toList.getModel().getElementAt(2).isActive());
+
+		Check.isTrue(controller.regexField.isNormalState());
+		Check.isEqual(controller.toList.getModel().getSize(), 3);
+	}
 }

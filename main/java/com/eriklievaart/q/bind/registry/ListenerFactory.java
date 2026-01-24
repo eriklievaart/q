@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.function.Predicate;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -80,8 +81,8 @@ public class ListenerFactory {
 				invoke(binding.action, e);
 			}
 		};
-		if (binding.component.instance instanceof JButton) {
-			JButton button = (JButton) binding.component.instance;
+		if (binding.component.instance instanceof AbstractButton) {
+			AbstractButton button = (AbstractButton) binding.component.instance;
 			button.addActionListener(listener);
 		}
 		if (binding.component.instance instanceof JTextField) {

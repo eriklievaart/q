@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,6 +53,8 @@ public class RenameController {
 	public JButton acceptButton = new JButton("Accept");
 	public JButton refreshButton = new JButton("Refresh");
 	public RenameColorFactory colors = new RenameColorFactory();
+	public JLabel partialLabel = new JLabel("partial match:");
+	public JCheckBox partialCheckBox = new JCheckBox();
 
 	public RenameController(Supplier<QMainUi> ui, Supplier<Engine> engine) {
 		Check.noneNull(ui, engine);
@@ -80,11 +83,14 @@ public class RenameController {
 	private void initCriteria() {
 		regexLabel.setHorizontalAlignment(JLabel.RIGHT);
 		renameLabel.setHorizontalAlignment(JLabel.RIGHT);
+		partialLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		criteriaPanel.add(regexLabel);
 		criteriaPanel.add(regexField);
 		criteriaPanel.add(renameLabel);
 		criteriaPanel.add(renameField);
+		criteriaPanel.add(partialLabel);
+		criteriaPanel.add(partialCheckBox);
 	}
 
 	private void initMainPanel() {
@@ -124,7 +130,7 @@ public class RenameController {
 			RenameListElement fromElement = fromModel.getElementAt(i);
 			RenameListElement toElement = toModel.getElementAt(i);
 
-			if (fromElement.getText().matches(regexField.getText())) {
+			if (matches(fromElement.getText())) {
 				fromElement.setActive(true);
 				toElement.setActive(true);
 				toElement.setText(getReplacementText(fromElement));
@@ -133,6 +139,14 @@ public class RenameController {
 				toElement.setActive(false);
 				toElement.setText(fromElement.getText());
 			}
+		}
+	}
+
+	private boolean matches(String fromText) {
+		if (partialCheckBox.isSelected()) {
+			return Pattern.compile(regexField.getText()).matcher(fromText).find();
+		} else {
+			return fromText.matches(regexField.getText());
 		}
 	}
 

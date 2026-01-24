@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
+import javax.swing.JOptionPane;
+
 import com.eriklievaart.osgi.toolkit.api.ServiceCollection;
 import com.eriklievaart.q.tcp.shared.TcpDisconnectException;
 import com.eriklievaart.q.tcp.shared.TunnelCommand;
@@ -18,6 +20,7 @@ import com.eriklievaart.q.tcp.tunnel.LoggingTunnel;
 import com.eriklievaart.q.tcp.tunnel.SocketTunnel;
 import com.eriklievaart.q.tcp.tunnel.TcpTunnel;
 import com.eriklievaart.q.ui.api.QMainUi;
+import com.eriklievaart.toolkit.io.api.RuntimeIOException;
 import com.eriklievaart.toolkit.io.api.UrlTool;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.Box2;
@@ -51,6 +54,9 @@ public class TcpClientSocket implements Runnable {
 	}
 
 	public void setInitialLocation(String location) {
+		if (location.length() > 320) { // max path length on windows = 260 characters
+			throw new RuntimeIOException("path is too long: $", location);
+		}
 		root.set(location);
 	}
 
@@ -74,7 +80,13 @@ public class TcpClientSocket implements Runnable {
 	private void init() {
 		log.info("pending server accept");
 
-		if (innerTunnel.receiveVO().getArgsAsBoolean()) {
+		TunnelVO vo = innerTunnel.receiveVO();
+		if (vo.isCommand(TunnelCommand.AUTH)) {
+			JOptionPane.showMessageDialog(null, "authorization pending");
+			vo = innerTunnel.receiveVO();
+		}
+		Check.isTrue(vo.isCommand(TunnelCommand.ACCEPT), "unexpected command: " + vo.command);
+		if (vo.getArgsAsBoolean()) {
 			log.info("connection accepted!");
 
 		} else {

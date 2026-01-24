@@ -3,7 +3,7 @@ package com.eriklievaart.q.bind.binding;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -24,7 +24,7 @@ public enum ActionType {
 			ListenerFactory.unbindWindowListener(binding);
 		}
 	},
-	ACTION(JButton.class, JTextField.class) {
+	ACTION(AbstractButton.class, JTextField.class) {
 		@Override
 		public Object bind(final Binding binding) {
 			return ListenerFactory.bindActionListener(binding);

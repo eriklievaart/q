@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.eriklievaart.toolkit.io.api.LineFilter;
 import com.eriklievaart.toolkit.io.api.properties.PropertiesIO;
 import com.eriklievaart.toolkit.lang.api.check.Check;
 import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
@@ -13,7 +12,7 @@ import com.eriklievaart.toolkit.lang.api.str.Str;
 public class TcpHosts {
 
 	private AtomicReference<String> active = new AtomicReference<>();
-	private Map<String, String> hosts = NewCollection.orderedMap();
+	private Map<String, String> hosts = NewCollection.map();
 	private File file;
 
 	public TcpHosts(File file) {
@@ -22,12 +21,12 @@ public class TcpHosts {
 	}
 
 	public String getMostRecent() {
-		return hosts.keySet().stream().reduce((a, b) -> b).orElse("127.0.0.1");
+		return active.get();
 	}
 
 	public void add(String address) {
-		String value = hosts.remove(address);
-		hosts.put(address, value);
+		Check.notNull(address);
+		hosts.putIfAbsent(address, "");
 		store();
 	}
 
@@ -36,21 +35,20 @@ public class TcpHosts {
 	}
 
 	private void load() {
-		if (file.isFile()) {
-			for (String line : new LineFilter(file).dropBlank().dropHash().list()) {
-				if (line.contains("=")) {
-					String[] hostToDirectory = line.split("=");
-					hosts.put(hostToDirectory[0], hostToDirectory.length > 1 ? hostToDirectory[1] : "");
-				} else {
-					hosts.put(line, "");
-				}
-			}
+		if (!file.isFile()) {
+			return;
+		}
+		hosts.putAll(PropertiesIO.loadStrings(file));
+		if (hosts.containsKey("active")) {
+			active.set(hosts.get("active"));
 		}
 	}
 
 	public void setActive(String ip) {
 		Check.notBlank(ip);
+		hosts.put("active", ip);
 		active.set(ip);
+		store();
 	}
 
 	public String getMostRecentDirectory(String ip) {

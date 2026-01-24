@@ -36,6 +36,8 @@ public class RenameService implements QPlugin, QUi {
 		map.put("q.rename.list.panel", controller.listPanel);
 		map.put("q.rename.regex.label", controller.regexLabel);
 		map.put("q.rename.regex.field", controller.regexField);
+		map.put("q.rename.partial.label", controller.partialLabel);
+		map.put("q.rename.partial.checkbox", controller.partialCheckBox);
 		map.put("q.rename.rename.label", controller.renameLabel);
 		map.put("q.rename.rename.field", controller.renameField);
 		map.put("q.rename.from.list", controller.fromList);

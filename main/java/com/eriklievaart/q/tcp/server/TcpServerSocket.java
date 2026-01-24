@@ -69,6 +69,7 @@ public class TcpServerSocket {
 		if (autoAccept.contains(ip)) {
 			return true;
 		}
+		tunnel.sendVO(new TunnelVO(TunnelCommand.AUTH));
 		String msg = Str.sub("accept connection from $?", ip);
 		Object[] buttons = new Object[] { "yes", "session", "no" };
 

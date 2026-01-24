@@ -30,6 +30,8 @@ javax.swing.JLabel#font           = $font
 javax.swing.JLabel#background     = $dark
 javax.swing.JLabel#foreground     = $text
 
+javax.swing.JCheckBox#background  = $dark
+
 javax.swing.JMenu#font            = $font
 
 javax.swing.JMenuItem#font        = $font

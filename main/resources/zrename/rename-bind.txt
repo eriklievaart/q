@@ -16,6 +16,11 @@ component[q.rename.rename.field]
 		event=KEY_RELEASED
 		action=q.rename.regex
 
+component[q.rename.partial.checkbox]
+	binding
+		event=ACTION
+		action=q.rename.regex
+
 component[q.rename.refresh.button]
 	binding
 		event=ACTION

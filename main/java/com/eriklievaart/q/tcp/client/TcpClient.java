@@ -45,6 +45,7 @@ public class TcpClient {
 		if (socket == null) {
 			throw new RuntimeIOException("TCP socket has been closed!");
 		}
+		Check.notBlank(path);
 		TunnelVO response = socket.sendCachedRequest(new TunnelVO(TunnelCommand.LS, path));
 		if (response.isCommand(TunnelCommand.RESPONSE)) {
 			hosts.setMostRecentDirectory(path);
@@ -85,7 +86,6 @@ public class TcpClient {
 		String message = "supply remote [host] or [host]:[port]";
 		ui.oneCall(u -> u.getDialogs().input(message, hosts.getMostRecent(), address -> {
 			openSocket(address);
-			hosts.add(address);
 		}));
 	}
 
@@ -120,6 +120,7 @@ public class TcpClient {
 			int port = address.contains(":") ? Integer.parseInt(address.replaceFirst("[^:]++:", "")) : 9090;
 			String ip = address.replaceFirst(":.*", "");
 			openSocket(ip, port);
+			hosts.add(address);
 
 		} catch (IOException | InterruptedException e) {
 			log.debug(e);
@@ -134,8 +135,8 @@ public class TcpClient {
 			socket = null;
 		}
 		log.info("connecting to $:$", ip, port);
-		hosts.setActive(ip);
 		socket = new TcpClientSocket(ui, new Socket(ip, port));
+		hosts.setActive(ip);
 		socket.setInitialLocation(hosts.getMostRecentDirectory(ip));
 		Thread.sleep(100);
 		new Thread(socket).start();
