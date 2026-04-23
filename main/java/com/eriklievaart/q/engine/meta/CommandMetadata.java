@@ -1,5 +1,12 @@
 package com.eriklievaart.q.engine.meta;
 
+import com.eriklievaart.q.api.QPlugin;
+import com.eriklievaart.toolkit.lang.api.ToString;
+import com.eriklievaart.toolkit.lang.api.check.Check;
+import com.eriklievaart.toolkit.lang.api.collection.MapTool;
+import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
+import com.eriklievaart.toolkit.lang.api.str.Str;
+
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
@@ -8,14 +15,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.ArrayUtils;
-
-import com.eriklievaart.q.api.QPlugin;
-import com.eriklievaart.q.engine.parse.ShellCommand;
-import com.eriklievaart.toolkit.lang.api.ToString;
-import com.eriklievaart.toolkit.lang.api.check.Check;
-import com.eriklievaart.toolkit.lang.api.collection.MapTool;
-import com.eriklievaart.toolkit.lang.api.collection.NewCollection;
-import com.eriklievaart.toolkit.lang.api.str.Str;
 
 public class CommandMetadata {
 

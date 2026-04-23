@@ -1,13 +1,14 @@
 package com.eriklievaart.q.zlocation;
 
-import java.util.function.Supplier;
-
 import com.eriklievaart.q.api.engine.Invokable;
 import com.eriklievaart.q.api.engine.PluginContext;
 import com.eriklievaart.q.api.engine.PluginException;
 import com.eriklievaart.q.api.engine.annotation.Doc;
 import com.eriklievaart.q.api.engine.annotation.Flag;
 import com.eriklievaart.q.ui.api.QMainUi;
+
+import java.net.URL;
+import java.util.function.Supplier;
 
 @Doc("open a location in the filebrowser")
 class LocationShellCommand implements Invokable {

@@ -34,7 +34,14 @@ public class TcpProtocolResolver implements ProtocolResolver {
 		Optional<String> protocol = UrlTool.getProtocol(url);
 		Check.isTrue(protocol.isEmpty() || protocol.get().equals(getProtocol()), "invalid protocol %", protocol);
 		String path = UrlTool.getPath(url);
-		return new TcpFile(this, path, remote.getType(path));
+
+		TcpFile file = new TcpFile(this, path, remote.getType(path));
+		while (!file.exists()) {
+			log.debug("Directory not found! Trying parent of $", file.getPath());
+			Optional<? extends VirtualFile> parent = file.getParentFile();
+			file = (TcpFile) parent.get();
+		}
+		return file;
 	}
 
 	public List<? extends VirtualFile> list(String path) {
