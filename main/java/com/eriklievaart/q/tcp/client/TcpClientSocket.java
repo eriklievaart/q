@@ -103,7 +103,20 @@ public class TcpClientSocket implements Runnable {
 		log.debug("remote root: $", root.get());
 		checkIsValidPath(root.get());
 		previousLocation.set(ui.oneReturns(u -> u.getQContext().getRight().getDirectory()).getUrl().getUrlUnescaped());
-		ui.oneCall(u -> u.navigateFuzzy("right", "tcp://" + root.get()));
+		String exists = findFirstExistingParent(root.get());
+		Check.notNull(exists, "path not found: %", root.get());
+		ui.oneCall(u -> u.navigateFuzzy("right", "tcp://" + exists));
+	}
+
+	private String findFirstExistingParent(String path) {
+		TunnelVO result = outerTunnel.sendAndReceiveVO(new TunnelVO(TunnelCommand.INFO, path));
+		if (result.getArgsAsString().equals("D")) {
+			return path;
+		}
+		if (result.getArgsAsString().equals("M")) {
+			return findFirstExistingParent(UrlTool.getParent(path));
+		}
+		return null;
 	}
 
 	public void close() {

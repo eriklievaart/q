@@ -33,6 +33,10 @@ public class TunnelVO {
 		return command == expected;
 	}
 
+	public String getArgsAsString() {
+		return Str.trim(args);
+	}
+
 	public boolean getArgsAsBoolean() {
 		return Str.isEqual(Str.trim(args), "true");
 	}
